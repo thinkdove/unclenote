@@ -8,26 +8,77 @@ export default function Home() {
       {/* Hero Section (Warm Editorial Vibe) */}
       <section className="text-center flex flex-col items-center pt-6">
         <div className="rounded-full px-4 py-1.5 text-[12px] uppercase tracking-[0.2em] font-bold bg-[#c55232]/10 text-[#c55232] mb-6 inline-block">
-          Smart Financial Tools
+          Smart Life & Work Tools
         </div>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#292520] leading-[1.15] mb-5">
           복잡한 셈을 1초 만에, <br className="sm:hidden" />
           <span className="text-[#c55232]">삼촌생각</span>
         </h1>
         <p className="text-base sm:text-lg text-zinc-600 max-w-xl mx-auto leading-relaxed font-medium [text-wrap:balance]">
-          가장 자주 쓰지만 매번 헷갈리는 금융·세무 계산과 알짜 정보를 <br className="hidden sm:inline" />
-          삼촌이 친절하고 정확하게 알려드립니다.
+          셀프 인테리어 자재 계산부터 내 통장 월급·세무까지, <br className="hidden sm:inline" />
+          매번 헷갈리는 일상의 계산을 삼촌이 친절하고 정확하게 알려드립니다.
         </p>
       </section>
 
-      {/* Tool Grid Section (2x2 Balanced Grid) */}
+      {/* Featured Tool: 타일 계산기 (New & Practical Life Tool) */}
+      <section>
+        <div className="flex items-center justify-between mb-4 px-1">
+          <div>
+            <span className="text-xs font-bold text-[#c55232] tracking-wider uppercase">New Lifestyle Tool</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#292520] tracking-tight mt-0.5">
+              생활 & 셀프 인테리어 도구
+            </h2>
+          </div>
+          <span className="text-xs font-bold px-2.5 py-1 bg-[#c55232] text-white rounded-full">
+            인기 도구
+          </span>
+        </div>
+
+        <div className="bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[2rem] group transition-transform duration-500 hover:scale-[1.005] ease-[cubic-bezier(0.16,1,0.3,1)]">
+          <Link
+            href="/tile-calculator"
+            className="flex flex-col md:flex-row items-start md:items-center justify-between bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(2rem-0.375rem)] p-7 sm:p-9 transition-colors gap-6"
+          >
+            <div className="flex items-start sm:items-center gap-5">
+              <div className="w-14 h-14 bg-[#c55232]/10 rounded-2xl flex items-center justify-center text-[#c55232] text-3xl shrink-0 shadow-xs">
+                <Icon icon="solar:ruler-pen-bold-duotone" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                  <h3 className="text-xl sm:text-2xl font-black text-[#292520] tracking-tight group-hover:text-[#c55232] transition-colors">
+                    화장실·바닥 타일 소요량 계산기
+                  </h3>
+                  <span className="px-2 py-0.5 bg-[#c55232]/10 text-[#c55232] text-xs font-extrabold rounded-md">
+                    300각·600각 규격 완벽 반영
+                  </span>
+                </div>
+                <p className="text-sm sm:text-base text-zinc-600 leading-relaxed max-w-2xl">
+                  가로·세로 치수만 넣으면 300각(16장), 600각(4장), 300x600각(8장) 등 규격별 박스당 수량과 절단 로스율(5%~20%)을 반영해 <strong>실제 사야 할 박스 수</strong>를 1초 만에 계산합니다.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end w-full md:w-auto shrink-0 pt-3 md:pt-0 border-t md:border-t-0 border-zinc-100">
+              <span className="text-sm font-extrabold text-[#c55232] mr-3 group-hover:underline">
+                타일 계산하러 가기
+              </span>
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-black/5 group-hover:bg-[#c55232] group-hover:text-white transition-all duration-300">
+                <Icon icon="solar:arrow-right-linear" width="20" height="20" className="group-hover:translate-x-0.5 transition-transform duration-300" />
+              </div>
+            </div>
+          </Link>
+        </div>
+      </section>
+
+      {/* Tool Grid Section: 월급 & 세무 도구 (2x2 Balanced Grid) */}
       <section>
         <div className="flex items-center justify-between mb-8 px-1">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#292520] tracking-tight">
-              스마트 도구함
+            <span className="text-xs font-bold text-zinc-400 tracking-wider uppercase">Work & Finance</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#292520] tracking-tight mt-0.5">
+              월급 & 세무 도구
             </h2>
-            <p className="text-xs text-zinc-400 mt-1">회원가입 없이 즉시 무료로 사용하는 생활 계산기</p>
+            <p className="text-xs text-zinc-400 mt-1">2026년 최신 세법 및 근로기준법 개정안 반영</p>
           </div>
         </div>
         
@@ -158,64 +209,56 @@ export default function Home() {
             className="text-sm font-bold text-[#c55232] hover:text-[#a74126] flex items-center gap-1 transition-colors"
           >
             <span>모두 보기</span>
-            <Icon icon="solar:arrow-right-linear" />
+            <Icon icon="solar:arrow-right-linear" width="16" height="16" />
           </Link>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          
-          {/* Guide 1: 퇴직금 가이드 */}
+          {/* Article 1 */}
           <Link 
-            href="/guide/severance-pay-guide-2026" 
-            className="group bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[1.6rem] transition-transform duration-500 hover:scale-[1.01] ease-[cubic-bezier(0.16,1,0.3,1)]"
+            href="/guide/salary-table-2026"
+            className="bg-white p-7 rounded-[1.6rem] border border-zinc-200/70 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:border-[#c55232]/40 transition-all group flex flex-col justify-between"
           >
-            <div className="flex flex-col justify-between h-full p-6 sm:p-7 bg-white shadow-[0_4px_20px_rgb(0,0,0,0.03),inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(1.6rem-0.375rem)]">
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="px-2.5 py-1 bg-[#c55232]/10 text-[#c55232] text-[11px] font-bold tracking-wide rounded-md">노무·세무</span>
-                  <span className="text-xs text-zinc-400 font-medium">2026.09.22</span>
-                </div>
-                <h3 className="text-lg font-bold text-[#292520] mb-2 group-hover:text-[#c55232] transition-colors duration-300 leading-snug">
-                  2026년 퇴직금 계산법 총정리: 평균임금 계산식부터 세금 절세 팁까지
-                </h3>
-                <p className="text-sm text-zinc-500 leading-relaxed line-clamp-2 mb-6">
-                  1일 평균임금 계산법, 지급 기한(14일)과 지연이자, IRP 계좌 이전으로 퇴직소득세 30% 감면받는 실전 꿀팁을 전해드립니다.
-                </p>
+            <div>
+              <div className="flex items-center gap-2 text-xs font-bold text-[#c55232] mb-3">
+                <span className="bg-[#c55232]/10 px-2.5 py-1 rounded-md">2026 최신 개정</span>
+                <span className="text-zinc-400 font-normal">3분 정독</span>
               </div>
-
-              <div className="pt-4 border-t border-zinc-100 flex items-center justify-between text-xs font-bold text-zinc-500 group-hover:text-[#c55232] transition-colors">
-                <span>가이드 읽기</span>
-                <Icon icon="solar:arrow-right-linear" width="16" height="16" className="group-hover:translate-x-1 transition-transform duration-300" />
-              </div>
+              <h3 className="text-lg font-bold text-[#292520] group-hover:text-[#c55232] transition-colors mb-2">
+                2026년 연봉별 실수령액 표 & 4대 보험 공제율 총정리
+              </h3>
+              <p className="text-sm text-zinc-500 leading-relaxed">
+                국민연금 상한액 인상 및 건강보험 요율 반영! 연봉 3,000만 원부터 1억 원까지 실수령액 구간별 변동표를 확인하세요.
+              </p>
+            </div>
+            <div className="mt-6 flex items-center gap-1 text-xs font-bold text-zinc-700 group-hover:text-[#c55232]">
+              <span>자세히 읽기</span>
+              <Icon icon="solar:arrow-right-linear" width="14" height="14" />
             </div>
           </Link>
 
-          {/* Guide 2: 연봉 표 가이드 */}
+          {/* Article 2 */}
           <Link 
-            href="/guide/salary-table-2026" 
-            className="group bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[1.6rem] transition-transform duration-500 hover:scale-[1.01] ease-[cubic-bezier(0.16,1,0.3,1)]"
+            href="/guide/severance-pay-guide-2026"
+            className="bg-white p-7 rounded-[1.6rem] border border-zinc-200/70 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:border-[#c55232]/40 transition-all group flex flex-col justify-between"
           >
-            <div className="flex flex-col justify-between h-full p-6 sm:p-7 bg-white shadow-[0_4px_20px_rgb(0,0,0,0.03),inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(1.6rem-0.375rem)]">
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="px-2.5 py-1 bg-[#c55232]/10 text-[#c55232] text-[11px] font-bold tracking-wide rounded-md">세무·노무</span>
-                  <span className="text-xs text-zinc-400 font-medium">2026.09.22</span>
-                </div>
-                <h3 className="text-lg font-bold text-[#292520] mb-2 group-hover:text-[#c55232] transition-colors duration-300 leading-snug">
-                  2026년 연봉 실수령액 표 총정리: 3,000만~1억 구간별 월급 & 공제액 분석
-                </h3>
-                <p className="text-sm text-zinc-500 leading-relaxed line-clamp-2 mb-6">
-                  최신 4대 보험 요율과 소득세 간이세액표를 반영한 연봉 구간별 실제 월 실수령액과 식대 비과세 절세 팁을 상세히 전해드립니다.
-                </p>
+            <div>
+              <div className="flex items-center gap-2 text-xs font-bold text-[#c55232] mb-3">
+                <span className="bg-[#c55232]/10 px-2.5 py-1 rounded-md">퇴직금 가이드</span>
+                <span className="text-zinc-400 font-normal">4분 정독</span>
               </div>
-
-              <div className="pt-4 border-t border-zinc-100 flex items-center justify-between text-xs font-bold text-zinc-500 group-hover:text-[#c55232] transition-colors">
-                <span>가이드 읽기</span>
-                <Icon icon="solar:arrow-right-linear" width="16" height="16" className="group-hover:translate-x-1 transition-transform duration-300" />
-              </div>
+              <h3 className="text-lg font-bold text-[#292520] group-hover:text-[#c55232] transition-colors mb-2">
+                퇴직금 계산법과 지급기한 14일 규정, 퇴직소득세 절세 팁
+              </h3>
+              <p className="text-sm text-zinc-500 leading-relaxed">
+                퇴직금 산정 기준인 3개월 평균임금과 상여금 반영 비율, 근속연수공제로 세금 아끼는 IRP 이전 팁을 알려드립니다.
+              </p>
+            </div>
+            <div className="mt-6 flex items-center gap-1 text-xs font-bold text-zinc-700 group-hover:text-[#c55232]">
+              <span>자세히 읽기</span>
+              <Icon icon="solar:arrow-right-linear" width="14" height="14" />
             </div>
           </Link>
-
         </div>
       </section>
 
