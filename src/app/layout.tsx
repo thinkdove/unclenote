@@ -100,10 +100,10 @@ export default function RootLayout({
               </p>
               <p className="text-[15px] text-zinc-600 font-medium">당신의 복잡한 셈을 1초 만에 해결해 드립니다.</p>
             </div>
-            <div className="flex gap-6 text-[15px] font-semibold text-zinc-500">
-              <Link href="#" className="hover:text-zinc-900 transition-colors duration-300">이용약관</Link>
-              <Link href="#" className="hover:text-zinc-900 transition-colors duration-300">개인정보처리방침</Link>
-              <Link href="#" className="hover:text-zinc-900 transition-colors duration-300">문의하기</Link>
+            <div className="flex flex-wrap justify-center md:justify-end gap-6 text-[15px] font-semibold text-zinc-500">
+              <Link href="/about" className="hover:text-zinc-900 transition-colors duration-300">소개 및 문의</Link>
+              <Link href="/terms" className="hover:text-zinc-900 transition-colors duration-300">이용약관</Link>
+              <Link href="/privacy" className="hover:text-zinc-900 transition-colors duration-300">개인정보처리방침</Link>
             </div>
           </div>
           <div className="max-w-5xl mx-auto px-4 sm:px-6 mt-12 pt-8 border-t border-zinc-200/70 text-center md:text-left text-sm text-zinc-400 font-medium tracking-wide">
