@@ -7,6 +7,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "삼촌생각 (Uncle Note) - 유용한 계산기 & 생활 가이드",
   description: "삼촌생각(Uncle Note)에서 제공하는 실시간 부가세(VAT) 계산기 및 생활·세무 알짜 가이드",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({
