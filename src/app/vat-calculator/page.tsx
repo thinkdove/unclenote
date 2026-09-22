@@ -24,8 +24,9 @@ export default function VatCalculatorPage() {
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 leading-tight">
           <span className="text-blue-600">부가세(VAT)</span> 간편 계산기
         </h1>
-        <p className="mt-3 text-base text-zinc-600">
-          공급가액부터 세액 역산까지 1초 만에 확인하는 삼촌생각(Uncle Note) 스마트 계산기입니다.
+        <p className="mt-3 text-base text-zinc-600 [text-wrap:balance]">
+          공급가액부터 세액 역산까지 1초 만에 확인하는 <br className="sm:hidden" />
+          삼촌생각(Uncle Note) 스마트 계산기입니다.
         </p>
       </section>
 

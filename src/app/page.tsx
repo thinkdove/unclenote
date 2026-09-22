@@ -14,8 +14,9 @@ export default function Home() {
           생활의 지혜, <br className="sm:hidden" />
           <span className="text-blue-600">삼촌생각</span>
         </h1>
-        <p className="text-[17px] md:text-[19px] text-zinc-500 max-w-2xl mx-auto leading-relaxed font-medium">
-          가장 자주 쓰지만 매번 헷갈리는 금융, 세무 계산과 알짜 정보를 삼촌이 친절하고 정확하게 알려드립니다. 
+        <p className="text-[15px] sm:text-[18px] text-zinc-500 max-w-xl mx-auto leading-relaxed font-medium [text-wrap:balance]">
+          매번 헷갈리는 금융·세무 계산과 알짜 정보, <br className="sm:hidden" />
+          삼촌이 친절하고 정확하게 알려드립니다.
         </p>
       </section>
 
