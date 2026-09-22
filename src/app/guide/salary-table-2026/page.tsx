@@ -24,7 +24,6 @@ export const metadata: Metadata = {
 };
 
 export default function SalaryGuidePage() {
-  // AEO & Rich Results를 위한 Article 및 FAQ 구조화 데이터
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -56,15 +55,15 @@ export default function SalaryGuidePage() {
         "name": "2026년 연봉 5,000만 원의 실제 월 실수령액은 얼마인가요?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "부양가족 1인(본인), 비과세 식대 월 20만 원 기준 세전 월급은 약 416.7만 원이며, 4대 보험과 소득세로 약 62만 원이 공제되어 실제 월 실수령액은 약 354만 원입니다."
+          "text": "부양가족 1인(본인), 비과세 식대 월 20만 원 기준 세전 월급은 약 416.7만 원이며, 4대 보험과 소득세로 약 62만 원이 공제되어 실제 월 실수령액은 약 354.6만 원입니다."
         }
       },
       {
         "@type": "Question",
-        "name": "연봉 1억 원의 월 실수령액이 600만 원대인 이유는 무엇인가요?",
+        "name": "연봉 1억 원의 월 실수령액이 660만 원대인 이유는 무엇인가요?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "연봉 1억 원은 세전 월급이 약 833.3만 원이지만, 누진 소득세율(24~35% 구간 적용)과 4대 보험료 합산으로 매월 약 169만 원 가량이 공제되므로 실제 입금액은 약 664만 원 수준이 됩니다."
+          "text": "연봉 1억 원은 세전 월급이 약 833.3만 원이지만, 누진 소득세율과 4대 보험료 합산으로 매월 약 169만 원 가량이 공제되므로 실제 통장 입금액은 약 664만 원 수준이 됩니다."
         }
       },
       {
@@ -80,7 +79,7 @@ export default function SalaryGuidePage() {
 
   return (
     <article className="max-w-3xl mx-auto flex flex-col gap-12 pb-16">
-      {/* 구조화 데이터 스키마 삽입 */}
+      {/* 구조화 데이터 스키마 */}
       <Script
         id="article-schema"
         type="application/ld+json"
@@ -103,22 +102,22 @@ export default function SalaryGuidePage() {
         <span className="text-zinc-800 font-semibold">연봉 실수령액</span>
       </nav>
 
-      {/* 헤더 섹션 (E-E-A-T 명시) */}
+      {/* 헤더 섹션 */}
       <header className="flex flex-col gap-4 border-b border-zinc-100 pb-8">
         <div className="flex items-center gap-2">
           <span className="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-extrabold rounded-full tracking-wide">
             세무·노무 알짜 정보
           </span>
-          <span className="text-xs text-zinc-400">2026.09.22 발행</span>
+          <span className="text-xs text-zinc-400">2026.09.22 업데이트</span>
         </div>
         
-        <h1 className="text-3xl sm:text-4xl md:text-[42px] font-extrabold text-zinc-900 leading-[1.2] tracking-tight [text-wrap:balance]">
+        <h1 className="text-3xl sm:text-4xl md:text-[40px] font-extrabold text-zinc-900 leading-[1.25] tracking-tight [text-wrap:balance]">
           2026년 연봉 실수령액 표 총정리: <br className="hidden sm:inline" />
           3,000만~1억 구간별 월급 & 공제액 분석
         </h1>
 
         <div className="flex items-center gap-3 pt-2 text-xs text-zinc-500 font-medium">
-          <span className="flex items-center gap-1 text-zinc-700 font-semibold">
+          <span className="flex items-center gap-1.5 text-zinc-700 font-semibold">
             <Icon icon="solar:user-circle-bold-duotone" className="text-base text-blue-600" />
             삼촌생각 에디터
           </span>
@@ -127,7 +126,7 @@ export default function SalaryGuidePage() {
         </div>
       </header>
 
-      {/* 대표 이미지 (Next.js Image 최적화) */}
+      {/* 대표 썸네일 이미지 */}
       <div className="relative w-full aspect-video rounded-3xl overflow-hidden shadow-sm border border-zinc-200/60 bg-zinc-50">
         <Image
           src="/images/salary-guide-thumbnail.jpg"
@@ -138,25 +137,52 @@ export default function SalaryGuidePage() {
         />
       </div>
 
-      {/* AEO 최적화: 3초 핵심 요약 (TL;DR Box) */}
-      <section className="bg-blue-50/50 border border-blue-100 rounded-2xl p-6 sm:p-7">
-        <h2 className="text-sm font-extrabold text-blue-700 uppercase tracking-wide flex items-center gap-2 mb-3">
-          <Icon icon="solar:star-fall-bold-duotone" className="text-lg" />
-          3초 핵심 요약 (TL;DR)
-        </h2>
-        <ul className="text-[15px] text-zinc-700 space-y-2 font-medium leading-relaxed">
-          <li>• <strong>연봉 3,000만 원:</strong> 월 세전 250만 원 ➔ <strong>월 실수령액 약 223만 원</strong> (공제 약 26만 원)</li>
-          <li>• <strong>연봉 5,000만 원:</strong> 월 세전 416.7만 원 ➔ <strong>월 실수령액 약 354만 원</strong> (공제 약 62만 원)</li>
-          <li>• <strong>연봉 7,000만 원:</strong> 월 세전 583.3만 원 ➔ <strong>월 실수령액 약 481만 원</strong> (공제 약 102만 원)</li>
-          <li>• <strong>연봉 1억 원:</strong> 월 세전 833.3만 원 ➔ <strong>월 실수령액 약 664만 원</strong> (공제 약 169만 원)</li>
-        </ul>
+      {/* 모던 4분할 핵심 구간 요약 카드 (이전의 투박한 불릿박스 완전 교체) */}
+      <section className="flex flex-col gap-3">
+        <div className="flex items-center justify-between px-1">
+          <h2 className="text-base font-extrabold text-zinc-900 flex items-center gap-2">
+            <Icon icon="solar:star-fall-bold-duotone" className="text-blue-600 text-lg" />
+            <span>한눈에 보는 주요 연봉 실수령액</span>
+          </h2>
+          <span className="text-xs text-zinc-400 font-medium">식대 20만 원 비과세 기준</span>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {[
+            { salary: "연봉 3,000만", monthlyNet: "223.6만", gross: "세전 250만", tag: "초년생" },
+            { salary: "연봉 5,000만", monthlyNet: "354.6만", gross: "세전 416만", tag: "대리/과장" },
+            { salary: "연봉 7,000만", monthlyNet: "481.1만", gross: "세전 583만", tag: "차장/팀장" },
+            { salary: "연봉 1억 원", monthlyNet: "664.1만", gross: "세전 833만", tag: "고소득 구간" },
+          ].map((item, idx) => (
+            <div
+              key={idx}
+              className="bg-white border border-zinc-200/80 rounded-2xl p-4 flex flex-col justify-between shadow-xs hover:border-blue-300 hover:shadow-sm transition-all duration-300"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-xs font-bold text-zinc-500">{item.salary}</span>
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 bg-zinc-100 text-zinc-600 rounded">
+                    {item.tag}
+                  </span>
+                </div>
+                <div className="text-xl sm:text-2xl font-extrabold text-blue-600 tracking-tight my-1">
+                  {item.monthlyNet}
+                  <span className="text-xs font-bold text-zinc-500 ml-0.5">원</span>
+                </div>
+              </div>
+              <p className="text-[11px] text-zinc-400 font-medium mt-2 pt-2 border-t border-zinc-100">
+                {item.gross}
+              </p>
+            </div>
+          ))}
+        </div>
       </section>
 
-      {/* 체류시간 확보 & 내부 링크 CTA 위젯 */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
+      {/* 상호작용 CTA 위젯 (계산기로 유도) */}
+      <div className="bg-blue-600 text-white rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
         <div>
           <h3 className="text-lg font-bold mb-1">내 정확한 연봉으로 1초 계산해 보기</h3>
-          <p className="text-sm text-blue-100">부양가족 수와 비과세액을 적용해 실제 통장 입금액을 확인하세요.</p>
+          <p className="text-sm text-blue-100">부양가족 수와 비과세액을 적용해 실제 내 통장 입금액을 확인하세요.</p>
         </div>
         <Link
           href="/salary-calculator"
@@ -174,10 +200,10 @@ export default function SalaryGuidePage() {
           <span>2026년 연봉 구간별 실수령액 종합 비교표</span>
         </h2>
         <p className="text-[15px] text-zinc-600 leading-relaxed">
-          본 표는 <strong>부양가족 1인(본인 기준), 비과세 식대 월 20만 원, 퇴직금 별도</strong> 조건으로 계산된 표준 수치입니다. (개인의 비과세 수당 및 세액공제 항목에 따라 약간의 오차가 있을 수 있습니다.)
+          본 표는 <strong>부양가족 1인(본인 기준), 비과세 식대 월 20만 원, 퇴직금 별도</strong> 조건으로 계산된 표준 수치입니다.
         </p>
 
-        {/* 반응형 테이블 컨테이너 */}
+        {/* 반응형 테이블 */}
         <div className="overflow-x-auto rounded-2xl border border-zinc-200/80 shadow-xs mt-2">
           <table className="w-full text-left text-xs sm:text-sm">
             <thead className="bg-zinc-50 border-b border-zinc-200 text-zinc-700 font-bold">
@@ -224,7 +250,7 @@ export default function SalaryGuidePage() {
           <span>내 월급에서 빠져나가는 공제 항목 완벽 분석</span>
         </h2>
         <p className="text-[15px] text-zinc-600 leading-relaxed">
-          월급 명세서를 받으면 생각보다 공제액이 커서 놀라시는 분들이 많습니다. 매월 급여에서 차감되는 4대 보험과 세금은 다음과 같은 기준으로 산정됩니다:
+          매월 급여에서 차감되는 4대 보험과 세금은 다음과 같은 공식 기준에 따라 산정됩니다:
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
@@ -234,7 +260,7 @@ export default function SalaryGuidePage() {
               국민연금 (4.5%)
             </h3>
             <p className="text-xs text-zinc-600 leading-relaxed">
-              근로자와 사업주가 각각 4.5%씩 총 9%를 부담합니다. 기준소득월액 상한액(617만 원)이 적용되어, 고소득자라도 월 최대 약 27만 7천 원까지만 공제됩니다.
+              근로자와 사업주가 각각 4.5%씩 부담합니다. 기준소득월액 상한액(617만 원)이 적용되어 월 최대 약 27만 7천 원까지만 공제됩니다.
             </p>
           </div>
 
@@ -244,7 +270,7 @@ export default function SalaryGuidePage() {
               건강보험 & 장기요양보험
             </h3>
             <p className="text-xs text-zinc-600 leading-relaxed">
-              건강보험료율은 <strong>3.545%</strong>이며, 장기요양보험료는 건강보험료의 <strong>12.95%</strong>가 부과됩니다. 국민연금과 달리 상한선이 매우 높아 연봉에 비례해 증가합니다.
+              건강보험료율은 <strong>3.545%</strong>이며, 장기요양보험료는 건강보험료의 <strong>12.95%</strong>가 부과됩니다. 국민연금과 달리 상한선이 매우 높아 소득에 비례합니다.
             </p>
           </div>
 
@@ -254,7 +280,7 @@ export default function SalaryGuidePage() {
               고용보험 (0.9%)
             </h3>
             <p className="text-xs text-zinc-600 leading-relaxed">
-              실직 시 실업급여 및 고용안정 사업의 재원이 됩니다. 근로자 부담 요율은 비과세를 제외한 월 급여의 <strong>0.9%</strong>입니다.
+              실업급여의 재원이 됩니다. 근로자 부담 요율은 비과세액을 제외한 과세 급여의 <strong>0.9%</strong>입니다.
             </p>
           </div>
 
@@ -264,30 +290,30 @@ export default function SalaryGuidePage() {
               근로소득세 & 지방소득세
             </h3>
             <p className="text-xs text-zinc-600 leading-relaxed">
-              국세청 간이세액표에 따라 부양가족 수와 소득 구간별로 차등 부과되며, 지방소득세는 소득세의 <strong>10%</strong>가 추가로 부과됩니다.
+              국세청 간이세액표에 따라 부양가족 수와 소득 구간별로 차등 부과되며, 지방소득세는 소득세의 <strong>10%</strong>가 부과됩니다.
             </p>
           </div>
         </div>
       </section>
 
-      {/* 본문 섹션 3: 식대 비과세 꿀팁 */}
+      {/* 본문 섹션 3: 식대 비과세 절세 팁 */}
       <section className="flex flex-col gap-4">
         <h2 className="text-2xl font-extrabold text-zinc-900 tracking-tight flex items-center gap-2">
           <span>💡</span>
           <span>식대 비과세 한도 월 20만 원의 실질적인 절세 효과</span>
         </h2>
         <p className="text-[15px] text-zinc-600 leading-relaxed">
-          과거 월 10만 원이었던 식대 비과세 한도가 <strong>월 20만 원</strong>으로 확대 적용되고 있습니다. 이 비과세 항목은 연간으로 환산하면 무려 <strong>240만 원의 소득</strong>에 대해 세금과 4대 보험료를 일절 부과하지 않는다는 뜻입니다.
+          월 20만 원의 식대 비과세는 연간 <strong>240만 원의 소득</strong>에 대해 소득세와 4대 보험료를 일절 부과하지 않는다는 뜻입니다.
         </p>
         <div className="p-5 bg-zinc-50 rounded-2xl border border-zinc-200/60 text-sm text-zinc-700 leading-relaxed">
           <p className="font-bold text-zinc-900 mb-1">식대 비과세 처리가 누락되면?</p>
           <p>
-            만약 근로계약서상 비과세 식대 분리가 되어 있지 않고 전액 기본급으로 처리된다면, 매월 약 <strong>4~5만 원</strong> 이상의 세금과 4대 보험료를 불필요하게 더 납부하게 됩니다. 따라서 연봉 협상이나 계약서 작성 시 식대 20만 원이 비과세 항목으로 올바르게 기재되어 있는지 반드시 확인하시기 바랍니다.
+            근로계약서상 비과세 식대가 분리되지 않고 기본급에 합산되면 매월 약 <strong>4~5만 원</strong> 이상의 세금과 4대 보험료를 불필요하게 더 내게 됩니다. 계약서 작성 시 식대 20만 원이 비과세 항목으로 올바르게 분리되어 있는지 꼭 확인하세요.
           </p>
         </div>
       </section>
 
-      {/* AEO 최적화: FAQ Section */}
+      {/* FAQ 섹션 */}
       <section className="flex flex-col gap-4 pt-4">
         <h2 className="text-2xl font-extrabold text-zinc-900 tracking-tight flex items-center gap-2">
           <span>❓</span>
@@ -300,7 +326,7 @@ export default function SalaryGuidePage() {
               Q. 연봉 협상 시 퇴직금 별도와 포함의 차이는 얼마나 큰가요?
             </h3>
             <p className="text-sm text-zinc-600 leading-relaxed">
-              연봉 5,000만 원 기준, <strong>퇴직금 별도</strong>는 12개월로 나누어 월 세전 416.7만 원을 받지만, <strong>퇴직금 포함</strong>은 연봉을 13으로 나누어 월 세전 약 384.6만 원만 받게 됩니다. 따라서 같은 연봉 숫자라도 실수령액에서 매월 20~30만 원 이상의 큰 차이가 발생합니다.
+              연봉 5,000만 원 기준, <strong>퇴직금 별도</strong>는 12개월로 나누어 월 세전 416.7만 원을 받지만, <strong>퇴직금 포함</strong>은 13으로 나누어 월 세전 약 384.6만 원만 받게 됩니다. 따라서 실수령액에서 매월 약 25~30만 원 가량의 큰 차이가 납니다.
             </p>
           </div>
 
@@ -309,13 +335,13 @@ export default function SalaryGuidePage() {
               Q. 부양가족이나 미성년 자녀가 있으면 실수령액이 얼마나 늘어나나요?
             </h3>
             <p className="text-sm text-zinc-600 leading-relaxed">
-              부양가족 1인당 연간 150만 원의 인적공제가 적용되고, 20세 이하 자녀의 경우 1명당 연간 15만 원(2명 35만 원)의 자녀세액공제가 추가되어 매월 떼이는 근로소득세가 줄어들게 됩니다. 그 결과 실제 통장에 입금되는 월 실수령액이 약 2만~5만 원 가량 늘어납니다.
+              부양가족 1인당 연간 150만 원의 인적공제가 적용되고, 미성년 자녀는 추가 세액공제가 반영되어 매월 떼이는 근로소득세가 줄어들게 됩니다. 그 결과 실제 월 실수령액이 약 2만~5만 원 가량 늘어납니다.
             </p>
           </div>
         </div>
       </section>
 
-      {/* E-E-A-T 확보: 공식 출처 및 면책 안내 */}
+      {/* 공식 출처 및 면책 안내 */}
       <footer className="mt-8 pt-6 border-t border-zinc-200 text-xs text-zinc-400 flex flex-col gap-2">
         <div className="flex flex-wrap gap-4 font-semibold text-zinc-500">
           <span>참고 출처:</span>
@@ -324,7 +350,7 @@ export default function SalaryGuidePage() {
           <a href="https://www.nps.or.kr" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 underline">국민연금공단</a>
         </div>
         <p className="leading-relaxed">
-          ※ 본 안내 가이드 및 표의 계산 결과는 국세청 간이세액표와 2026년 기준 4대 보험 요율에 기반한 표준 시뮬레이션이며, 개인별 공제 현황 및 비과세 항목에 따라 실제 수령액과 다소 차이가 있을 수 있습니다.
+          ※ 본 가이드의 표와 계산값은 국세청 간이세액표와 2026년 기준 4대 보험 요율에 기반한 표준 시뮬레이션이며, 개인별 비과세 수당 및 세액공제 현황에 따라 실제 수령액과 약간의 차이가 있을 수 있습니다.
         </p>
       </footer>
     </article>
