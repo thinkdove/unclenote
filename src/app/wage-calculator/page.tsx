@@ -426,70 +426,91 @@ export default function WageCalculatorPage() {
 
       {/* Labor Standards Act Guide & FAQ Section */}
       <section className="mt-16 space-y-6">
-        <div className="border-b border-zinc-200/80 pb-4">
-          <h2 className="text-2xl font-bold text-[#292520] flex items-center gap-2">
-            <Icon icon="solar:lightbulb-bold-duotone" className="text-[#c55232]" width="26" height="26" />
-            <span>근로기준법 핵심 FAQ: 휴게시간과 퇴직금의 모든 것</span>
+        <div className="border-b border-zinc-200/80 pb-5">
+          <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-[#c55232] uppercase mb-2">
+            <Icon icon="solar:lightbulb-bold-duotone" width="20" height="20" />
+            <span>노동법 핵심 가이드</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#292520] tracking-tight leading-snug">
+            근로기준법 핵심 FAQ: 휴게시간과 퇴직금의 모든 것
           </h2>
-          <p className="text-zinc-500 text-sm mt-1">알바와 직장인이 가장 많이 묻는 4대 핵심 노동법 쟁점</p>
+          <p className="text-zinc-600 text-sm sm:text-base mt-2 font-medium">
+            알바와 직장인이 가장 많이 묻는 4대 핵심 노동법 쟁점
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-zinc-600">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-zinc-700">
           
           {/* FAQ 1: 휴게시간 */}
-          <div className="bg-white p-6 rounded-2xl border border-zinc-200/70 shadow-xs space-y-2">
-            <h3 className="font-bold text-[#292520] text-base flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-[#c55232]/10 text-[#c55232] text-xs flex items-center justify-center font-bold">1</span>
-              휴게시간(점심시간)은 어떻게 처리되나요?
+          <div className="bg-white p-6 sm:p-7 rounded-3xl border border-zinc-200/80 shadow-xs space-y-3">
+            <h3 className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-[#c55232] text-white text-xs flex items-center justify-center font-bold shrink-0 mt-0.5 shadow-xs">1</span>
+              <span className="font-extrabold text-[#292520] text-lg sm:text-xl leading-snug">
+                휴게시간(점심시간)은 어떻게 처리되나요?
+              </span>
             </h3>
-            <p className="leading-relaxed text-xs sm:text-sm text-zinc-600">
+            <p className="leading-relaxed text-[15px] sm:text-base text-zinc-700">
               <strong>근로기준법 제54조</strong>에 따라 근로시간이 4시간이면 30분 이상, 8시간이면 1시간 이상의 휴게시간을 <strong>근로시간 도중에 반드시 유급이 아닌 &apos;무급&apos;으로 부여</strong>해야 합니다.
             </p>
-            <p className="text-xs text-zinc-500 bg-[#fdfbf7] p-3 rounded-xl border border-zinc-100">
-              ⚠️ <strong>주의 (대기시간):</strong> 손님이 없어서 카운터에 앉아 대기하거나 전화를 받는 시간은 자유로운 휴게시간이 아니라 &apos;근로 대기시간&apos;이므로 <strong>전액 시급이 지급</strong>되어야 합니다.
-            </p>
+            <div className="text-sm sm:text-[15px] text-zinc-700 bg-[#fdfbf7] p-4 rounded-2xl border border-zinc-200/80 leading-relaxed space-y-1">
+              <p className="font-bold text-[#c55232] flex items-center gap-1.5">
+                <Icon icon="solar:danger-triangle-bold" />
+                <span>주의: 대기시간과의 구별</span>
+              </p>
+              <p>손님이 없어서 카운터에 앉아 대기하거나 전화를 받는 시간은 자유로운 휴게시간이 아니라 &apos;근로 대기시간&apos;이므로 <strong>전액 시급이 지급</strong>되어야 합니다.</p>
+            </div>
           </div>
 
           {/* FAQ 2: 주 15시간 퇴직금 */}
-          <div className="bg-white p-6 rounded-2xl border border-zinc-200/70 shadow-xs space-y-2">
-            <h3 className="font-bold text-[#292520] text-base flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-[#c55232]/10 text-[#c55232] text-xs flex items-center justify-center font-bold">2</span>
-              주 15시간 알바도 퇴직금을 받을 수 있나요?
+          <div className="bg-white p-6 sm:p-7 rounded-3xl border border-zinc-200/80 shadow-xs space-y-3">
+            <h3 className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-[#c55232] text-white text-xs flex items-center justify-center font-bold shrink-0 mt-0.5 shadow-xs">2</span>
+              <span className="font-extrabold text-[#292520] text-lg sm:text-xl leading-snug">
+                주 15시간 알바도 퇴직금을 받을 수 있나요?
+              </span>
             </h3>
-            <p className="leading-relaxed text-xs sm:text-sm text-zinc-600">
-              <strong>네, 무조건 100% 보장됩니다.</strong> 4주간 평균하여 1주 소정근로시간이 15시간 이상이고 계속근로기간이 1년(365일)을 넘었다면 고용 형태(알바, 계약직, 수습)나 4대보험 가입 여부, 사업장 규모(5인 미만 포함)와 무관하게 법정 퇴직금을 전액 지급해야 합니다.
+            <p className="leading-relaxed text-[15px] sm:text-base text-zinc-700">
+              <strong>네, 법적으로 100% 무조건 보장됩니다.</strong> 4주간 평균하여 1주 소정근로시간이 15시간 이상이고 계속근로기간이 1년(365일)을 넘었다면 고용 형태(알바, 계약직, 수습)나 4대보험 가입 여부, 사업장 규모(5인 미만 포함)와 무관하게 법정 퇴직금을 전액 지급해야 합니다.
             </p>
-            <p className="text-xs text-zinc-500 bg-[#fdfbf7] p-3 rounded-xl border border-zinc-100">
-              💡 퇴직금은 <code>(1일 평균임금 × 30일 × 재직일수) ÷ 365</code>로 산출됩니다.
-            </p>
+            <div className="text-sm sm:text-[15px] text-zinc-700 bg-[#fdfbf7] p-4 rounded-2xl border border-zinc-200/80 leading-relaxed">
+              💡 <strong>퇴직금 공식:</strong> <code>(1일 평균임금 × 30일 × 재직일수) ÷ 365</code>로 산출됩니다.
+            </div>
           </div>
 
           {/* FAQ 3: 수습 감액 */}
-          <div className="bg-white p-6 rounded-2xl border border-zinc-200/70 shadow-xs space-y-2">
-            <h3 className="font-bold text-[#292520] text-base flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-[#c55232]/10 text-[#c55232] text-xs flex items-center justify-center font-bold">3</span>
-              수습기간이라고 시급 10% 깎아도 합법인가요?
+          <div className="bg-white p-6 sm:p-7 rounded-3xl border border-zinc-200/80 shadow-xs space-y-3">
+            <h3 className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-[#c55232] text-white text-xs flex items-center justify-center font-bold shrink-0 mt-0.5 shadow-xs">3</span>
+              <span className="font-extrabold text-[#292520] text-lg sm:text-xl leading-snug">
+                수습기간이라고 시급 10% 깎아도 합법인가요?
+              </span>
             </h3>
-            <p className="leading-relaxed text-xs sm:text-sm text-zinc-600">
-              <strong>원칙적으로 불법인 경우가 많습니다.</strong> 최저임금법 제5조에 따라 시급을 90%로 감액 지급하려면 <strong>① 근로계약 기간이 1년 이상</strong>이어야 하고 <strong>② 수습 시작일로부터 3개월 이내</strong>여야 합니다.
+            <p className="leading-relaxed text-[15px] sm:text-base text-zinc-700">
+              <strong>원칙적으로 불법인 경우가 대부분입니다.</strong> 최저임금법 제5조에 따라 시급을 90%로 감액 지급하려면 <strong>① 근로계약 기간이 1년 이상</strong>이어야 하고 <strong>② 수습 시작일로부터 3개월 이내</strong>여야 합니다.
             </p>
-            <p className="text-xs text-zinc-500 bg-[#fdfbf7] p-3 rounded-xl border border-zinc-100">
-              ❌ <strong>단순노무직 감액 금지:</strong> 편의점, 패스트푸드, 주유원, 서빙 등 한국표준직업분류상 단순노무종사자는 계약 기간과 무관하게 <strong>수습 감액이 법적으로 금지</strong>되며 최저시급 100%를 전액 받아야 합니다.
-            </p>
+            <div className="text-sm sm:text-[15px] text-zinc-700 bg-[#fdfbf7] p-4 rounded-2xl border border-zinc-200/80 leading-relaxed space-y-1">
+              <p className="font-bold text-rose-700 flex items-center gap-1.5">
+                <Icon icon="solar:close-circle-bold" />
+                <span>단순노무직 감액 절대 금지</span>
+              </p>
+              <p>편의점, 패스트푸드, 주유원, 식당 서빙 등 단순노무종사자는 계약 기간과 무관하게 <strong>수습 감액이 법적으로 엄격히 금지</strong>되며 최저시급 100%를 전액 지급해야 합니다.</p>
+            </div>
           </div>
 
           {/* FAQ 4: 주휴수당 쪼개기 */}
-          <div className="bg-white p-6 rounded-2xl border border-zinc-200/70 shadow-xs space-y-2">
-            <h3 className="font-bold text-[#292520] text-base flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-[#c55232]/10 text-[#c55232] text-xs flex items-center justify-center font-bold">4</span>
-              주휴수당 안 주면 처벌 수위는?
+          <div className="bg-white p-6 sm:p-7 rounded-3xl border border-zinc-200/80 shadow-xs space-y-3">
+            <h3 className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-[#c55232] text-white text-xs flex items-center justify-center font-bold shrink-0 mt-0.5 shadow-xs">4</span>
+              <span className="font-extrabold text-[#292520] text-lg sm:text-xl leading-snug">
+                주휴수당 안 주면 처벌 수위는 어떻게 되나요?
+              </span>
             </h3>
-            <p className="leading-relaxed text-xs sm:text-sm text-zinc-600">
-              주휴수당은 권고사항이 아닌 근로기준법상 <strong>강행규정</strong>입니다. 정당한 사유 없이 주휴수당을 미지급할 경우 근로기준법 제109조에 따라 <strong>3년 이하의 징역 또는 3천만 원 이하의 벌금</strong>에 처해집니다.
+            <p className="leading-relaxed text-[15px] sm:text-base text-zinc-700">
+              주휴수당은 사장의 재량이 아닌 근로기준법상 <strong>강행규정</strong>입니다. 정당한 사유 없이 주휴수당을 미지급할 경우 근로기준법 제109조에 따라 <strong>3년 이하의 징역 또는 3천만 원 이하의 벌금</strong>에 처해집니다.
             </p>
-            <p className="text-xs text-zinc-500 bg-[#fdfbf7] p-3 rounded-xl border border-zinc-100">
-              📞 미지급 시 노동청 진정을 통해 최근 3년 치 미지급 주휴수당을 소급 청구할 수 있습니다.
-            </p>
+            <div className="text-sm sm:text-[15px] text-zinc-700 bg-[#fdfbf7] p-4 rounded-2xl border border-zinc-200/80 leading-relaxed">
+              📞 미지급 시 고용노동부 노동포털 진정을 통해 <strong>최근 3년 치 미지급 주휴수당</strong>을 전액 소급 청구할 수 있습니다.
+            </div>
           </div>
 
         </div>
