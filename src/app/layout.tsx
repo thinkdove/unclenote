@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Icon } from '@iconify/react';
 import Script from "next/script";
 import Navbar from "@/components/Navbar";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -84,6 +85,7 @@ export default function RootLayout({
             © 2026 Uncle Note. All rights reserved.
           </div>
         </footer>
+        <Analytics />
       </body>
     </html>
   );
