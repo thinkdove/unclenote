@@ -72,14 +72,32 @@ export default function GuideIndexPage() {
             className="group block bg-white rounded-3xl border border-zinc-200/80 overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] hover:border-[#c55232]/50 transition-all duration-300"
           >
             <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
-              <div className="md:col-span-6 relative aspect-video md:aspect-auto overflow-hidden">
-                <img
-                  src={featuredGuide.thumbnail}
-                  alt={featuredGuide.title}
-                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-                />
+              <div className="md:col-span-5 bg-gradient-to-br from-[#292520] to-[#38332c] p-6 sm:p-8 text-white flex flex-col justify-between">
+                <div>
+                  <span className="px-2.5 py-1 bg-[#c55232] text-white text-xs font-black rounded-md inline-block">
+                    국세청 2,085만 명 전수 팩트
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-black mt-4 leading-tight text-white">
+                    내 연봉은 <br />
+                    <span className="text-[#f39c12]">상위 몇 %일까?</span>
+                  </h3>
+                </div>
+                <div className="text-xs text-zinc-300 space-y-1.5 mt-6 pt-4 border-t border-zinc-700">
+                  <div className="flex justify-between">
+                    <span className="text-zinc-400">중위 연봉 (중간값):</span>
+                    <span className="font-bold text-white">3,213만 원</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-zinc-400">평균 연봉:</span>
+                    <span className="font-bold text-white">4,332만 원</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-zinc-400">억대 연봉 컷:</span>
+                    <span className="font-bold text-amber-300">1억 원 (상위 6.7%)</span>
+                  </div>
+                </div>
               </div>
-              <div className="md:col-span-6 p-6 sm:p-8 flex flex-col justify-between space-y-4">
+              <div className="md:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-4">
                 <div>
                   <div className="flex items-center gap-2 mb-3">
                     <span className="px-2.5 py-1 bg-[#c55232]/10 text-[#c55232] text-xs font-bold rounded-md">
@@ -93,7 +111,7 @@ export default function GuideIndexPage() {
                     </span>
                   </div>
 
-                  <h2 className="text-xl sm:text-2xl font-black text-[#292520] group-hover:text-[#c55232] transition-colors leading-snug mb-2">
+                  <h2 className="text-xl sm:text-2xl font-black text-[#292520] group-hover:text-[#c55232] transition-colors leading-snug mb-2 break-keep [text-wrap:balance]">
                     {featuredGuide.title}
                   </h2>
 

@@ -210,8 +210,9 @@ export default function SalaryPercentileGuidePage() {
           </span>
         </div>
 
-        <h1 className="editorial-h1 text-2xl sm:text-4xl font-extrabold text-[#292520] tracking-tight leading-[1.25]">
-          2026년 대한민국 연봉 통계, 나는 상위 몇%?
+        <h1 className="editorial-h1 text-2xl sm:text-4xl font-extrabold text-[#292520] tracking-tight leading-[1.3] break-keep [text-wrap:balance]">
+          <span className="inline-block">2026년 대한민국 연봉 통계,</span>{' '}
+          <span className="inline-block whitespace-nowrap text-[#c55232]">나는 상위 몇%일까?</span>
         </h1>
 
         <p className="text-base sm:text-lg text-zinc-600 leading-relaxed font-normal">
@@ -239,19 +240,62 @@ export default function SalaryPercentileGuidePage() {
         </div>
       </header>
 
-      {/* Featured Hero Image */}
-      <div className="mb-10 overflow-hidden rounded-2xl border border-zinc-200/80 shadow-xs">
-        <Image
-          src="/images/salary-percentile-hero.jpg"
-          alt="대한민국 연봉 분포 통계 및 소득 피라미드 인포그래픽"
-          width={1200}
-          height={675}
-          priority
-          className="w-full h-auto object-cover"
-        />
-        <p className="py-2 px-3 text-center text-xs text-zinc-400 bg-[#fdfbf7]">
-          ▲ 대한민국 근로소득자 2,085만 명의 소득 분포 곡선 및 분위별 격차 시각화
-        </p>
+      {/* 대한민국 소득 계층 5단계 팩트 인포그래픽 카드 (난해한 추상 일러스트 대신 직관적 데이터 시각화) */}
+      <div className="mb-10 p-6 bg-white rounded-3xl border border-zinc-200 shadow-xs space-y-4">
+        <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
+          <span className="font-extrabold text-sm text-[#292520] flex items-center gap-1.5">
+            <Icon icon="solar:chart-square-bold-duotone" className="text-[#c55232]" width="18" height="18" />
+            <span>대한민국 연봉 5단계 핵심 커트라인 한눈에 보기</span>
+          </span>
+          <span className="text-xs text-zinc-400">국세청 2,085만 명 기준</span>
+        </div>
+
+        <div className="space-y-2.5">
+          {/* 상위 1% */}
+          <div className="p-3 bg-amber-500/10 rounded-xl border border-amber-500/20 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded bg-amber-500 text-white font-black text-xs">상위 1%</span>
+              <span className="font-bold text-sm text-[#292520]">세전 1억 8,500만 원 이상</span>
+            </div>
+            <span className="text-xs text-zinc-500 hidden sm:inline">대기업 임원, 상위 전문직</span>
+          </div>
+
+          {/* 상위 6.7% (1억 컷) */}
+          <div className="p-3 bg-blue-50 rounded-xl border border-blue-200 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded bg-blue-600 text-white font-black text-xs">상위 6.7%</span>
+              <span className="font-bold text-sm text-blue-950">세전 1억 원 (억대 연봉자 139만 명)</span>
+            </div>
+            <span className="text-xs text-blue-600 font-bold hidden sm:inline">15명 중 1명 꼴</span>
+          </div>
+
+          {/* 상위 10% */}
+          <div className="p-3 bg-zinc-100 rounded-xl border border-zinc-200 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded bg-[#292520] text-white font-black text-xs">상위 10%</span>
+              <span className="font-bold text-sm text-[#292520]">세전 8,700만 원 이상</span>
+            </div>
+            <span className="text-xs text-zinc-500 hidden sm:inline">대기업 과·차장급</span>
+          </div>
+
+          {/* 평균 */}
+          <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded bg-emerald-700 text-white font-black text-xs">상위 35.8%</span>
+              <span className="font-bold text-sm text-emerald-950">세전 4,332만 원 (대한민국 평균)</span>
+            </div>
+            <span className="text-xs text-emerald-700 font-semibold hidden sm:inline">고소득자 포함 산술평균</span>
+          </div>
+
+          {/* 중위소득 */}
+          <div className="p-3 bg-orange-50 rounded-xl border border-orange-200 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded bg-[#c55232] text-white font-black text-xs">상위 50%</span>
+              <span className="font-black text-sm text-[#c55232]">세전 3,213만 원 (중위소득 · 중간값) ⭐</span>
+            </div>
+            <span className="text-xs text-[#c55232] font-bold hidden sm:inline">대한민국 딱 절반의 위치!</span>
+          </div>
+        </div>
       </div>
 
       {/* TL;DR Summary Callout Card (AEO 핵심 타겟) */}
@@ -356,74 +400,78 @@ export default function SalaryPercentileGuidePage() {
           </div>
         </div>
 
-        {/* Dynamic Motion Graphic: Bell Curve Visualization */}
-        <div className="p-4 bg-[#fdfbf7] rounded-2xl border border-zinc-200 space-y-2">
-          <div className="flex items-center justify-between text-xs font-bold text-zinc-500">
-            <span>대한민국 근로소득자 분포 곡선 (Bell Curve)</span>
-            <span className="text-[#c55232]">● 내 현재 위치</span>
+        {/* Clean High-Clarity Income Spectrum Gauge (글자 뭉개짐 없는 선명한 반응형 스펙트럼 인디케이터) */}
+        <div className="p-5 sm:p-6 bg-[#fdfbf7] rounded-2xl border border-zinc-200 space-y-4">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-zinc-600 flex items-center gap-1.5">
+              <Icon icon="solar:align-horizontal-center-bold" width="16" height="16" className="text-[#c55232]" />
+              <span>대한민국 근로소득 2,085만 명 스펙트럼 분포</span>
+            </span>
+            <span className="text-xs font-bold text-[#c55232]">
+              ● 내 위치: 상위 {topPercent}%
+            </span>
           </div>
 
-          <div className="relative w-full h-44 bg-white rounded-xl border border-zinc-100 p-2 overflow-hidden">
-            <svg viewBox="0 0 100 180" preserveAspectRatio="none" className="w-full h-full">
-              <defs>
-                <linearGradient id="curveGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#c55232" stopOpacity="0.25" />
-                  <stop offset="100%" stopColor="#c55232" stopOpacity="0.02" />
-                </linearGradient>
-              </defs>
+          {/* Key Reference Markers (선명한 상단 기준 눈금) */}
+          <div className="relative h-7 text-[11px] sm:text-xs font-bold select-none">
+            <div className="absolute left-[35%] transform -translate-x-1/2 text-center text-zinc-500 whitespace-nowrap">
+              <span>중위 3,213만</span>
+              <span className="block text-[10px] text-zinc-400 font-normal">(50.0%)</span>
+            </div>
+            <div className="absolute left-[52%] transform -translate-x-1/2 text-center text-emerald-700 whitespace-nowrap">
+              <span>평균 4,332만</span>
+              <span className="block text-[10px] text-emerald-600 font-normal">(35.8%)</span>
+            </div>
+            <div className="absolute left-[75%] transform -translate-x-1/2 text-center text-blue-700 whitespace-nowrap hidden xs:block sm:block">
+              <span>상위10% 8,700만</span>
+              <span className="block text-[10px] text-blue-500 font-normal">(10.0%)</span>
+            </div>
+            <div className="absolute left-[88%] transform -translate-x-1/2 text-center text-[#292520] whitespace-nowrap">
+              <span>1억 원</span>
+              <span className="block text-[10px] text-zinc-500 font-normal">(6.7%)</span>
+            </div>
+          </div>
 
-              {/* Median Line (x=45) */}
-              <line x1="45" y1="30" x2="45" y2="175" stroke="#d4d4d8" strokeDasharray="2,2" strokeWidth="0.8" />
-              <text x="45" y="24" fontSize="5" fill="#71717a" textAnchor="middle" fontWeight="bold">중위(3,213만)</text>
+          {/* Spectrum Bar with Dynamic User Pin */}
+          <div className="relative pt-6 pb-2">
+            {/* Background Spectrum Track */}
+            <div className="w-full h-4 rounded-full bg-gradient-to-r from-zinc-200 via-amber-200 via-rose-300 via-orange-400 to-[#292520] shadow-inner relative overflow-hidden">
+              {/* Reference Vertical Divider Lines */}
+              <div className="absolute top-0 bottom-0 left-[35%] w-[1.5px] bg-zinc-400/50" />
+              <div className="absolute top-0 bottom-0 left-[52%] w-[1.5px] bg-emerald-600/60" />
+              <div className="absolute top-0 bottom-0 left-[75%] w-[1.5px] bg-blue-600/60" />
+              <div className="absolute top-0 bottom-0 left-[88%] w-[1.5px] bg-zinc-800/80" />
+            </div>
 
-              {/* Average Line (x=55) */}
-              <line x1="55" y1="40" x2="55" y2="175" stroke="#e4e4e7" strokeDasharray="2,2" strokeWidth="0.8" />
-              <text x="56" y="36" fontSize="5" fill="#a1a1aa" textAnchor="middle">평균(4,332만)</text>
-
-              {/* Distribution Filled Curve Area */}
-              <path
-                d="M 5,175 Q 25,170 35,100 Q 45,55 55,80 Q 70,140 85,165 T 95,175 Z"
-                fill="url(#curveGradient)"
-              />
-
-              {/* Curve Stroke Line */}
-              <path
-                d="M 5,175 Q 25,170 35,100 Q 45,55 55,80 Q 70,140 85,165 T 95,175"
-                fill="none"
-                stroke="#292520"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-              />
-
-              {/* Ground line */}
-              <line x1="0" y1="175" x2="100" y2="175" stroke="#e4e4e7" strokeWidth="1" />
-
-              {/* Dynamic User Pin with Pulse Animation */}
-              <g style={{ transform: `translate(${svgX}%, ${svgY}px)`, transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}>
-                {/* Vertical Pin Drop Line */}
-                <line x1="0" y1="0" x2="0" y2={175 - svgY} stroke="#c55232" strokeWidth="1.2" strokeDasharray="2,1" />
-
-                {/* Pulse Ring */}
-                <circle cx="0" cy="0" r="8" fill="#c55232" opacity="0.25" className="animate-ping" />
-                
-                {/* Pin Head */}
-                <circle cx="0" cy="0" r="4.5" fill="#c55232" stroke="#ffffff" strokeWidth="1.5" />
-              </g>
-            </svg>
-
-            {/* Pin Tooltip Overlay */}
+            {/* Dynamic Moving Pin & Badge */}
             <div
-              className="absolute pointer-events-none transition-all duration-300 transform -translate-x-1/2"
+              className="absolute top-0 transition-all duration-300 transform -translate-x-1/2 flex flex-col items-center"
               style={{
-                left: `${svgX}%`,
-                top: `${Math.max(12, svgY - 24)}px`,
+                left: `${Math.min(96, Math.max(4, svgX))}%`,
               }}
             >
-              <div className="bg-[#292520] text-white px-2 py-0.5 rounded text-[10px] sm:text-xs font-black whitespace-nowrap shadow-md flex items-center gap-1">
+              {/* Badge */}
+              <div className="bg-[#292520] text-white px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-black whitespace-nowrap shadow-lg flex items-center gap-1.5 border border-zinc-700">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
                 <span>상위 {topPercent}%</span>
-                <span className="text-amber-300">({(salaryManwon / 10000 >= 1 ? `${(salaryManwon / 10000).toFixed(1)}억` : `${salaryManwon.toLocaleString()}만`)})</span>
+                <span className="text-amber-300 font-bold">
+                  ({salaryManwon >= 10000 ? `${(salaryManwon / 10000).toFixed(1)}억` : `${salaryManwon.toLocaleString()}만`})
+                </span>
               </div>
+
+              {/* Pin Arrow */}
+              <div className="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[6px] border-t-[#292520]" />
+
+              {/* Pin Target Head */}
+              <div className="w-3.5 h-3.5 rounded-full bg-[#c55232] border-2 border-white shadow-md mt-0.5" />
             </div>
+          </div>
+
+          {/* Bottom Labels */}
+          <div className="flex justify-between text-[11px] font-bold text-zinc-400 pt-1">
+            <span>◀ 하위 소득 구간</span>
+            <span>대한민국 전체 근로자 2,085만 명</span>
+            <span>최상위 소득 구간 ▶</span>
           </div>
         </div>
 
