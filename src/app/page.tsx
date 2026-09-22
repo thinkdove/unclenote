@@ -51,18 +51,24 @@ export default function Home() {
           </div>
 
           {/* Card 2: 연봉 계산기 (Col span 5) */}
-          <div className="md:col-span-5 bg-black/[0.02] ring-1 ring-black/[0.03] p-2 rounded-[2rem]">
-            <div className="flex flex-col h-full bg-white/50 backdrop-blur-sm shadow-[inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(2rem-0.5rem)] p-8 border border-white/20 opacity-60">
-              <div className="w-12 h-12 bg-zinc-100 rounded-xl flex items-center justify-center text-zinc-400 text-2xl mb-5">
+          <div className="md:col-span-5 bg-black/[0.03] ring-1 ring-black/5 p-2 rounded-[2rem] group transition-transform duration-500 hover:scale-[1.01] ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <Link href="/salary-calculator" className="flex flex-col h-full bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(2rem-0.5rem)] p-8 transition-colors">
+              <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 text-2xl mb-5 shadow-xs">
                 <Icon icon="solar:wallet-money-bold-duotone" />
               </div>
-              <h3 className="text-lg font-bold text-zinc-800 mb-2 tracking-tight">
+              <h3 className="text-xl font-bold text-zinc-900 mb-2 tracking-tight group-hover:text-blue-600 transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
                 연봉 실수령액 계산기
               </h3>
               <p className="text-sm text-zinc-500 leading-relaxed">
-                4대보험 및 각종 세금을 공제한 진짜 내 월급. (준비 중)
+                4대보험 및 각종 세금을 공제한 진짜 내 통장 월급 1초 계산.
               </p>
-            </div>
+              <div className="mt-6 flex items-center justify-between pt-4 border-t border-zinc-100">
+                <span className="text-xs font-bold text-blue-600">2026 최신 요율</span>
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-black/5 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                  <Icon icon="solar:arrow-right-linear" width="18" height="18" className="group-hover:translate-x-0.5 transition-transform duration-500" />
+                </div>
+              </div>
+            </Link>
           </div>
 
         </div>
