@@ -38,3 +38,13 @@
 - **Outer Shell**: `bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[1.8rem]`
 - **Inner Card**: `bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(1.8rem-0.375rem)] p-6 sm:p-8`
 - **Button Standards**: 터치 타깃 최소 44px 이상, `rounded-xl` 또는 `rounded-full`
+
+---
+
+## 5. Zero-Mistake UI & Editorial Rules (실수 방지 절대 지침)
+1. **모바일 가로 스크롤 금지**: 탭/버튼 3~5개는 `grid grid-cols-2` 또는 `flex flex-wrap`으로 한눈에 표시. 스크롤 필요 시 반드시 `.no-scrollbar`로 회색 막대 숨김.
+2. **입력창 숫자와 단위 겹침 차단**: 절대 위치(`absolute`) 단위 금지. 반드시 `.editorial-input-box` Flex 컨테이너 내 형제 요소로 분리하고 `min-width: 0;` 고수.
+3. **SVG 텍스트 뭉개짐 금지**: `preserveAspectRatio="none"` SVG 내부에 한글 `<text>` 금지. 텍스트 라벨은 항상 HTML/CSS 오버레이로 선명한 웹폰트 렌더링.
+4. **난해한 추상 일러스트 금지**: 모호한 AI 일러스트 대신, 수치와 커트라인이 명확히 보이는 실제 데이터 기반 인포그래픽 카드(표, 뱃지, 계층 피라미드) 배치.
+5. **한국어 제목 줄바꿈(외톨이 단어 방지)**: 모든 제목에 `break-keep`, `[text-wrap:balance]` 기본 탑재. 의미 단위는 `inline-block` 또는 `whitespace-nowrap`으로 처리.
+6. **Next.js `'use client'` 페이지 SEO 메타데이터 필수**: 클라이언트 컴포넌트 페이지는 반드시 동일 폴더에 `layout.tsx`를 생성해 페이지 전용 Title/Description 주입.
