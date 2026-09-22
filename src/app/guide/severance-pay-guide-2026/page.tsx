@@ -85,23 +85,27 @@ export default function SeverancePayGuidePage() {
         
         {/* Section 1 */}
         <section>
-          <h2 className="text-2xl font-bold text-[#292520] mb-4 flex items-center gap-2">
-            <span className="text-[#c55232]">01.</span>
-            퇴직금 받을 수 있는 자격 조건 2가지
-          </h2>
-          <p className="text-zinc-600 mb-4">
+          <div className="mb-4">
+            <p className="text-xs font-bold tracking-[.18em] text-[#c55232] uppercase">
+              SECTION 01
+            </p>
+            <h2 className="mt-1.5 text-2xl sm:text-3xl font-extrabold tracking-tight text-[#292520]">
+              퇴직금 받을 수 있는 자격 조건 2가지
+            </h2>
+          </div>
+          <p className="text-zinc-700 text-base sm:text-lg leading-relaxed mb-5 font-normal">
             근로기준법 및 근로자퇴직급여 보장법에 따라 아래 <strong>두 가지 조건</strong>을 모두 만족하면 사업장의 규모(5인 미만 포함)나 직종과 무관하게 법정 퇴직금을 전액 보장받습니다.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-white p-5 rounded-2xl border border-zinc-200/70 shadow-xs">
-              <h3 className="font-bold text-zinc-900 mb-2">① 주 소정근로시간 15시간 이상</h3>
-              <p className="text-xs text-zinc-500 leading-relaxed">
+            <div className="bg-white p-6 rounded-2xl border border-zinc-200/70 shadow-xs">
+              <h3 className="font-bold text-[#292520] text-base sm:text-lg mb-2.5">① 주 소정근로시간 15시간 이상</h3>
+              <p className="text-sm sm:text-[15px] text-zinc-600 leading-relaxed">
                 4주간을 평균하여 1주 동안의 소정근로시간이 15시간 이상이어야 합니다. 주말 아르바이트라도 1주 15시간 이상 일했다면 대상입니다.
               </p>
             </div>
-            <div className="bg-white p-5 rounded-2xl border border-zinc-200/70 shadow-xs">
-              <h3 className="font-bold text-zinc-900 mb-2">② 계속근로기간 1년 이상</h3>
-              <p className="text-xs text-zinc-500 leading-relaxed">
+            <div className="bg-white p-6 rounded-2xl border border-zinc-200/70 shadow-xs">
+              <h3 className="font-bold text-[#292520] text-base sm:text-lg mb-2.5">② 계속근로기간 1년 이상</h3>
+              <p className="text-sm sm:text-[15px] text-zinc-600 leading-relaxed">
                 입사일부터 마지막 근무일까지의 일수가 365일 이상이어야 합니다. 수습기간, 인턴기간, 육아휴직 기간도 모두 근속기간에 포함됩니다.
               </p>
             </div>
@@ -110,25 +114,29 @@ export default function SeverancePayGuidePage() {
 
         {/* Section 2 */}
         <section>
-          <h2 className="text-2xl font-bold text-[#292520] mb-4 flex items-center gap-2">
-            <span className="text-[#c55232]">02.</span>
-            퇴직금 계산 공식과 1일 평균임금 구하는 법
-          </h2>
-          <p className="text-zinc-600 mb-4">
+          <div className="mb-4">
+            <p className="text-xs font-bold tracking-[.18em] text-[#c55232] uppercase">
+              SECTION 02
+            </p>
+            <h2 className="mt-1.5 text-2xl sm:text-3xl font-extrabold tracking-tight text-[#292520]">
+              퇴직금 계산 공식과 1일 평균임금 구하는 법
+            </h2>
+          </div>
+          <p className="text-zinc-700 text-base sm:text-lg leading-relaxed mb-5 font-normal">
             퇴직금 산정의 가장 핵심은 바로 <strong>&apos;1일 평균임금&apos;</strong>입니다. 1일 평균임금은 퇴사 직전 3개월 동안 지급받은 임금 총액을 그 기간의 총 일수로 나누어 산출합니다.
           </p>
 
-          <div className="bg-[#fdfbf7] p-6 rounded-2xl border border-zinc-200/70 mb-6 font-mono text-sm space-y-2">
-            <p className="text-zinc-500 font-sans text-xs font-bold">공식 산식:</p>
-            <p className="text-zinc-900 font-bold text-base">
-              1일 평균임금 = (이전 3개월 기본급 + 수당 + 상여금 3/12 + 연차수당 3/12) ÷ 이전 3개월 총 일수
-            </p>
-            <p className="text-zinc-900 font-bold text-base pt-2 border-t border-zinc-200">
-              법정 퇴직금 = 1일 평균임금 × 30일 × (총 재직일수 ÷ 365)
-            </p>
+          <div className="bg-[#fdfbf7] p-6 rounded-2xl border border-zinc-200/80 mb-6 text-sm sm:text-base space-y-3">
+            <p className="text-xs font-bold tracking-wider text-[#c55232] uppercase">공식 산출식</p>
+            <div className="p-3.5 bg-white rounded-xl border border-zinc-200/60 font-medium text-[#292520] leading-relaxed">
+              <strong>1일 평균임금</strong> = (이전 3개월 기본급 + 수당 + 상여금 3/12 + 연차수당 3/12) ÷ 이전 3개월 총 일수
+            </div>
+            <div className="p-3.5 bg-[#c55232]/5 rounded-xl border border-[#c55232]/20 font-bold text-[#c55232] leading-relaxed">
+              <strong>법정 퇴직금</strong> = 1일 평균임금 × 30일 × (총 재직일수 ÷ 365)
+            </div>
           </div>
 
-          <div className="p-4 bg-amber-50/70 border border-amber-200 rounded-xl text-xs text-amber-900 leading-relaxed">
+          <div className="p-4 sm:p-5 bg-amber-50/80 border border-amber-200 rounded-2xl text-sm sm:text-base text-amber-900 leading-relaxed">
             💡 <strong>평균임금이 통상임금보다 적다면?</strong><br />
             무급휴직이나 결근 등으로 최근 3개월 평균임금이 평소 통상임금보다 낮게 산출된 경우, 법적으로 <strong>통상임금을 평균임금으로 간주</strong>하여 퇴직금을 계산해야 근로자의 손실을 막을 수 있습니다.
           </div>
@@ -136,23 +144,27 @@ export default function SeverancePayGuidePage() {
 
         {/* Section 3: Tax Deduction & IRP tips */}
         <section>
-          <h2 className="text-2xl font-bold text-[#292520] mb-4 flex items-center gap-2">
-            <span className="text-[#c55232]">03.</span>
-            퇴직소득세 절세: IRP 계좌로 세금 30% 아끼기
-          </h2>
-          <p className="text-zinc-600 mb-4">
+          <div className="mb-4">
+            <p className="text-xs font-bold tracking-[.18em] text-[#c55232] uppercase">
+              SECTION 03
+            </p>
+            <h2 className="mt-1.5 text-2xl sm:text-3xl font-extrabold tracking-tight text-[#292520]">
+              퇴직소득세 절세: IRP 계좌로 세금 30% 아끼기
+            </h2>
+          </div>
+          <p className="text-zinc-700 text-base sm:text-lg leading-relaxed mb-5 font-normal">
             퇴직금은 종합소득세와 별도로 **&apos;분류과세&apos;**되어 상대적으로 세부담이 적지만, 근속연수와 금액에 따라 수십~수백만 원의 퇴직소득세가 발생합니다.
           </p>
 
           <div className="bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200/70 shadow-xs space-y-4">
-            <h3 className="font-bold text-[#292520] text-lg flex items-center gap-2">
-              <Icon icon="solar:wallet-money-bold-duotone" className="text-[#c55232]" />
+            <h3 className="font-bold text-[#292520] text-lg sm:text-xl flex items-center gap-2">
+              <Icon icon="solar:wallet-money-bold-duotone" className="text-[#c55232]" width="24" height="24" />
               <span>IRP(개인형 퇴직연금) 계좌 이전 혜택</span>
             </h3>
-            <p className="text-sm text-zinc-600 leading-relaxed">
+            <p className="text-sm sm:text-base text-zinc-600 leading-relaxed">
               퇴직금을 일반 입출금 통장 대신 은행이나 증권사의 **IRP 계좌**로 지급받으면, 퇴직 시점에 세금을 한 푼도 떼지 않고 전액 입금(과세이연)됩니다.
             </p>
-            <ul className="list-disc list-inside space-y-2 text-sm text-zinc-600 pl-1">
+            <ul className="list-disc list-inside space-y-2.5 text-sm sm:text-base text-zinc-600 pl-1 leading-relaxed">
               <li><strong>세금 감면:</strong> 55세 이후 연금 형태로 나누어 수령할 경우 원래 내야 할 <strong>퇴직소득세의 30% 감면</strong> (10년 초과 수령 시 40% 감면)</li>
               <li><strong>자금 운용:</strong> 세금으로 떼일 돈까지 원금으로 남아 복리 이자 및 ETF 운용 수익을 누릴 수 있습니다.</li>
             </ul>
@@ -161,20 +173,24 @@ export default function SeverancePayGuidePage() {
 
         {/* Section 4: FAQ */}
         <section>
-          <h2 className="text-2xl font-bold text-[#292520] mb-4 flex items-center gap-2">
-            <span className="text-[#c55232]">04.</span>
-            자주 묻는 질문 (FAQ)
-          </h2>
+          <div className="mb-4">
+            <p className="text-xs font-bold tracking-[.18em] text-[#c55232] uppercase">
+              SECTION 04
+            </p>
+            <h2 className="mt-1.5 text-2xl sm:text-3xl font-extrabold tracking-tight text-[#292520]">
+              자주 묻는 질문 (FAQ)
+            </h2>
+          </div>
           <div className="space-y-4">
-            <div className="bg-white p-5 rounded-2xl border border-zinc-200/70">
-              <h3 className="font-bold text-[#292520] mb-2">Q. 회사 사정으로 퇴직금이 안 들어오는데 어떻게 해야 하나요?</h3>
-              <p className="text-sm text-zinc-600 leading-relaxed">
+            <div className="bg-white p-6 rounded-2xl border border-zinc-200/70 shadow-xs space-y-2">
+              <h3 className="font-bold text-[#292520] text-base sm:text-lg leading-snug">Q. 회사 사정으로 퇴직금이 안 들어오는데 어떻게 해야 하나요?</h3>
+              <p className="text-sm sm:text-base text-zinc-600 leading-relaxed">
                 퇴사일로부터 14일 이내에 특별한 당사자 간 지급 연기 합의 없이 미지급된다면 관할 고용노동청에 임금체불 진정을 제기할 수 있습니다. 14일 경과 시점부터는 연 20%의 법정 지연이자가 청구됩니다.
               </p>
             </div>
-            <div className="bg-white p-5 rounded-2xl border border-zinc-200/70">
-              <h3 className="font-bold text-[#292520] mb-2">Q. 프리랜서나 3.3% 사업소득자도 퇴직금을 받을 수 있나요?</h3>
-              <p className="text-sm text-zinc-600 leading-relaxed">
+            <div className="bg-white p-6 rounded-2xl border border-zinc-200/70 shadow-xs space-y-2">
+              <h3 className="font-bold text-[#292520] text-base sm:text-lg leading-snug">Q. 프리랜서나 3.3% 사업소득자도 퇴직금을 받을 수 있나요?</h3>
+              <p className="text-sm sm:text-base text-zinc-600 leading-relaxed">
                 계약서 형태가 프리랜서 계약이더라도, 회사의 출퇴근 지시와 업무 감독을 받는 등 &apos;실질적 근로자&apos;로 인정된다면 고용노동부 진정을 통해 법정 퇴직금을 전액 수령할 수 있습니다.
               </p>
             </div>

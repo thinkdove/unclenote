@@ -156,12 +156,12 @@ export default function WageCalculatorPage() {
 
           {/* Hourly Wage Input */}
           <div>
-            <div className="flex justify-between items-center mb-1.5">
-              <label htmlFor={hourlyWageId} className="text-xs font-bold text-zinc-600">
+            <div className="flex justify-between items-center mb-2">
+              <label htmlFor={hourlyWageId} className="text-sm font-bold text-[#292520]">
                 시급 (원)
               </label>
               {isUnderMinWage && (
-                <span className="text-[11px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">
+                <span className="text-xs font-bold text-rose-600 bg-rose-50 px-2.5 py-0.5 rounded-md">
                   ⚠️ 2026 최저시급(10,320원) 미달
                 </span>
               )}
@@ -173,9 +173,9 @@ export default function WageCalculatorPage() {
                 step="10"
                 value={hourlyWage}
                 onChange={(e) => setHourlyWage(Number(e.target.value))}
-                className="w-full px-3.5 py-2.5 bg-[#fdfbf7] border border-zinc-200 rounded-xl text-base font-bold text-[#292520] text-right pr-8 focus:outline-none focus:ring-2 focus:ring-[#c55232]/30 focus:border-[#c55232]"
+                className="w-full px-4 py-3 bg-[#fdfbf7] border border-zinc-200 rounded-xl text-base font-bold text-[#292520] text-right pr-9 focus:outline-none focus:ring-2 focus:ring-[#c55232]/30 focus:border-[#c55232]"
               />
-              <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-zinc-400 font-bold">
+              <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-sm text-zinc-400 font-bold">
                 원
               </span>
             </div>
@@ -184,14 +184,14 @@ export default function WageCalculatorPage() {
           {/* Days & Hours */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label htmlFor={daysPerWeekId} className="block text-xs font-bold text-zinc-600 mb-1.5">
+              <label htmlFor={daysPerWeekId} className="block text-sm font-bold text-[#292520] mb-2">
                 1주일 근무 일수
               </label>
               <select
                 id={daysPerWeekId}
                 value={daysPerWeek}
                 onChange={(e) => setDaysPerWeek(Number(e.target.value))}
-                className="w-full px-3.5 py-2.5 bg-[#fdfbf7] border border-zinc-200 rounded-xl text-sm font-bold text-[#292520] focus:outline-none focus:ring-2 focus:ring-[#c55232]/30 focus:border-[#c55232]"
+                className="w-full px-3.5 py-3 bg-[#fdfbf7] border border-zinc-200 rounded-xl text-base font-bold text-[#292520] focus:outline-none focus:ring-2 focus:ring-[#c55232]/30 focus:border-[#c55232]"
               >
                 {[1, 2, 3, 4, 5, 6, 7].map((d) => (
                   <option key={d} value={d}>
@@ -202,18 +202,18 @@ export default function WageCalculatorPage() {
             </div>
 
             <div>
-              <label htmlFor={hoursPerDayId} className="block text-xs font-bold text-zinc-600 mb-1.5">
+              <label htmlFor={hoursPerDayId} className="block text-sm font-bold text-[#292520] mb-2">
                 하루 체류 시간 (출근~퇴근)
               </label>
               <select
                 id={hoursPerDayId}
                 value={hoursPerDay}
                 onChange={(e) => setHoursPerDay(Number(e.target.value))}
-                className="w-full px-3.5 py-2.5 bg-[#fdfbf7] border border-zinc-200 rounded-xl text-sm font-bold text-[#292520] focus:outline-none focus:ring-2 focus:ring-[#c55232]/30 focus:border-[#c55232]"
+                className="w-full px-3.5 py-3 bg-[#fdfbf7] border border-zinc-200 rounded-xl text-base font-bold text-[#292520] focus:outline-none focus:ring-2 focus:ring-[#c55232]/30 focus:border-[#c55232]"
               >
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((h) => (
                   <option key={h} value={h}>
-                    하루 {h}시간 체류 {h === 9 ? '(일반 직장인 9~18시)' : ''}
+                    하루 {h}시간 체류 {h === 9 ? '(9~18시)' : ''}
                   </option>
                 ))}
               </select>
@@ -222,19 +222,19 @@ export default function WageCalculatorPage() {
 
           {/* Break Time (휴게시간 - 근로기준법 제54조) */}
           <div>
-            <div className="flex justify-between items-center mb-1.5">
-              <label htmlFor={breakTimeId} className="text-xs font-bold text-zinc-600">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+              <label htmlFor={breakTimeId} className="text-sm font-bold text-[#292520]">
                 무급 휴게시간 (점심·식사시간 등)
               </label>
-              <span className="text-[11px] text-[#c55232] font-semibold">
-                근로기준법 제54조: 4시간당 30분, 8시간당 1시간 의무
+              <span className="text-xs text-[#c55232] font-bold">
+                근로기준법 제54조: 4h당 30분, 8h당 1h 의무
               </span>
             </div>
             <select
               id={breakTimeId}
               value={breakMinutes}
               onChange={(e) => setBreakMinutes(Number(e.target.value))}
-              className="w-full px-3.5 py-2.5 bg-[#fdfbf7] border border-zinc-200 rounded-xl text-sm font-bold text-[#292520] focus:outline-none focus:ring-2 focus:ring-[#c55232]/30 focus:border-[#c55232]"
+              className="w-full px-3.5 py-3 bg-[#fdfbf7] border border-zinc-200 rounded-xl text-base font-bold text-[#292520] focus:outline-none focus:ring-2 focus:ring-[#c55232]/30 focus:border-[#c55232]"
             >
               <option value={0}>휴게시간 없음 (0분)</option>
               <option value={30}>30분 무급 휴게 (4시간 이상 근무 시 법정)</option>
@@ -242,7 +242,7 @@ export default function WageCalculatorPage() {
               <option value={90}>1시간 30분 무급 휴게</option>
               <option value={120}>2시간 무급 휴게</option>
             </select>
-            <p className="text-[11px] text-zinc-400 mt-1">
+            <p className="text-xs text-zinc-500 mt-1.5 leading-relaxed">
               ※ 휴게시간은 근로자가 자유롭게 이용할 수 있는 시간이므로 법적으로 임금 계산에서 제외됩니다.
             </p>
           </div>
