@@ -86,21 +86,25 @@ export default function Home() {
         </div>
         
         <div className="flex flex-col gap-6">
-          <Link href="/vat-calculator" className="group bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[1.5rem] transition-transform duration-500 hover:scale-[1.01] ease-[cubic-bezier(0.16,1,0.3,1)]">
+          <Link href="/guide/salary-table-2026" className="group bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[1.5rem] transition-transform duration-500 hover:scale-[1.01] ease-[cubic-bezier(0.16,1,0.3,1)]">
             <div className="flex flex-col sm:flex-row gap-6 p-6 sm:p-8 bg-white shadow-[0_4px_20px_rgb(0,0,0,0.03),inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(1.5rem-0.375rem)]">
-              <div className="w-full sm:w-40 h-32 bg-blue-50 rounded-2xl flex-shrink-0 flex items-center justify-center text-blue-400 text-5xl">
-                <Icon icon="solar:document-text-bold-duotone" />
+              <div className="relative w-full sm:w-48 h-36 rounded-2xl overflow-hidden flex-shrink-0 bg-zinc-100">
+                <img
+                  src="/images/salary-guide-thumbnail.jpg"
+                  alt="2026 연봉 실수령액 가이드"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                />
               </div>
               <div className="flex flex-col justify-center">
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-[11px] font-bold tracking-wide rounded-md">세무/회계</span>
+                  <span className="px-2.5 py-1 bg-blue-50 text-blue-600 text-[11px] font-bold tracking-wide rounded-md">세무·노무</span>
                   <span className="text-[13px] text-zinc-400 font-medium">2026.09.22</span>
                 </div>
                 <h3 className="text-xl font-bold text-zinc-900 mb-2 group-hover:text-blue-600 transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                  2026년 간이과세자와 일반과세자, 나에게 유리한 것은?
+                  2026년 연봉 실수령액 표 총정리: 3,000만~1억 구간별 월급 & 공제액 분석
                 </h3>
                 <p className="text-[15px] text-zinc-500 leading-relaxed line-clamp-2">
-                  사업을 시작할 때 가장 고민되는 세금 문제! 매출 기준 변경점과 부가가치세 절세 팁을 삼촌생각(Uncle Note)에서 알기 쉽게 정리해 드립니다.
+                  최신 4대 보험 요율과 소득세 간이세액표를 반영한 연봉 구간별 실제 월 실수령액과 식대 비과세 절세 팁을 삼촌생각(Uncle Note)에서 상세히 전해드립니다.
                 </p>
               </div>
             </div>
