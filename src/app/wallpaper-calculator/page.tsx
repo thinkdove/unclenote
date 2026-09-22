@@ -2,6 +2,7 @@
 
 import { useState, useId } from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
 import { Icon } from '@iconify/react';
 
 interface WallpaperPreset {
@@ -149,8 +150,58 @@ export default function WallpaperCalculatorPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // AEO & Google Rich Snippet Structured Data (SoftwareApplication + FAQPage)
+  const wallpaperStructuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebApplication',
+        '@id': 'https://unclenote.com/wallpaper-calculator#webapp',
+        'name': '도배지(벽지) 소요량 및 롤 수량 계산기',
+        'url': 'https://unclenote.com/wallpaper-calculator',
+        'applicationCategory': 'UtilityApplication',
+        'operatingSystem': 'All',
+        'description': '방 크기 실측 치수 또는 아파트 평수 기반 실크벽지(5평형), 광폭합지(5평형), 소폭합지(2평형) 필요 롤(Roll) 수 및 도배풀 부자재 자동 계산기',
+        'offers': {
+          '@type': 'Offer',
+          'price': '0',
+          'priceCurrency': 'KRW',
+        },
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': 'https://unclenote.com/wallpaper-calculator#faq',
+        'mainEntity': [
+          {
+            '@type': 'Question',
+            'name': '실크벽지(5평형)와 합지벽지(광폭/소폭)의 규격 차이는 어떻게 되나요?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': '실크벽지는 폭 106cm × 길이 15.6m(약 5평형, 16.5㎡)로 이음새 맞댐 시공을 합니다. 광폭합지는 폭 93cm × 길이 17.75m(약 5평형), 소폭합지는 폭 53cm × 길이 12.5m(약 2평형, 6.6㎡)로 겹침 시공을 진행합니다.',
+            },
+          },
+          {
+            '@type': 'Question',
+            'name': '아파트 평수 기준으로 도배지 소요 평수는 어떻게 계산하나요?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': '일반적인 아파트 전체 도배 시 벽과 천장을 합친 총 도배 면적은 분양 평수의 약 2.5배(확장형은 약 2.8배)를 적용하는 것이 인테리어 업계의 표준 견적 공식입니다.',
+            },
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="max-w-4xl mx-auto py-4">
+      {/* AEO / SEO Structured Data */}
+      <Script
+        id="wallpaper-calc-aeo-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(wallpaperStructuredData) }}
+      />
+
       {/* Header */}
       <div className="mb-8 text-center sm:text-left">
         <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-bold tracking-wider text-[#c55232] uppercase mb-3">

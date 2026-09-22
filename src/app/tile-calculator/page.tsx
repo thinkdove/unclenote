@@ -2,6 +2,7 @@
 
 import { useState, useId } from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
 import { Icon } from '@iconify/react';
 
 // 표준 타일 규격 프리셋 데이터 (국내 유통 표준 및 사용자 요청 규격)
@@ -277,8 +278,66 @@ export default function TileCalculatorPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // AEO & Google Rich Snippet Structured Data (SoftwareApplication + FAQPage)
+  const tileStructuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebApplication',
+        '@id': 'https://unclenote.com/tile-calculator#webapp',
+        'name': '화장실·바닥 타일 소요량 계산기',
+        'url': 'https://unclenote.com/tile-calculator',
+        'applicationCategory': 'UtilityApplication',
+        'operatingSystem': 'All',
+        'description': '욕실, 주방, 베란다 타일 시공 면적과 규격별(300각, 300x600, 600각, 800각, 1200각) 1박스당 수량 및 필요 박스 수, 로스율 자동 계산기',
+        'offers': {
+          '@type': 'Offer',
+          'price': '0',
+          'priceCurrency': 'KRW',
+        },
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': 'https://unclenote.com/tile-calculator#faq',
+        'mainEntity': [
+          {
+            '@type': 'Question',
+            'name': '타일 시공 시 로스율(Loss Rate)은 왜 최소 5~10% 이상 잡아야 하나요?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': '모서리 재단 시 발생하는 자투리 폐기물과 시공 중 파손을 감안해야 합니다. 단순 직사각형 바닥은 최소 5%, 일반 욕실 벽바닥은 10%, 셀프 시공은 15%의 여유분을 두어야 공사 도중 타일이 부족해지는 일을 방지할 수 있습니다.',
+            },
+          },
+          {
+            '@type': 'Question',
+            'name': '규격별 타일 1박스당 장수와 시공 면적은 어떻게 되나요?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': '국내 표준 유통 기준 300각(300×300mm)은 16장(1.44㎡), 300×600각은 8장(1.44㎡), 600각(600×600mm)은 4장(1.44㎡), 600×1200각은 2장(1.44㎡), 800각(800×800mm)은 3장(1.92㎡), 1200각(1200×1200mm)은 2장(2.88㎡)이 1박스 기본 포장 단위입니다.',
+            },
+          },
+          {
+            '@type': 'Question',
+            'name': '800각, 1200각 대형 포세린 타일 주문 시 주의할 점은 무엇인가요?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': '800각 1박스는 약 44kg, 1200각은 60kg을 초과하여 양중(곰방) 및 사다리차 계획이 필수입니다. 또한 타일은 생산 로트(Lot)에 따라 색상 이색 현상이 발생하므로 처음 주문 시 1~2박스 여유 있게 주문하는 것이 안전합니다.',
+            },
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="max-w-4xl mx-auto py-4">
+      {/* AEO / SEO Structured Data */}
+      <Script
+        id="tile-calc-aeo-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(tileStructuredData) }}
+      />
+
       {/* Header */}
       <div className="mb-8 text-center sm:text-left">
         <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-bold tracking-wider text-[#c55232] uppercase mb-3">

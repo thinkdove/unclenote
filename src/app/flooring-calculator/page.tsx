@@ -2,6 +2,7 @@
 
 import { useState, useId } from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
 import { Icon } from '@iconify/react';
 
 interface FlooringThickness {
@@ -128,8 +129,58 @@ export default function FlooringCalculatorPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // AEO & Google Rich Snippet Structured Data (SoftwareApplication + FAQPage)
+  const flooringStructuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebApplication',
+        '@id': 'https://unclenote.com/flooring-calculator#webapp',
+        'name': '장판(모노륨) 소요량 및 미터(m) 수 계산기',
+        'url': 'https://unclenote.com/flooring-calculator',
+        'applicationCategory': 'UtilityApplication',
+        'operatingSystem': 'All',
+        'description': '국내 표준 1.8m 폭 모노륨 장판 기준, 방 치수에 따른 최적 시공 방향(줄 수), 구매 미터(m) 수, 꺾어올림 여유분 및 용착제 부자재 자동 계산기',
+        'offers': {
+          '@type': 'Offer',
+          'price': '0',
+          'priceCurrency': 'KRW',
+        },
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': 'https://unclenote.com/flooring-calculator#faq',
+        'mainEntity': [
+          {
+            '@type': 'Question',
+            'name': '장판 두께(1.8T, 2.2T, 3.2T, 4.5T)는 어떤 기준으로 선택해야 하나요?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': '1.8T는 원룸/전월세 임대용 가성비 장판으로 적합하며, 2.2T는 일반 가정집에서 가장 많이 쓰는 국민 표준 두께입니다. 3.2T 이상은 보행감이 푹신하여 무릎 보호에 좋고, 4.5T~5.0T는 층간소음 저감 효과와 반려동물 슬개골 보호에 특화되어 있습니다.',
+            },
+          },
+          {
+            '@type': 'Question',
+            'name': '장판 시공 시 재단 여유분과 이음매 용착제는 얼마나 필요한가요?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': '장판은 줄당 벽면 꺾어올림 및 양 끝 절단 여유분으로 최소 10~20cm를 더해 재단해야 합니다. 두 줄 이상 이어붙일 때는 이음매 틈새를 녹여 붙이는 장판 전용 용착제가 필수이며, 보통 방 1~2개당 용착제 1세트(약 30ml)가 소요됩니다.',
+            },
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="max-w-4xl mx-auto py-4">
+      {/* AEO / SEO Structured Data */}
+      <Script
+        id="flooring-calc-aeo-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(flooringStructuredData) }}
+      />
+
       {/* Header */}
       <div className="mb-8 text-center sm:text-left">
         <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-bold tracking-wider text-[#c55232] uppercase mb-3">
