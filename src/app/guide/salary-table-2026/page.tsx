@@ -1,25 +1,31 @@
-import { Metadata } from "next";
-import Link from "next/link";
+import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import Script from "next/script";
 import { Icon } from "@iconify/react";
 
+const salaryRows = [
+  { annual: "3,000만", gross: "250.0만", insurance: "21.6만", tax: "4.8만", net: "223.6만", highlight: false },
+  { annual: "3,500만", gross: "291.6만", insurance: "25.5만", tax: "8.5만", net: "257.6만", highlight: false },
+  { annual: "4,000만", gross: "333.3만", insurance: "29.4만", tax: "12.8만", net: "291.1만", highlight: false },
+  { annual: "4,500만", gross: "375.0만", insurance: "33.3만", tax: "17.6만", net: "324.1만", highlight: false },
+  { annual: "5,000만", gross: "416.7만", insurance: "37.2만", tax: "24.9만", net: "354.6만", highlight: true },
+  { annual: "6,000만", gross: "500.0만", insurance: "45.0만", tax: "36.8만", net: "418.2만", highlight: false },
+  { annual: "7,000만", gross: "583.3만", insurance: "52.8만", tax: "49.4만", net: "481.1만", highlight: false },
+  { annual: "8,000만", gross: "666.7만", insurance: "58.1만", tax: "64.8만", net: "543.8만", highlight: false },
+  { annual: "9,000만", gross: "750.0만", insurance: "65.9만", tax: "80.4만", net: "603.7만", highlight: false },
+  { annual: "1억", gross: "833.3만", insurance: "73.7만", tax: "95.5만", net: "664.1만", highlight: false },
+];
+
 export const metadata: Metadata = {
-  title: "2026년 연봉 실수령액 표 총정리: 3,000만~1억 구간별 월급 & 공제액 분석",
-  description: "2026년 최신 4대 보험 요율과 소득세 간이세액표를 반영한 연봉 구간별(3,000만~1억 원) 실제 월 실수령액 비교표와 식대 20만 원 비과세 절세 팁을 삼촌생각(Uncle Note)에서 상세히 전해드립니다.",
-  keywords: ["2026 연봉 실수령액 표", "연봉 3000 실수령액", "연봉 5000 실수령액", "연봉 1억 실수령액", "4대보험 요율", "식대 비과세", "삼촌생각", "Uncle Note"],
+  title: "2026년 연봉 실수령액 표 | 3,000만~1억 구간별 월급 & 공제액 분석",
+  description: "2026년 연봉 3,000만 원부터 1억 원까지의 실제 월 실수령액을 정리했습니다. 4대보험, 소득세, 식대 월 20만 원 비과세 기준을 확인하세요.",
+  alternates: { canonical: "https://unclenote.com/guide/salary-table-2026" },
   openGraph: {
-    title: "2026년 연봉 실수령액 표 총정리: 3,000만~1억 구간별 월급 & 공제액 분석",
-    description: "내 연봉의 진짜 통장 입금액은 얼마일까? 4대 보험 및 세금 공제액과 비과세 혜택까지 완벽 분석.",
+    title: "2026년 연봉 실수령액 표 | 3,000만~1억 구간별 월급",
+    description: "연봉 협상 전에 확인하는 2026년 실제 월 실수령액과 4대보험 공제 분석.",
     url: "https://unclenote.com/guide/salary-table-2026",
-    images: [
-      {
-        url: "/images/salary-guide-thumbnail.jpg",
-        width: 1200,
-        height: 675,
-        alt: "2026년 연봉 실수령액 표 인포그래픽 썸네일",
-      },
-    ],
+    images: [{ url: "/images/salary-guide-thumbnail.jpg", width: 1200, height: 675, alt: "2026 연봉 실수령액 안내" }],
   },
 };
 
@@ -27,215 +33,210 @@ export default function SalaryGuidePage() {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "2026년 연봉 실수령액 표 총정리: 3,000만~1억 구간별 월급 & 공제액 분석",
-    "description": "2026년 최신 세법과 4대 보험료를 반영한 연봉 구간별 실제 수령액과 절세 가이드",
-    "image": "https://unclenote.com/images/salary-guide-thumbnail.jpg",
-    "author": {
-      "@type": "Person",
-      "name": "삼촌생각 에디터 (Uncle Note Editor)"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "삼촌생각 (Uncle Note)",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://unclenote.com/favicon.ico"
-      }
-    },
-    "datePublished": "2026-09-22",
-    "dateModified": "2026-09-22"
+    headline: "2026년 연봉 실수령액 표 | 3,000만~1억 구간별 월급 & 공제액 분석",
+    description: metadata.description,
+    datePublished: "2026-09-22",
+    dateModified: "2026-09-22",
+    author: { "@type": "Organization", name: "삼촌생각" },
+    publisher: { "@type": "Organization", name: "삼촌생각" },
   };
 
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": [
+    mainEntity: [
       {
         "@type": "Question",
-        "name": "2026년 연봉 5,000만 원의 실제 월 실수령액은 얼마인가요?",
-        "acceptedAnswer": {
+        name: "연봉 5,000만 원이면 실제 월 실수령액은 얼마인가요?",
+        acceptedAnswer: {
           "@type": "Answer",
-          "text": "부양가족 1인(본인), 비과세 식대 월 20만 원 기준 세전 월급은 약 416.7만 원이며, 4대 보험과 소득세로 약 62만 원이 공제되어 실제 월 실수령액은 약 354.6만 원입니다."
-        }
+          text: "월 식대 20만 원 비과세, 부양가족 본인 1인 기준 월 세전 급여는 416.7만 원이며, 4대 보험과 소득세로 약 62만 원이 공제되어 실제 월 실수령액은 약 354.6만 원입니다.",
+        },
       },
       {
         "@type": "Question",
-        "name": "연봉 1억 원의 월 실수령액이 660만 원대인 이유는 무엇인가요?",
-        "acceptedAnswer": {
+        name: "식대는 모든 직장인이 비과세 혜택을 받나요?",
+        acceptedAnswer: {
           "@type": "Answer",
-          "text": "연봉 1억 원은 세전 월급이 약 833.3만 원이지만, 누진 소득세율과 4대 보험료 합산으로 매월 약 169만 원 가량이 공제되므로 실제 통장 입금액은 약 664만 원 수준이 됩니다."
-        }
+          text: "회사가 구내식당 등 식사를 별도 제공하지 않고 식대 명목으로 지급하는 경우, 월 20만 원 한도 내에서 비과세 처리가 가능합니다. 근로계약서와 급여명세서를 확인하세요.",
+        },
       },
       {
         "@type": "Question",
-        "name": "식대 비과세 월 20만 원은 어떻게 절세 효과를 만드나요?",
-        "acceptedAnswer": {
+        name: "가장 정확한 내 실수령액은 어떻게 확인하나요?",
+        acceptedAnswer: {
           "@type": "Answer",
-          "text": "식대 비과세는 소득세뿐 아니라 4대 보험(국민연금, 건강보험, 고용보험) 부과 기준 금액에서도 제외되므로 매월 약 4~5만 원, 연간 50~60만 원 이상의 실질적인 세금 및 보험료 절감 혜택이 발생합니다."
-        }
-      }
-    ]
+          text: "삼촌생각 연봉 실수령액 계산기에서 본인의 부양가족 수와 비과세액을 적용해 즉시 모의 계산해 볼 수 있습니다.",
+        },
+      },
+    ],
   };
 
   return (
-    <article className="max-w-3xl mx-auto flex flex-col gap-12 pb-16">
-      {/* 구조화 데이터 스키마 */}
+    <article className="salary-guide overflow-hidden pb-12">
       <Script
-        id="article-schema"
+        id="salary-article-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
       <Script
-        id="faq-schema"
+        id="salary-faq-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* 빵부스러기 (Breadcrumb) */}
-      <nav className="w-full text-sm font-medium text-zinc-500 mb-[-1.5rem]">
-        <Link href="/" className="hover:text-blue-600 transition-colors">
-          홈
-        </Link>
-        <span className="mx-2">/</span>
-        <span className="text-zinc-400">생활 가이드</span>
-        <span className="mx-2">/</span>
-        <span className="text-zinc-800 font-semibold">연봉 실수령액</span>
-      </nav>
-
-      {/* 헤더 섹션 */}
-      <header className="flex flex-col gap-4 border-b border-zinc-100 pb-8">
-        <div className="flex items-center gap-2">
-          <span className="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-extrabold rounded-full tracking-wide">
-            세무·노무 알짜 정보
-          </span>
-          <span className="text-xs text-zinc-400">2026.09.22 업데이트</span>
+      {/* 1. Header (Editorial Warm Canvas) */}
+      <header className="mb-20 grid gap-10 border-b border-zinc-200/70 pb-14 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
+        <div className="break-keep-all">
+          <nav className="mb-8 flex items-center gap-2 text-xs font-semibold text-zinc-400">
+            <Link href="/" className="hover:text-[#c55232] transition-colors">홈</Link>
+            <Icon icon="solar:alt-arrow-right-linear" />
+            <span>생활 가이드</span>
+            <Icon icon="solar:alt-arrow-right-linear" />
+            <span className="text-zinc-700">연봉 실수령액</span>
+          </nav>
+          
+          <p className="mb-5 inline-flex rounded-full bg-[#c55232]/10 px-3.5 py-1.5 text-[11px] font-bold tracking-[.14em] text-[#a74126]">
+            2026 SALARY GUIDE
+          </p>
+          
+          <h1 className="max-w-3xl text-[2.6rem] font-extrabold leading-[1.16] tracking-[-.055em] text-zinc-950 sm:text-5xl lg:text-[4.2rem]">
+            연봉은 숫자고,<br />
+            <span className="font-serif italic font-medium text-[#c55232]">실수령액</span>은 생활입니다.
+          </h1>
+          
+          <p className="mt-7 max-w-xl text-base leading-8 text-zinc-600 sm:text-lg">
+            3,000만 원부터 1억 원까지. 통장에 실제로 찍히는 진짜 월급과 빠져나가는 4대 보험·세금 공제액을 한눈에 정리했습니다.
+          </p>
+          
+          <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-zinc-500">
+            <span className="flex items-center gap-2">
+              <Icon icon="solar:calendar-mark-bold-duotone" className="text-[#c55232]" />
+              2026.09.22 업데이트
+            </span>
+            <span className="flex items-center gap-2">
+              <Icon icon="solar:clock-circle-bold-duotone" className="text-[#c55232]" />
+              읽는 시간 4분
+            </span>
+          </div>
         </div>
-        
-        <h1 className="text-3xl sm:text-4xl md:text-[40px] font-extrabold text-zinc-900 leading-[1.25] tracking-tight [text-wrap:balance]">
-          2026년 연봉 실수령액 표 총정리: <br className="hidden sm:inline" />
-          3,000만~1억 구간별 월급 & 공제액 분석
-        </h1>
 
-        <div className="flex items-center gap-3 pt-2 text-xs text-zinc-500 font-medium">
-          <span className="flex items-center gap-1.5 text-zinc-700 font-semibold">
-            <Icon icon="solar:user-circle-bold-duotone" className="text-base text-blue-600" />
-            삼촌생각 에디터
-          </span>
-          <span>•</span>
-          <span>읽는 시간 약 3분</span>
+        {/* Hero Artwork Frame */}
+        <div className="relative aspect-[5/4] overflow-hidden rounded-[2rem] bg-[#ede8df] p-2 shadow-[0_25px_60px_-32px_rgba(67,45,34,.38)]">
+          <Image
+            src="/images/salary-guide-thumbnail.jpg"
+            alt="2026 연봉 실수령액 안내"
+            fill
+            priority
+            className="rounded-[1.55rem] object-cover"
+          />
+          <div className="absolute bottom-5 left-5 rounded-full bg-[#fdfbf7]/90 backdrop-blur-md px-4 py-2 text-xs font-bold text-zinc-800 shadow-sm">
+            기준일 2026.09
+          </div>
         </div>
       </header>
 
-      {/* 대표 썸네일 이미지 */}
-      <div className="relative w-full aspect-video rounded-3xl overflow-hidden shadow-sm border border-zinc-200/60 bg-zinc-50">
-        <Image
-          src="/images/salary-guide-thumbnail.jpg"
-          alt="2026년 연봉 구간별 실수령액 및 공제액 비교 분석 인포그래픽"
-          fill
-          priority
-          className="object-cover"
-        />
-      </div>
+      {/* 2. Key Stats Strip */}
+      <section className="mb-24 grid gap-6 border-y border-zinc-200/80 py-8 sm:grid-cols-3">
+        {[
+          { number: "4.5%", label: "국민연금 근로자 부담", detail: "기준소득월액 상한(617만 원) 적용" },
+          { number: "4.004%", label: "건강·장기요양 합산", detail: "건보 3.545% + 요양 12.95%" },
+          { number: "20만 원", label: "월 식대 비과세 한도", detail: "연간 240만 원 과세 제외 혜택" },
+        ].map((item, idx) => (
+          <div key={idx} className="border-zinc-200/80 px-1 sm:border-r sm:px-7 sm:last:border-0">
+            <p className="text-3xl sm:text-4xl font-extrabold tracking-[-.05em] text-zinc-950">{item.number}</p>
+            <p className="mt-2 text-sm font-bold text-zinc-800">{item.label}</p>
+            <p className="mt-1 text-xs text-zinc-500">{item.detail}</p>
+          </div>
+        ))}
+      </section>
 
-      {/* 모던 4분할 핵심 구간 요약 카드 (이전의 투박한 불릿박스 완전 교체) */}
-      <section className="flex flex-col gap-3">
-        <div className="flex items-center justify-between px-1">
-          <h2 className="text-base font-extrabold text-zinc-900 flex items-center gap-2">
-            <Icon icon="solar:star-fall-bold-duotone" className="text-blue-600 text-lg" />
-            <span>한눈에 보는 주요 연봉 실수령액</span>
+      {/* 3. Quick Answer with Dark Contrast Bezel Card */}
+      <section className="mb-24 grid gap-10 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
+        <div className="break-keep-all">
+          <p className="text-xs font-bold tracking-[.16em] text-[#c55232]">QUICK ANSWER</p>
+          <h2 className="mt-4 text-3xl font-extrabold leading-snug tracking-[-.045em] text-zinc-950 sm:text-4xl">
+            내 연봉의 진짜 월급은<br />얼마일까요?
           </h2>
-          <span className="text-xs text-zinc-400 font-medium">식대 20만 원 비과세 기준</span>
+          <p className="mt-5 max-w-md leading-7 text-zinc-600">
+            부양가족 본인 1명, 퇴직금 별도, 월 식대 20만 원 비과세를 가정한 표준 시뮬레이션입니다.
+          </p>
+          <Link
+            href="/salary-calculator"
+            className="mt-8 inline-flex min-h-12 items-center gap-3 rounded-full bg-[#c55232] py-2.5 pl-6 pr-2 text-sm font-bold text-white shadow-[0_14px_30px_-15px_rgba(197,82,50,.7)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.02] active:scale-[.98]"
+          >
+            <span>내 조건으로 계산하기</span>
+            <span className="grid size-8 place-items-center rounded-full bg-white/20">
+              <Icon icon="solar:arrow-right-linear" />
+            </span>
+          </Link>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {[
-            { salary: "연봉 3,000만", monthlyNet: "223.6만", gross: "세전 250만", tag: "초년생" },
-            { salary: "연봉 5,000만", monthlyNet: "354.6만", gross: "세전 416만", tag: "대리/과장" },
-            { salary: "연봉 7,000만", monthlyNet: "481.1만", gross: "세전 583만", tag: "차장/팀장" },
-            { salary: "연봉 1억 원", monthlyNet: "664.1만", gross: "세전 833만", tag: "고소득 구간" },
-          ].map((item, idx) => (
-            <div
-              key={idx}
-              className="bg-white border border-zinc-200/80 rounded-2xl p-4 flex flex-col justify-between shadow-xs hover:border-blue-300 hover:shadow-sm transition-all duration-300"
-            >
+        {/* Contrast Bezel Highlight Card */}
+        <div className="rounded-[2rem] bg-[#292520] p-2 shadow-[0_30px_70px_-35px_rgba(41,37,32,.7)]">
+          <div className="rounded-[1.6rem] border border-white/10 bg-[#332e29] p-7 text-[#fdfbf7] sm:p-9">
+            <div className="flex items-start justify-between">
               <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-xs font-bold text-zinc-500">{item.salary}</span>
-                  <span className="text-[10px] font-bold px-1.5 py-0.5 bg-zinc-100 text-zinc-600 rounded">
-                    {item.tag}
-                  </span>
-                </div>
-                <div className="text-xl sm:text-2xl font-extrabold text-blue-600 tracking-tight my-1">
-                  {item.monthlyNet}
-                  <span className="text-xs font-bold text-zinc-500 ml-0.5">원</span>
-                </div>
+                <p className="text-xs font-bold tracking-[.15em] text-[#e8b3a2]">EXAMPLE</p>
+                <h3 className="mt-2 text-xl font-bold">연봉 5,000만 원 기준</h3>
               </div>
-              <p className="text-[11px] text-zinc-400 font-medium mt-2 pt-2 border-t border-zinc-100">
-                {item.gross}
-              </p>
+              <Icon icon="solar:wallet-money-bold-duotone" width="38" className="text-[#e8b3a2]" />
             </div>
-          ))}
+            
+            <p className="mt-8 text-sm text-[#d8d0c7]">예상 월 실수령액</p>
+            <p className="mt-1 text-5xl font-extrabold tracking-[-.07em] text-white">
+              354.6<span className="ml-1.5 text-xl font-normal text-[#d8d0c7]">만 원</span>
+            </p>
+            
+            <div className="mt-8 grid grid-cols-2 border-t border-white/10 pt-5 text-sm">
+              <div>
+                <p className="text-[#b9aea4] text-xs font-medium">4대 보험 합계</p>
+                <p className="mt-1 font-bold text-white">약 37.2만 원</p>
+              </div>
+              <div className="border-l border-white/10 pl-5">
+                <p className="text-[#b9aea4] text-xs font-medium">소득세·지방세</p>
+                <p className="mt-1 font-bold text-white">약 24.9만 원</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* 상호작용 CTA 위젯 (계산기로 유도) */}
-      <div className="bg-blue-600 text-white rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
-        <div>
-          <h3 className="text-lg font-bold mb-1">내 정확한 연봉으로 1초 계산해 보기</h3>
-          <p className="text-sm text-blue-100">부양가족 수와 비과세액을 적용해 실제 내 통장 입금액을 확인하세요.</p>
+      {/* 4. Salary Table Section */}
+      <section className="mb-24">
+        <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <p className="text-xs font-bold tracking-[.16em] text-[#c55232]">SALARY TABLE</p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-[-.045em] text-zinc-950 sm:text-4xl">
+              연봉 구간별 예상 실수령액
+            </h2>
+          </div>
+          <p className="max-w-sm text-xs leading-5 text-zinc-500">
+            원 단위는 반올림했습니다. 실제 원천징수액은 회사의 세부 급여 규정과 가족 공제에 따라 다소 달라질 수 있습니다.
+          </p>
         </div>
-        <Link
-          href="/salary-calculator"
-          className="bg-white text-blue-600 font-extrabold text-sm px-6 py-3.5 rounded-full hover:bg-blue-50 transition-all duration-300 shadow-sm whitespace-nowrap flex items-center gap-2 group"
-        >
-          <span>계산기 바로가기</span>
-          <Icon icon="solar:arrow-right-linear" className="group-hover:translate-x-1 transition-transform" />
-        </Link>
-      </div>
 
-      {/* 본문 섹션 1: 연봉 구간별 실수령액 종합 비교표 */}
-      <section className="flex flex-col gap-4">
-        <h2 className="text-2xl font-extrabold text-zinc-900 tracking-tight flex items-center gap-2">
-          <span>📊</span>
-          <span>2026년 연봉 구간별 실수령액 종합 비교표</span>
-        </h2>
-        <p className="text-[15px] text-zinc-600 leading-relaxed">
-          본 표는 <strong>부양가족 1인(본인 기준), 비과세 식대 월 20만 원, 퇴직금 별도</strong> 조건으로 계산된 표준 수치입니다.
-        </p>
-
-        {/* 반응형 테이블 */}
-        <div className="overflow-x-auto rounded-2xl border border-zinc-200/80 shadow-xs mt-2">
-          <table className="w-full text-left text-xs sm:text-sm">
-            <thead className="bg-zinc-50 border-b border-zinc-200 text-zinc-700 font-bold">
+        <div className="overflow-x-auto rounded-[1.75rem] border border-zinc-200 bg-white shadow-[0_18px_40px_-30px_rgba(66,51,41,.2)]">
+          <table className="min-w-[650px] w-full text-left text-sm">
+            <thead className="bg-[#f3efe8] text-xs font-bold text-zinc-600">
               <tr>
-                <th className="py-3.5 px-4">세전 연봉</th>
-                <th className="py-3.5 px-4">월 세전 급여</th>
-                <th className="py-3.5 px-4">4대 보험 합계</th>
-                <th className="py-3.5 px-4">소득세·지방세</th>
-                <th className="py-3.5 px-4">총 공제액</th>
-                <th className="py-3.5 px-4 text-blue-600 font-extrabold">예상 월 실수령액</th>
+                <th className="px-6 py-5">세전 연봉</th>
+                <th className="px-5 py-5">월 세전 급여</th>
+                <th className="px-5 py-5">4대 보험료</th>
+                <th className="px-5 py-5">소득·지방세</th>
+                <th className="px-6 py-5 text-right text-[#a74126]">예상 월 실수령액</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-100 text-zinc-600 font-medium">
-              {[
-                { annual: "3,000만 원", gross: "250.0만", insurance: "21.6만", tax: "4.8만", deduction: "26.4만", net: "223.6만 원" },
-                { annual: "3,500만 원", gross: "291.6만", insurance: "25.5만", tax: "8.5만", deduction: "34.0만", net: "257.6만 원" },
-                { annual: "4,000만 원", gross: "333.3만", insurance: "29.4만", tax: "12.8만", deduction: "42.2만", net: "291.1만 원" },
-                { annual: "4,500만 원", gross: "375.0만", insurance: "33.3만", tax: "17.6만", deduction: "50.9만", net: "324.1만 원" },
-                { annual: "5,000만 원", gross: "416.7만", insurance: "37.2만", tax: "24.9만", deduction: "62.1만", net: "354.6만 원" },
-                { annual: "6,000만 원", gross: "500.0만", insurance: "45.0만", tax: "36.8만", deduction: "81.8만", net: "418.2만 원" },
-                { annual: "7,000만 원", gross: "583.3만", insurance: "52.8만", tax: "49.4만", deduction: "102.2만", net: "481.1만 원" },
-                { annual: "8,000만 원", gross: "666.7만", insurance: "58.1만", tax: "64.8만", deduction: "122.9만", net: "543.8만 원" },
-                { annual: "9,000만 원", gross: "750.0만", insurance: "65.9만", tax: "80.4만", deduction: "146.3만", net: "603.7만 원" },
-                { annual: "1억 원", gross: "833.3만", insurance: "73.7만", tax: "95.5만", deduction: "169.2만", net: "664.1만 원" },
-              ].map((row, idx) => (
-                <tr key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-zinc-50/50"}>
-                  <td className="py-3 px-4 font-bold text-zinc-900">{row.annual}</td>
-                  <td className="py-3 px-4">{row.gross}</td>
-                  <td className="py-3 px-4">{row.insurance}</td>
-                  <td className="py-3 px-4">{row.tax}</td>
-                  <td className="py-3 px-4 text-red-500 font-semibold">-{row.deduction}</td>
-                  <td className="py-3 px-4 font-extrabold text-blue-600">{row.net}</td>
+            <tbody className="divide-y divide-zinc-100">
+              {salaryRows.map((row) => (
+                <tr key={row.annual} className={row.highlight ? "bg-[#fdf5f1]" : "hover:bg-zinc-50/50 transition-colors"}>
+                  <td className="px-6 py-5 font-extrabold text-zinc-900">{row.annual} 원</td>
+                  <td className="px-5 py-5 text-zinc-600">{row.gross}</td>
+                  <td className="px-5 py-5 text-zinc-600">{row.insurance}</td>
+                  <td className="px-5 py-5 text-zinc-600">{row.tax}</td>
+                  <td className="px-6 py-5 text-right text-lg font-extrabold tracking-tight text-[#a74126]">
+                    {row.net} 원
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -243,115 +244,128 @@ export default function SalaryGuidePage() {
         </div>
       </section>
 
-      {/* 본문 섹션 2: 4대 보험과 소득세 상세 분석 */}
-      <section className="flex flex-col gap-4">
-        <h2 className="text-2xl font-extrabold text-zinc-900 tracking-tight flex items-center gap-2">
-          <span>🔍</span>
-          <span>내 월급에서 빠져나가는 공제 항목 완벽 분석</span>
-        </h2>
-        <p className="text-[15px] text-zinc-600 leading-relaxed">
-          매월 급여에서 차감되는 4대 보험과 세금은 다음과 같은 공식 기준에 따라 산정됩니다:
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
-          <div className="p-5 bg-white rounded-2xl border border-zinc-200/80 shadow-xs">
-            <h3 className="font-bold text-zinc-900 text-base mb-2 flex items-center gap-1.5">
-              <Icon icon="solar:shield-check-bold-duotone" className="text-blue-600" />
-              국민연금 (4.5%)
-            </h3>
-            <p className="text-xs text-zinc-600 leading-relaxed">
-              근로자와 사업주가 각각 4.5%씩 부담합니다. 기준소득월액 상한액(617만 원)이 적용되어 월 최대 약 27만 7천 원까지만 공제됩니다.
-            </p>
-          </div>
-
-          <div className="p-5 bg-white rounded-2xl border border-zinc-200/80 shadow-xs">
-            <h3 className="font-bold text-zinc-900 text-base mb-2 flex items-center gap-1.5">
-              <Icon icon="solar:heart-bold-duotone" className="text-blue-600" />
-              건강보험 & 장기요양보험
-            </h3>
-            <p className="text-xs text-zinc-600 leading-relaxed">
-              건강보험료율은 <strong>3.545%</strong>이며, 장기요양보험료는 건강보험료의 <strong>12.95%</strong>가 부과됩니다. 국민연금과 달리 상한선이 매우 높아 소득에 비례합니다.
-            </p>
-          </div>
-
-          <div className="p-5 bg-white rounded-2xl border border-zinc-200/80 shadow-xs">
-            <h3 className="font-bold text-zinc-900 text-base mb-2 flex items-center gap-1.5">
-              <Icon icon="solar:case-round-bold-duotone" className="text-blue-600" />
-              고용보험 (0.9%)
-            </h3>
-            <p className="text-xs text-zinc-600 leading-relaxed">
-              실업급여의 재원이 됩니다. 근로자 부담 요율은 비과세액을 제외한 과세 급여의 <strong>0.9%</strong>입니다.
-            </p>
-          </div>
-
-          <div className="p-5 bg-white rounded-2xl border border-zinc-200/80 shadow-xs">
-            <h3 className="font-bold text-zinc-900 text-base mb-2 flex items-center gap-1.5">
-              <Icon icon="solar:bill-list-bold-duotone" className="text-blue-600" />
-              근로소득세 & 지방소득세
-            </h3>
-            <p className="text-xs text-zinc-600 leading-relaxed">
-              국세청 간이세액표에 따라 부양가족 수와 소득 구간별로 차등 부과되며, 지방소득세는 소득세의 <strong>10%</strong>가 부과됩니다.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 본문 섹션 3: 식대 비과세 절세 팁 */}
-      <section className="flex flex-col gap-4">
-        <h2 className="text-2xl font-extrabold text-zinc-900 tracking-tight flex items-center gap-2">
-          <span>💡</span>
-          <span>식대 비과세 한도 월 20만 원의 실질적인 절세 효과</span>
-        </h2>
-        <p className="text-[15px] text-zinc-600 leading-relaxed">
-          월 20만 원의 식대 비과세는 연간 <strong>240만 원의 소득</strong>에 대해 소득세와 4대 보험료를 일절 부과하지 않는다는 뜻입니다.
-        </p>
-        <div className="p-5 bg-zinc-50 rounded-2xl border border-zinc-200/60 text-sm text-zinc-700 leading-relaxed">
-          <p className="font-bold text-zinc-900 mb-1">식대 비과세 처리가 누락되면?</p>
-          <p>
-            근로계약서상 비과세 식대가 분리되지 않고 기본급에 합산되면 매월 약 <strong>4~5만 원</strong> 이상의 세금과 4대 보험료를 불필요하게 더 내게 됩니다. 계약서 작성 시 식대 20만 원이 비과세 항목으로 올바르게 분리되어 있는지 꼭 확인하세요.
+      {/* 5. Editorial Breakdown: Why It Changes */}
+      <section className="mb-24 grid gap-12 lg:grid-cols-[1.1fr_.9fr]">
+        <div className="break-keep-all">
+          <p className="text-xs font-bold tracking-[.16em] text-[#c55232]">WHY IT CHANGES</p>
+          <h2 className="mt-3 text-3xl font-extrabold leading-snug tracking-[-.045em] text-zinc-950 sm:text-4xl">
+            같은 1,000만 원 인상이라도<br />통장에 남는 금액은 다릅니다.
+          </h2>
+          <p className="mt-6 max-w-xl leading-8 text-zinc-600">
+            연봉이 오를수록 누진 소득세율과 사회보험료가 가파르게 증가합니다. 다만 국민연금은 기준소득월액 상한선(617만 원)이 있어 고소득 구간부터 공제 증가 폭이 둔화됩니다.
           </p>
         </div>
+
+        <div className="space-y-3">
+          {[
+            { num: "01", title: "국민연금 상한액", desc: "근로자 부담분 4.5%가 적용되며, 월 상한액 약 27.7만 원까지만 공제됩니다." },
+            { num: "02", title: "건강보험 & 장기요양", desc: "상한선이 사실상 매우 높아 연봉이 늘어날수록 비례하여 공제액이 커집니다." },
+            { num: "03", title: "누진 소득세율", desc: "소득 구간에 따라 6%부터 최대 40% 이상까지 누진세율이 적용되어 실수령액 차이를 만듭니다." },
+          ].map((item) => (
+            <div key={item.num} className="flex gap-5 rounded-2xl border border-zinc-200/80 bg-white p-5 shadow-2xs">
+              <span className="font-serif text-2xl italic text-[#c55232]">{item.num}</span>
+              <div>
+                <h3 className="font-bold text-zinc-900">{item.title}</h3>
+                <p className="mt-1 text-sm leading-6 text-zinc-600">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
-      {/* FAQ 섹션 */}
-      <section className="flex flex-col gap-4 pt-4">
-        <h2 className="text-2xl font-extrabold text-zinc-900 tracking-tight flex items-center gap-2">
-          <span>❓</span>
-          <span>자주 묻는 질문 (FAQ)</span>
+      {/* 6. Tax-Free Meal Allowance (Oat Muted Panel) */}
+      <section className="mb-24 rounded-[2rem] bg-[#e8e3da] p-8 sm:p-12">
+        <div className="grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+          <div className="break-keep-all">
+            <p className="text-xs font-bold tracking-[.16em] text-[#a74126]">TAX-FREE MEAL ALLOWANCE</p>
+            <h2 className="mt-3 text-3xl font-extrabold leading-snug tracking-[-.045em] text-zinc-950 sm:text-4xl">
+              식대 20만 원 비과세를<br />그냥 넘기지 마세요.
+            </h2>
+          </div>
+          <div>
+            <p className="leading-8 text-zinc-700">
+              식사를 제공받지 않는 근로자에게 지급하는 식대는 월 20만 원까지 전액 비과세가 적용됩니다. 연간 240만 원의 과세 대상 급여가 줄어들어 매월 약 4~5만 원 이상의 세금 및 4대 보험료 절감 효과가 발생합니다.
+            </p>
+            <a
+              href="https://www.hometax.go.kr"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#a74126] hover:text-zinc-950 transition-colors"
+            >
+              <span>국세청 비과세 급여 기준 확인</span>
+              <Icon icon="solar:arrow-right-up-linear" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. FAQ Section (Accordion Details) */}
+      <section className="mb-24 max-w-3xl">
+        <p className="text-xs font-bold tracking-[.16em] text-[#c55232]">FAQ</p>
+        <h2 className="mt-3 text-3xl font-extrabold tracking-[-.045em] text-zinc-950 sm:text-4xl">
+          자주 묻는 질문
         </h2>
-
-        <div className="flex flex-col gap-3 mt-2">
-          <div className="p-5 bg-white rounded-2xl border border-zinc-200/80 shadow-xs">
-            <h3 className="font-bold text-zinc-900 text-base mb-2">
-              Q. 연봉 협상 시 퇴직금 별도와 포함의 차이는 얼마나 큰가요?
-            </h3>
-            <p className="text-sm text-zinc-600 leading-relaxed">
-              연봉 5,000만 원 기준, <strong>퇴직금 별도</strong>는 12개월로 나누어 월 세전 416.7만 원을 받지만, <strong>퇴직금 포함</strong>은 13으로 나누어 월 세전 약 384.6만 원만 받게 됩니다. 따라서 실수령액에서 매월 약 25~30만 원 가량의 큰 차이가 납니다.
-            </p>
-          </div>
-
-          <div className="p-5 bg-white rounded-2xl border border-zinc-200/80 shadow-xs">
-            <h3 className="font-bold text-zinc-900 text-base mb-2">
-              Q. 부양가족이나 미성년 자녀가 있으면 실수령액이 얼마나 늘어나나요?
-            </h3>
-            <p className="text-sm text-zinc-600 leading-relaxed">
-              부양가족 1인당 연간 150만 원의 인적공제가 적용되고, 미성년 자녀는 추가 세액공제가 반영되어 매월 떼이는 근로소득세가 줄어들게 됩니다. 그 결과 실제 월 실수령액이 약 2만~5만 원 가량 늘어납니다.
-            </p>
-          </div>
+        
+        <div className="mt-8 divide-y divide-zinc-200 border-y border-zinc-200">
+          {[
+            {
+              q: "연봉 5,000만 원이면 월 실수령액은 정확히 얼마인가요?",
+              a: "부양가족 본인 1명, 퇴직금 별도, 식대 20만 원 비과세 기준 약 354.6만 원입니다. 회사 급여 규정과 연말정산 공제 항목에 따라 약간의 차이가 있을 수 있습니다.",
+            },
+            {
+              q: "퇴직금 별도와 퇴직금 포함은 실수령액에 얼마나 차이가 나나요?",
+              a: "연봉 5,000만 원 기준 퇴직금 별도는 12분할(월 세전 416.7만 원)이지만, 포함은 13분할(월 세전 약 384.6만 원)로 계산되어 매월 약 25만 원 이상의 실수령액 차이가 납니다.",
+            },
+            {
+              q: "식대 비과세는 어떻게 적용받나요?",
+              a: "회사가 식사를 현물로 제공하지 않는 조건에서 급여 명세서상 식대 항목으로 분리 지급되어야 비과세 혜택이 적용됩니다.",
+            },
+          ].map((item) => (
+            <details key={item.q} className="group py-5">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-5 font-bold text-zinc-900">
+                <span>{item.q}</span>
+                <Icon icon="solar:add-circle-linear" className="shrink-0 text-xl text-[#c55232] transition-transform duration-300 group-open:rotate-45" />
+              </summary>
+              <p className="max-w-2xl pt-4 text-sm leading-7 text-zinc-600">
+                {item.a}
+              </p>
+            </details>
+          ))}
         </div>
       </section>
 
-      {/* 공식 출처 및 면책 안내 */}
-      <footer className="mt-8 pt-6 border-t border-zinc-200 text-xs text-zinc-400 flex flex-col gap-2">
-        <div className="flex flex-wrap gap-4 font-semibold text-zinc-500">
-          <span>참고 출처:</span>
-          <a href="https://www.hometax.go.kr" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 underline">국세청 홈택스 간이세액표</a>
-          <a href="https://www.nhis.or.kr" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 underline">국민건강보험공단</a>
-          <a href="https://www.nps.or.kr" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 underline">국민연금공단</a>
+      {/* 8. Final CTA (Dark Card with Glow) */}
+      <section className="relative overflow-hidden rounded-[2rem] bg-[#292520] px-7 py-12 text-center text-[#fdfbf7] sm:px-12 sm:py-16 shadow-[0_30px_70px_-35px_rgba(41,37,32,.7)]">
+        <div className="absolute -right-16 -top-20 size-64 rounded-full bg-[#c55232]/30 blur-3xl pointer-events-none" />
+        <div className="relative">
+          <p className="text-xs font-bold tracking-[.18em] text-[#e8b3a2]">YOUR NUMBER, NOT AN AVERAGE</p>
+          <h2 className="mx-auto mt-4 max-w-2xl break-keep-all text-3xl font-extrabold leading-snug tracking-[-.045em] sm:text-4xl text-white">
+            부양가족과 비과세액까지<br />
+            내 진짜 조건으로 확인하세요.
+          </h2>
+          <Link
+            href="/salary-calculator"
+            className="mt-8 inline-flex min-h-12 items-center gap-3 rounded-full bg-[#fdfbf7] py-2 pl-6 pr-2 text-sm font-bold text-zinc-900 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.02] active:scale-[.98]"
+          >
+            <span>연봉 실수령액 계산기</span>
+            <span className="grid size-8 place-items-center rounded-full bg-zinc-900 text-white">
+              <Icon icon="solar:arrow-right-linear" />
+            </span>
+          </Link>
         </div>
-        <p className="leading-relaxed">
-          ※ 본 가이드의 표와 계산값은 국세청 간이세액표와 2026년 기준 4대 보험 요율에 기반한 표준 시뮬레이션이며, 개인별 비과세 수당 및 세액공제 현황에 따라 실제 수령액과 약간의 차이가 있을 수 있습니다.
+      </section>
+
+      {/* 9. Footer References (E-E-A-T) */}
+      <footer className="mt-12 border-t border-zinc-200/80 pt-6 text-xs leading-6 text-zinc-500">
+        <p>
+          기준일: 2026년 9월 22일. 본 안내는 일반적인 급여 계산 정보를 제공하며, 법적·세무 자문을 대신하지 않습니다.
         </p>
+        <div className="mt-2 flex flex-wrap gap-4">
+          <span>공식 출처:</span>
+          <a className="underline hover:text-[#a74126]" href="https://www.hometax.go.kr" target="_blank" rel="noreferrer">국세청 홈택스</a>
+          <a className="underline hover:text-[#a74126]" href="https://www.nhis.or.kr" target="_blank" rel="noreferrer">국민건강보험공단</a>
+          <a className="underline hover:text-[#a74126]" href="https://www.nps.or.kr" target="_blank" rel="noreferrer">국민연금공단</a>
+        </div>
       </footer>
     </article>
   );

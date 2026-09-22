@@ -47,29 +47,29 @@ export default function RootLayout({
         {/* Pretendard Font */}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css" />
       </head>
-      <body className="antialiased bg-[#fdfdfd] text-[#111111] min-h-screen flex flex-col font-['Pretendard'] break-keep selection:bg-blue-100 selection:text-blue-900 transition-colors duration-500">
+      <body className="antialiased bg-[#fdfbf7] text-[#292520] min-h-screen flex flex-col font-['Pretendard'] break-keep selection:bg-[#c55232]/10 selection:text-[#a74126] transition-colors duration-500">
 
-        {/* Floating Glass Navigation (Supanova Style) */}
+        {/* Floating Glass Navigation (Warm Editorial Supanova Style) */}
         <div className="fixed top-0 left-0 right-0 z-50 px-4 pt-6 pointer-events-none flex justify-center">
-          <header className="pointer-events-auto bg-white/70 backdrop-blur-xl border border-black/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-full px-6 py-3 flex items-center justify-between w-full max-w-3xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+          <header className="pointer-events-auto bg-[#fdfbf7]/80 backdrop-blur-xl border border-zinc-200/70 shadow-[0_8px_30px_rgba(0,0,0,0.03)] rounded-full px-6 py-3 flex items-center justify-between w-full max-w-3xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
             
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 group">
               <span className="text-xl group-hover:scale-110 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom">
-                <Icon icon="solar:lightbulb-bold-duotone" style={{ color: '#2563eb' }} />
+                <Icon icon="solar:lightbulb-bold-duotone" style={{ color: '#c55232' }} />
               </span>
               <div className="flex items-baseline gap-1.5">
-                <span className="font-extrabold text-lg tracking-tight text-zinc-900 group-hover:text-blue-600 transition-colors duration-500">
+                <span className="font-extrabold text-lg tracking-tight text-zinc-900 group-hover:text-[#c55232] transition-colors duration-500">
                   삼촌생각
                 </span>
               </div>
             </Link>
             
             {/* Desktop Menu */}
-            <nav className="hidden sm:flex items-center gap-8 text-[15px] font-semibold text-zinc-500">
-              <Link href="/" className="hover:text-zinc-900 transition-colors duration-300">홈</Link>
-              <Link href="/vat-calculator" className="hover:text-zinc-900 transition-colors duration-300">도구</Link>
-              <span className="text-zinc-300 cursor-not-allowed">가이드</span>
+            <nav className="hidden sm:flex items-center gap-8 text-[15px] font-semibold text-zinc-600">
+              <Link href="/" className="hover:text-[#c55232] transition-colors duration-300">홈</Link>
+              <Link href="/salary-calculator" className="hover:text-[#c55232] transition-colors duration-300">계산기</Link>
+              <Link href="/guide/salary-table-2026" className="hover:text-[#c55232] transition-colors duration-300">가이드</Link>
             </nav>
             
             {/* Mobile Menu Icon */}
@@ -84,23 +84,23 @@ export default function RootLayout({
           {children}
         </main>
 
-        {/* 하단 푸터 (Minimalist Editorial) */}
-        <footer className="bg-white py-16 md:py-24 border-t border-black/5">
+        {/* 하단 푸터 (Warm Minimalist Editorial) */}
+        <footer className="bg-[#f4efe8]/60 py-16 md:py-24 border-t border-zinc-200/70">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
             <div className="text-center md:text-left">
               <p className="font-extrabold text-zinc-900 text-xl mb-2 flex items-center justify-center md:justify-start gap-2">
-                <Icon icon="solar:lightbulb-bold-duotone" style={{ color: '#2563eb' }} />
+                <Icon icon="solar:lightbulb-bold-duotone" style={{ color: '#c55232' }} />
                 <span>삼촌생각</span>
               </p>
-              <p className="text-[15px] text-zinc-500 font-medium">당신의 복잡한 셈을 1초 만에 해결해 드립니다.</p>
+              <p className="text-[15px] text-zinc-600 font-medium">당신의 복잡한 셈을 1초 만에 해결해 드립니다.</p>
             </div>
-            <div className="flex gap-6 text-[15px] font-semibold text-zinc-400">
+            <div className="flex gap-6 text-[15px] font-semibold text-zinc-500">
               <Link href="#" className="hover:text-zinc-900 transition-colors duration-300">이용약관</Link>
               <Link href="#" className="hover:text-zinc-900 transition-colors duration-300">개인정보처리방침</Link>
               <Link href="#" className="hover:text-zinc-900 transition-colors duration-300">문의하기</Link>
             </div>
           </div>
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 mt-12 pt-8 border-t border-black/5 text-center md:text-left text-sm text-zinc-400 font-medium tracking-wide">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 mt-12 pt-8 border-t border-zinc-200/70 text-center md:text-left text-sm text-zinc-400 font-medium tracking-wide">
             © 2026 Uncle Note. All rights reserved.
           </div>
         </footer>
