@@ -5,11 +5,34 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "삼촌생각 (Uncle Note) - 유용한 계산기 & 생활 가이드",
-  description: "삼촌생각(Uncle Note)에서 제공하는 실시간 부가세(VAT) 계산기 및 생활·세무 알짜 가이드",
+  metadataBase: new URL("https://unclenote.com"),
+  title: {
+    default: "삼촌생각 (Uncle Note) - 유용한 계산기 & 생활 가이드",
+    template: "%s | 삼촌생각 (Uncle Note)",
+  },
+  description: "가장 자주 쓰지만 매번 헷갈리는 금융, 세무 계산과 알짜 정보를 삼촌이 친절하고 정확하게 알려드립니다.",
+  keywords: ["삼촌생각", "Uncle Note", "연봉 실수령액 계산기", "부가세 계산기", "세무 계산기", "생활 가이드"],
+  alternates: {
+    canonical: "https://unclenote.com",
+  },
+  openGraph: {
+    title: "삼촌생각 (Uncle Note) - 유용한 계산기 & 생활 가이드",
+    description: "가장 자주 쓰지만 매번 헷갈리는 금융, 세무 계산과 알짜 정보를 삼촌이 친절하고 정확하게 알려드립니다.",
+    url: "https://unclenote.com",
+    siteName: "삼촌생각 (Uncle Note)",
+    locale: "ko_KR",
+    type: "website",
+  },
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
