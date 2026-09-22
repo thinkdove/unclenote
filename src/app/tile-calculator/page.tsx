@@ -363,7 +363,7 @@ export default function TileCalculatorPage() {
                     <label htmlFor={widthInputId} className="block text-xs font-bold text-zinc-600 mb-1.5">
                       가로 폭 (m)
                     </label>
-                    <div className="relative">
+                    <div className="editorial-input-box">
                       <input
                         id={widthInputId}
                         type="number"
@@ -371,11 +371,8 @@ export default function TileCalculatorPage() {
                         min="0.1"
                         value={widthM}
                         onChange={(e) => setWidthM(Math.max(0, Number(e.target.value)))}
-                        className="editorial-input text-right pr-9"
                       />
-                      <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-sm text-zinc-400 font-bold">
-                        m
-                      </span>
+                      <span className="input-unit">m</span>
                     </div>
                     <p className="text-[11px] text-zinc-400 mt-1">예: 1.8m (180cm)</p>
                   </div>
@@ -384,7 +381,7 @@ export default function TileCalculatorPage() {
                     <label htmlFor={lengthInputId} className="block text-xs font-bold text-zinc-600 mb-1.5">
                       세로 길이 (m)
                     </label>
-                    <div className="relative">
+                    <div className="editorial-input-box">
                       <input
                         id={lengthInputId}
                         type="number"
@@ -392,11 +389,8 @@ export default function TileCalculatorPage() {
                         min="0.1"
                         value={lengthM}
                         onChange={(e) => setLengthM(Math.max(0, Number(e.target.value)))}
-                        className="editorial-input text-right pr-9"
                       />
-                      <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-sm text-zinc-400 font-bold">
-                        m
-                      </span>
+                      <span className="input-unit">m</span>
                     </div>
                     <p className="text-[11px] text-zinc-400 mt-1">예: 2.4m (240cm)</p>
                   </div>
@@ -444,18 +438,15 @@ export default function TileCalculatorPage() {
                     <label className="block text-xs font-bold text-zinc-600 mb-1">
                       가로 폭 (m)
                     </label>
-                    <div className="relative">
+                    <div className="editorial-input-box">
                       <input
                         type="number"
                         step="0.1"
                         min="0.5"
                         value={widthM}
                         onChange={(e) => setWidthM(Math.max(0, Number(e.target.value)))}
-                        className="editorial-input text-right pr-7 sm:pr-8 text-sm sm:text-base"
                       />
-                      <span className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-400 font-bold">
-                        m
-                      </span>
+                      <span className="input-unit">m</span>
                     </div>
                   </div>
 
@@ -463,18 +454,15 @@ export default function TileCalculatorPage() {
                     <label className="block text-xs font-bold text-zinc-600 mb-1">
                       세로 길이 (m)
                     </label>
-                    <div className="relative">
+                    <div className="editorial-input-box">
                       <input
                         type="number"
                         step="0.1"
                         min="0.5"
                         value={lengthM}
                         onChange={(e) => setLengthM(Math.max(0, Number(e.target.value)))}
-                        className="editorial-input text-right pr-7 sm:pr-8 text-sm sm:text-base"
                       />
-                      <span className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-400 font-bold">
-                        m
-                      </span>
+                      <span className="input-unit">m</span>
                     </div>
                   </div>
 
@@ -482,7 +470,7 @@ export default function TileCalculatorPage() {
                     <label htmlFor={heightInputId} className="block text-xs font-bold text-zinc-600 mb-1">
                       천장 높이 (m)
                     </label>
-                    <div className="relative">
+                    <div className="editorial-input-box">
                       <input
                         id={heightInputId}
                         type="number"
@@ -490,11 +478,8 @@ export default function TileCalculatorPage() {
                         min="1.5"
                         value={heightM}
                         onChange={(e) => setHeightM(Math.max(0, Number(e.target.value)))}
-                        className="editorial-input text-right pr-7 sm:pr-8 text-sm sm:text-base"
                       />
-                      <span className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-400 font-bold">
-                        m
-                      </span>
+                      <span className="input-unit">m</span>
                     </div>
                   </div>
                 </div>
@@ -507,18 +492,15 @@ export default function TileCalculatorPage() {
                     </label>
                     <span className="text-xs text-zinc-400">타일 제외 면적</span>
                   </div>
-                  <div className="relative">
+                  <div className="editorial-input-box">
                     <input
                       type="number"
                       step="0.5"
                       min="0"
                       value={doorDeductionSqm}
                       onChange={(e) => setDoorDeductionSqm(Math.max(0, Number(e.target.value)))}
-                      className="editorial-input text-right pr-9"
                     />
-                    <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-sm text-zinc-400 font-bold">
-                      ㎡
-                    </span>
+                    <span className="input-unit">㎡</span>
                   </div>
                   <p className="text-[11px] text-zinc-400 mt-1">※ 일반 아파트 욕실문(약 1.5㎡) + 거울수납장 등 기본 2.0㎡ 차감</p>
                 </div>
@@ -553,16 +535,16 @@ export default function TileCalculatorPage() {
                   </button>
                 </div>
 
-                <div className="relative">
+                <div className="editorial-input-box">
                   <input
                     type="number"
                     step="0.5"
                     min="0.5"
                     value={directAreaSqm}
                     onChange={(e) => setDirectAreaSqm(Math.max(0, Number(e.target.value)))}
-                    className="editorial-input text-right pr-12 text-lg font-bold"
+                    className="!text-lg"
                   />
-                  <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-sm text-zinc-400 font-bold">
+                  <span className="input-unit !text-base">
                     {directUnit === 'sqm' ? '㎡' : '평'}
                   </span>
                 </div>
@@ -599,33 +581,39 @@ export default function TileCalculatorPage() {
                 <div className="grid grid-cols-3 gap-2">
                   <div>
                     <label className="block text-[11px] text-zinc-500 mb-1">가로 폭 (mm)</label>
-                    <input
-                      type="number"
-                      step="10"
-                      value={customTileWidthMm}
-                      onChange={(e) => setCustomTileWidthMm(Math.max(10, Number(e.target.value)))}
-                      className="editorial-input text-right pr-2 py-1 text-sm font-bold"
-                    />
+                    <div className="editorial-input-box !py-1 !px-2">
+                      <input
+                        type="number"
+                        step="10"
+                        value={customTileWidthMm}
+                        onChange={(e) => setCustomTileWidthMm(Math.max(10, Number(e.target.value)))}
+                      />
+                      <span className="input-unit !text-xs">mm</span>
+                    </div>
                   </div>
                   <div>
                     <label className="block text-[11px] text-zinc-500 mb-1">세로 높이 (mm)</label>
-                    <input
-                      type="number"
-                      step="10"
-                      value={customTileHeightMm}
-                      onChange={(e) => setCustomTileHeightMm(Math.max(10, Number(e.target.value)))}
-                      className="editorial-input text-right pr-2 py-1 text-sm font-bold"
-                    />
+                    <div className="editorial-input-box !py-1 !px-2">
+                      <input
+                        type="number"
+                        step="10"
+                        value={customTileHeightMm}
+                        onChange={(e) => setCustomTileHeightMm(Math.max(10, Number(e.target.value)))}
+                      />
+                      <span className="input-unit !text-xs">mm</span>
+                    </div>
                   </div>
                   <div>
                     <label className="block text-[11px] text-zinc-500 mb-1">1박스당 장수</label>
-                    <input
-                      type="number"
-                      min="1"
-                      value={customPiecesPerBox}
-                      onChange={(e) => setCustomPiecesPerBox(Math.max(1, Number(e.target.value)))}
-                      className="editorial-input text-right pr-2 py-1 text-sm font-bold"
-                    />
+                    <div className="editorial-input-box !py-1 !px-2">
+                      <input
+                        type="number"
+                        min="1"
+                        value={customPiecesPerBox}
+                        onChange={(e) => setCustomPiecesPerBox(Math.max(1, Number(e.target.value)))}
+                      />
+                      <span className="input-unit !text-xs">장</span>
+                    </div>
                   </div>
                 </div>
                 <p className="text-[11px] text-zinc-500">
@@ -634,22 +622,22 @@ export default function TileCalculatorPage() {
               </div>
             ) : (
               <>
-                {/* Category Filter Pills */}
-                <div className="flex gap-1.5 overflow-x-auto pb-1 text-xs">
+                {/* Category Filter Pills: 모바일에서 슬라이드 스크롤 없이 2x2 그리드로 한눈에 4종 선택, 데스크톱은 가로 배치 */}
+                <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 pt-1 pb-1">
                   {[
                     { id: 'all', label: '전체 (10종)' },
-                    { id: 'standard', label: '국민 표준 (300/600각)' },
-                    { id: 'large', label: '대형 & 빅슬랩 (800/1200각)' },
+                    { id: 'standard', label: '국민 표준 (300·600각)' },
+                    { id: 'large', label: '대형·빅슬랩 (800·1200각)' },
                     { id: 'point', label: '소형 & 쪽타일' },
                   ].map((cat) => (
                     <button
                       key={cat.id}
                       type="button"
                       onClick={() => setPresetCategory(cat.id as any)}
-                      className={`px-3 py-1.5 rounded-full font-bold whitespace-nowrap transition-all ${
+                      className={`px-2.5 py-2.5 rounded-xl text-xs font-bold text-center transition-all border leading-tight ${
                         presetCategory === cat.id
-                          ? 'bg-[#292520] text-white'
-                          : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
+                          ? 'bg-[#292520] text-white border-[#292520] shadow-sm ring-1 ring-[#292520]'
+                          : 'bg-[#fdfbf7] text-zinc-700 border-zinc-200 hover:bg-zinc-100 hover:border-zinc-300'
                       }`}
                     >
                       {cat.label}
@@ -658,7 +646,7 @@ export default function TileCalculatorPage() {
                 </div>
 
                 {/* Preset List */}
-                <div className="space-y-2 max-h-[380px] overflow-y-auto pr-1">
+                <div className="space-y-2 max-h-[380px] overflow-y-auto pr-1 mt-1">
                   {filteredPresets.map((preset) => {
                     const isSelected = !isCustomTile && selectedPresetId === preset.id;
                     return (
@@ -786,18 +774,15 @@ export default function TileCalculatorPage() {
                     onChange={(e) => setLossRate(Number(e.target.value))}
                     className="flex-1 accent-[#c55232] h-2 bg-zinc-200 rounded-lg cursor-pointer"
                   />
-                  <div className="relative w-20">
+                  <div className="editorial-input-box !py-1 !px-2.5 w-24">
                     <input
                       type="number"
                       min="0"
                       max="50"
                       value={lossRate}
                       onChange={(e) => setLossRate(Math.min(50, Math.max(0, Number(e.target.value))))}
-                      className="editorial-input text-right pr-6 py-1.5 text-sm"
                     />
-                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-zinc-400">
-                      %
-                    </span>
+                    <span className="input-unit">%</span>
                   </div>
                 </div>
               )}
@@ -811,7 +796,7 @@ export default function TileCalculatorPage() {
         </div>
 
         {/* Right: Calculation Results Card */}
-        <div className="lg:col-span-5 bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200/80 shadow-[0_12px_40px_rgba(0,0,0,0.04)] flex flex-col justify-between space-y-6">
+        <div className="lg:col-span-5 bg-white p-5 sm:p-8 rounded-3xl border border-zinc-200/80 shadow-[0_12px_40px_rgba(0,0,0,0.04)] flex flex-col justify-between space-y-6">
           <div>
             <div className="flex items-center justify-between pb-4 border-b border-zinc-100 mb-6">
               <span className="text-xs uppercase tracking-wider font-bold text-zinc-400">
@@ -823,7 +808,7 @@ export default function TileCalculatorPage() {
             </div>
 
             {/* Big Recommended Box Count Display */}
-            <div className="mb-6 text-center bg-[#fdfbf7] p-6 rounded-2xl border border-zinc-200/80">
+            <div className="mb-6 text-center bg-[#fdfbf7] p-5 sm:p-6 rounded-2xl border border-zinc-200/80">
               <p className="text-xs font-semibold text-zinc-500 mb-1.5">
                 실제 구매하셔야 할 권장 타일 박스
               </p>
@@ -902,7 +887,7 @@ export default function TileCalculatorPage() {
       </div>
 
       {/* Uncle's Pro Tile Tips */}
-      <section className="mt-16 space-y-6">
+      <section className="mt-14 space-y-6">
         <div className="border-b border-zinc-200/80 pb-4">
           <div className="flex items-center gap-2 text-xs font-bold tracking-wider text-[#c55232] uppercase mb-2">
             <Icon icon="solar:lightbulb-bold-duotone" width="20" height="20" />
@@ -913,57 +898,67 @@ export default function TileCalculatorPage() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white p-6 rounded-2xl border border-zinc-200/80 shadow-xs space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-[#c55232]/10 text-[#c55232] flex items-center justify-center font-black text-lg">
-              1
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <div className="bg-white p-5 sm:p-6 rounded-2xl border border-zinc-200/80 shadow-xs space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#c55232]/10 text-[#c55232] flex items-center justify-center font-black text-sm shrink-0">
+                1
+              </span>
+              <h3 className="text-base sm:text-lg font-bold text-[#292520] tracking-tight leading-snug">
+                로스율(Loss Rate)은 왜 최소 10%를 잡아야 할까요?
+              </h3>
             </div>
-            <h3 className="text-base font-bold text-[#292520]">
-              로스율(Loss Rate)은 왜 최소 10%를 잡아야 할까요?
-            </h3>
-            <p className="editorial-body text-zinc-600 text-sm">
+            <p className="text-[14px] sm:text-base text-zinc-600 leading-[1.75] break-keep">
               방이나 화장실 모서리는 타일 크기에 딱 맞아떨어지지 않아 무조건 그라인더나 타일 커터기로 잘라내야 합니다. 자르다 깨지는 타일, 코너 쪽 자투리, 유가(배수구) 주변 등 버려지는 자재가 생기기 때문에 <strong>직선 시공 시 10%, 셀프 시공은 15%</strong>를 기본으로 잡아야 공사 도중 타일이 부족해지는 대참사를 막을 수 있습니다. 단순한 직사각형 바닥이라도 <strong>최소 5%</strong>는 잡는 것이 안전합니다.
             </p>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl border border-zinc-200/80 shadow-xs space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-[#c55232]/10 text-[#c55232] flex items-center justify-center font-black text-lg">
-              2
+          <div className="bg-white p-5 sm:p-6 rounded-2xl border border-zinc-200/80 shadow-xs space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#c55232]/10 text-[#c55232] flex items-center justify-center font-black text-sm shrink-0">
+                2
+              </span>
+              <h3 className="text-base sm:text-lg font-bold text-[#292520] tracking-tight leading-snug">
+                규격별 박스당 수량 총정리 (300각부터 1200각까지)
+              </h3>
             </div>
-            <h3 className="text-base font-bold text-[#292520]">
-              규격별 박스당 수량 총정리 (300각부터 1200각까지)
-            </h3>
-            <p className="editorial-body text-zinc-600 text-sm">
-              국내 유통 타일은 1박스당 대개 1.44㎡(약 0.44평) 내외로 포장됩니다:
-              <br />• <strong>300×300 (300각): 16장</strong> (1.44㎡)
-              <br />• <strong>300×600 (300×600각): 8장</strong> (1.44㎡)
-              <br />• <strong>600×600 (600각): 4장</strong> (1.44㎡)
-              <br />• <strong>600×1200 / 1200×600: 2장</strong> (1.44㎡)
-              <br />• <strong>800×800 (800각): 3장</strong> (1.92㎡)
-              <br />• <strong>1200×1200 (1200각 빅슬랩): 2장</strong> (2.88㎡)
-            </p>
+            <div className="text-[14px] sm:text-base text-zinc-600 leading-[1.75] space-y-1">
+              <p>국내 유통 타일은 1박스당 대개 1.44㎡(약 0.44평) 내외로 포장됩니다:</p>
+              <div className="grid grid-cols-2 gap-1.5 pt-1 text-xs sm:text-sm font-semibold text-zinc-700 bg-zinc-50 p-3 rounded-xl border border-zinc-100">
+                <div>• 300각: 16장 (1.44㎡)</div>
+                <div>• 300×600: 8장 (1.44㎡)</div>
+                <div>• 600각: 4장 (1.44㎡)</div>
+                <div>• 600×1200: 2장 (1.44㎡)</div>
+                <div>• 800각: 3장 (1.92㎡)</div>
+                <div>• 1200각: 2장 (2.88㎡)</div>
+              </div>
+            </div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl border border-zinc-200/80 shadow-xs space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-[#c55232]/10 text-[#c55232] flex items-center justify-center font-black text-lg">
-              3
+          <div className="bg-white p-5 sm:p-6 rounded-2xl border border-zinc-200/80 shadow-xs space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#c55232]/10 text-[#c55232] flex items-center justify-center font-black text-sm shrink-0">
+                3
+              </span>
+              <h3 className="text-base sm:text-lg font-bold text-[#292520] tracking-tight leading-snug">
+                대형 타일(800각·1200각) 시공 시 무게 & 양중 주의!
+              </h3>
             </div>
-            <h3 className="text-base font-bold text-[#292520]">
-              대형 타일(800각·1200각) 시공 시 무게 & 양중 주의!
-            </h3>
-            <p className="editorial-body text-zinc-600 text-sm">
+            <p className="text-[14px] sm:text-base text-zinc-600 leading-[1.75] break-keep">
               800각 타일 1박스는 약 44kg, 1200각은 1박스에 60kg을 넘어갑니다. 성인 남성 혼자 들기도 버거우며, 화물 택배 기사님이 엘리베이터가 없으면 절대 올려주지 않고 1층에 하역합니다. 사다리차나 자재 곰방(양중) 인건비 계획을 반드시 세우셔야 합니다.
             </p>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl border border-zinc-200/80 shadow-xs space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-[#c55232]/10 text-[#c55232] flex items-center justify-center font-black text-lg">
-              4
+          <div className="bg-white p-5 sm:p-6 rounded-2xl border border-zinc-200/80 shadow-xs space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#c55232]/10 text-[#c55232] flex items-center justify-center font-black text-sm shrink-0">
+                4
+              </span>
+              <h3 className="text-base font-bold text-[#292520] tracking-tight leading-snug">
+                나중에 1박스만 추가 주문하면 생기는 문제 (이색 현상)
+              </h3>
             </div>
-            <h3 className="text-base font-bold text-[#292520]">
-              나중에 1박스만 추가 주문하면 생기는 문제 (이색 현상)
-            </h3>
-            <p className="editorial-body text-zinc-600 text-sm">
+            <p className="text-[14px] sm:text-base text-zinc-600 leading-[1.75] break-keep">
               타일은 구워내는 날짜와 가마 온도에 따라 생산 로트(Lot) 번호가 달라집니다. 같은 브랜드의 같은 모델명이라도 몇 주 뒤에 추가 주문하면 미세하게 색상 톤이 달라서 벽이나 바닥에 붙였을 때 얼룩덜룩하게 티가 납니다. 남으면 반품하거나 창고에 1~2장 보관(보수용)하더라도 <strong>반드시 한 번에 여유 있게 1~2박스 더 주문</strong>하는 것이 철칙입니다.
             </p>
           </div>
