@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Icon } from '@iconify/react';
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,63 +16,65 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className="antialiased bg-zinc-50 text-zinc-900 min-h-screen flex flex-col font-sans selection:bg-blue-100 selection:text-blue-900">
-        {/* 상단 네비게이션 (GNB) */}
-        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-zinc-200 shadow-sm transition-all">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-            {/* 로고 영역 */}
+      <head>
+        {/* Pretendard Font */}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css" />
+      </head>
+      <body className="antialiased bg-[#fdfdfd] text-[#111111] min-h-screen flex flex-col font-['Pretendard'] break-keep selection:bg-blue-100 selection:text-blue-900 transition-colors duration-500">
+
+        {/* Floating Glass Navigation (Supanova Style) */}
+        <div className="fixed top-0 left-0 right-0 z-50 px-4 pt-6 pointer-events-none flex justify-center">
+          <header className="pointer-events-auto bg-white/70 backdrop-blur-xl border border-black/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-full px-6 py-3 flex items-center justify-between w-full max-w-3xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+            
+            {/* Logo */}
             <Link href="/" className="flex items-center gap-2 group">
-              <span className="text-2xl group-hover:scale-110 transition-transform origin-bottom">💡</span>
+              <span className="text-xl group-hover:scale-110 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom">
+                <Icon icon="solar:lightbulb-bold-duotone" style={{ color: '#2563eb' }} />
+              </span>
               <div className="flex items-baseline gap-1.5">
-                <span className="font-extrabold text-xl tracking-tight text-blue-600 group-hover:text-blue-700 transition-colors">
+                <span className="font-extrabold text-lg tracking-tight text-zinc-900 group-hover:text-blue-600 transition-colors duration-500">
                   삼촌생각
-                </span>
-                <span className="font-semibold text-xs tracking-wider text-zinc-500 uppercase">
-                  Uncle Note
                 </span>
               </div>
             </Link>
             
-            {/* 메뉴 영역 */}
-            <nav className="hidden sm:flex items-center gap-6 text-sm font-semibold text-zinc-600">
-              <Link href="/" className="hover:text-blue-600 transition-colors">홈</Link>
-              <Link href="/vat-calculator" className="hover:text-blue-600 transition-colors">계산기 도구</Link>
-              <span className="text-zinc-400 cursor-not-allowed">알짜 가이드</span>
+            {/* Desktop Menu */}
+            <nav className="hidden sm:flex items-center gap-8 text-[15px] font-semibold text-zinc-500">
+              <Link href="/" className="hover:text-zinc-900 transition-colors duration-300">홈</Link>
+              <Link href="/vat-calculator" className="hover:text-zinc-900 transition-colors duration-300">도구</Link>
+              <span className="text-zinc-300 cursor-not-allowed">가이드</span>
             </nav>
             
-            {/* 모바일 햄버거 아이콘 (장식용) */}
-            <button className="sm:hidden p-2 text-zinc-600">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-              </svg>
+            {/* Mobile Menu Icon */}
+            <button className="sm:hidden p-1 text-zinc-600 flex items-center justify-center">
+              <Icon icon="solar:hamburger-menu-linear" width="24" height="24" />
             </button>
-          </div>
-        </header>
+          </header>
+        </div>
 
-        {/* 메인 콘텐츠 */}
-        <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        {/* 메인 콘텐츠 (여백 대폭 확보) */}
+        <main className="flex-1 w-full mx-auto px-4 sm:px-6 pt-32 pb-24 md:py-40 max-w-5xl">
           {children}
         </main>
 
-        {/* 하단 푸터 (Footer) */}
-        <footer className="border-t border-zinc-200 bg-white py-12">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
+        {/* 하단 푸터 (Minimalist Editorial) */}
+        <footer className="bg-white py-16 md:py-24 border-t border-black/5">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
             <div className="text-center md:text-left">
-              <p className="font-bold text-zinc-800 text-lg mb-1">
-                삼촌생각 <span className="text-zinc-300 font-normal">|</span> <span className="text-zinc-500 text-base">Uncle Note</span>
+              <p className="font-extrabold text-zinc-900 text-xl mb-2 flex items-center justify-center md:justify-start gap-2">
+                <Icon icon="solar:lightbulb-bold-duotone" style={{ color: '#2563eb' }} />
+                <span>삼촌생각</span>
               </p>
-              <p className="text-sm text-zinc-500">당신의 복잡한 셈을 1초 만에 해결해 드립니다.</p>
+              <p className="text-[15px] text-zinc-500 font-medium">당신의 복잡한 셈을 1초 만에 해결해 드립니다.</p>
             </div>
-            <div className="flex gap-4 text-sm font-medium text-zinc-500">
-              <Link href="#" className="hover:text-zinc-900 transition-colors">이용약관</Link>
-              <Link href="#" className="hover:text-zinc-900 transition-colors">개인정보처리방침</Link>
-              <Link href="#" className="hover:text-zinc-900 transition-colors">문의하기</Link>
+            <div className="flex gap-6 text-[15px] font-semibold text-zinc-400">
+              <Link href="#" className="hover:text-zinc-900 transition-colors duration-300">이용약관</Link>
+              <Link href="#" className="hover:text-zinc-900 transition-colors duration-300">개인정보처리방침</Link>
+              <Link href="#" className="hover:text-zinc-900 transition-colors duration-300">문의하기</Link>
             </div>
           </div>
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 mt-8 pt-8 border-t border-zinc-100 text-center md:text-left text-xs text-zinc-400">
-            © 2026 삼촌생각 (Uncle Note). All rights reserved. 본 사이트의 모든 계산기는 참고용이며, 법적 효력을 갖지 않습니다.
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 mt-12 pt-8 border-t border-black/5 text-center md:text-left text-sm text-zinc-400 font-medium tracking-wide">
+            © 2026 Uncle Note. All rights reserved.
           </div>
         </footer>
       </body>
