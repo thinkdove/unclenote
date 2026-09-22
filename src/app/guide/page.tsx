@@ -12,13 +12,14 @@ export const metadata: Metadata = {
 
 const GUIDES = [
   {
-    slug: 'severance-pay-guide-2026',
-    title: '2026년 퇴직금 계산법 총정리: 평균임금 계산식부터 세금 절세 팁까지',
-    description: '입사일과 퇴사일 기준 1일 평균임금 계산법, 지급 기한(14일)과 지연이자, IRP 계좌 이전으로 퇴직소득세 30% 감면받는 실전 꿀팁을 전해드립니다.',
-    category: '노무·세무',
+    slug: 'salary-percentile-2026',
+    title: '2026년 대한민국 연봉 통계, 나는 상위 몇%? (국세청 2,085만 명 전수조사 팩트)',
+    description: '국세청 연말정산 전수조사 2,085만 명 공식 데이터를 바탕으로 내 연봉의 상위 백분위를 실시간 계산하고, 대한민국 평균(4,332만)과 중위(3,213만) 소득의 진실을 분석합니다.',
+    category: '경제·연봉 통계',
     date: '2026.09.22',
-    thumbnail: '/images/salary-guide-thumbnail.jpg', // fallback image
-    icon: 'solar:wallet-money-bold-duotone',
+    thumbnail: '/images/salary-percentile-hero.jpg',
+    icon: 'solar:chart-2-bold-duotone',
+    featured: true,
   },
   {
     slug: 'salary-table-2026',
@@ -29,28 +30,93 @@ const GUIDES = [
     thumbnail: '/images/salary-guide-thumbnail.jpg',
     icon: 'solar:calculator-bold-duotone',
   },
+  {
+    slug: 'severance-pay-guide-2026',
+    title: '2026년 퇴직금 계산법 총정리: 평균임금 계산식부터 세금 절세 팁까지',
+    description: '입사일과 퇴사일 기준 1일 평균임금 계산법, 지급 기한(14일)과 지연이자, IRP 계좌 이전으로 퇴직소득세 30% 감면받는 실전 꿀팁을 전해드립니다.',
+    category: '노무·세무',
+    date: '2026.09.22',
+    thumbnail: '/images/salary-guide-thumbnail.jpg',
+    icon: 'solar:wallet-money-bold-duotone',
+  },
 ];
 
 export default function GuideIndexPage() {
+  const featuredGuide = GUIDES.find((g) => g.featured) || GUIDES[0];
+  const regularGuides = GUIDES.filter((g) => g.slug !== featuredGuide.slug);
+
   return (
     <div className="max-w-4xl mx-auto py-4">
       {/* Header */}
-      <header className="mb-12 border-b border-zinc-200/80 pb-8 text-center sm:text-left">
-        <div className="flex items-center justify-center sm:justify-start gap-2 text-sm font-bold text-[#c55232] mb-3">
+      <header className="mb-10 border-b border-zinc-200/80 pb-8 text-center sm:text-left">
+        <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-bold tracking-wider text-[#c55232] uppercase mb-3">
           <Icon icon="solar:book-bookmark-bold-duotone" width="20" height="20" />
-          <span>삼촌생각 에디토리얼</span>
+          <span>삼촌생각 지식 매거진</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#292520] tracking-tight mb-3">
-          알짜 생활 가이드
+        <h1 className="editorial-h1 mb-3">
+          알짜 생활·경제 가이드
         </h1>
-        <p className="text-zinc-600 text-base leading-relaxed max-w-2xl">
-          가장 자주 쓰지만 매번 헷갈리는 금융과 세무의 핵심 상식을 삼촌이 친절하고 정확하게 알려드립니다.
+        <p className="editorial-body text-zinc-600 max-w-2xl">
+          가장 자주 쓰지만 매번 헷갈리는 금융, 세무, 셀프 인테리어의 핵심 상식을 공공데이터 팩트 기반으로 삼촌이 친절하고 정확하게 알려드립니다.
         </p>
       </header>
 
-      {/* Guide Cards Grid */}
+      {/* Featured Special Story Banner */}
+      {featuredGuide && (
+        <div className="mb-10">
+          <span className="text-xs font-black text-[#c55232] uppercase tracking-wider block mb-3">
+            ⭐ 이번 주 추천 스페셜 아티클
+          </span>
+          <Link
+            href={`/guide/${featuredGuide.slug}`}
+            className="group block bg-white rounded-3xl border border-zinc-200/80 overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] hover:border-[#c55232]/50 transition-all duration-300"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
+              <div className="md:col-span-6 relative aspect-video md:aspect-auto overflow-hidden">
+                <img
+                  src={featuredGuide.thumbnail}
+                  alt={featuredGuide.title}
+                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                />
+              </div>
+              <div className="md:col-span-6 p-6 sm:p-8 flex flex-col justify-between space-y-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="px-2.5 py-1 bg-[#c55232]/10 text-[#c55232] text-xs font-bold rounded-md">
+                      {featuredGuide.category}
+                    </span>
+                    <span className="px-2 py-0.5 bg-zinc-100 text-zinc-600 text-[11px] font-bold rounded">
+                      인터랙티브 분석
+                    </span>
+                    <span className="text-xs text-zinc-400 ml-auto">
+                      {featuredGuide.date}
+                    </span>
+                  </div>
+
+                  <h2 className="text-xl sm:text-2xl font-black text-[#292520] group-hover:text-[#c55232] transition-colors leading-snug mb-2">
+                    {featuredGuide.title}
+                  </h2>
+
+                  <p className="text-sm text-zinc-600 leading-relaxed line-clamp-3">
+                    {featuredGuide.description}
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-zinc-100 flex items-center justify-between text-xs font-bold text-[#c55232]">
+                  <span>아티클 정독 및 상위 % 계산하기</span>
+                  <div className="w-8 h-8 rounded-full bg-[#c55232] text-white flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                    <Icon icon="solar:arrow-right-linear" width="16" height="16" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+      )}
+
+      {/* Regular Guide Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {GUIDES.map((guide) => (
+        {regularGuides.map((guide) => (
           <Link
             key={guide.slug}
             href={`/guide/${guide.slug}`}
@@ -66,7 +132,7 @@ export default function GuideIndexPage() {
                 </span>
               </div>
 
-              <h2 className="text-xl font-bold text-[#292520] mb-3 group-hover:text-[#c55232] transition-colors leading-snug">
+              <h2 className="text-lg font-bold text-[#292520] mb-3 group-hover:text-[#c55232] transition-colors leading-snug">
                 {guide.title}
               </h2>
 
