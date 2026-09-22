@@ -20,57 +20,114 @@ export default function Home() {
         </p>
       </section>
 
-      {/* Featured Tool: 타일 계산기 (New & Practical Life Tool) */}
+      {/* Section 1: 생활 & 셀프 인테리어 도구 (타일, 도배지, 장판 3종 라인업) */}
       <section>
-        <div className="flex items-center justify-between mb-4 px-1">
+        <div className="flex items-center justify-between mb-8 px-1">
           <div>
-            <span className="text-xs font-bold text-[#c55232] tracking-wider uppercase">New Lifestyle Tool</span>
+            <span className="text-xs font-bold text-[#c55232] tracking-wider uppercase">Life & Interior</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#292520] tracking-tight mt-0.5">
               생활 & 셀프 인테리어 도구
             </h2>
+            <p className="text-xs text-zinc-400 mt-1">국내 표준 유통 규격 및 로스율을 반영한 실전 자재 계산기</p>
           </div>
-          <span className="text-xs font-bold px-2.5 py-1 bg-[#c55232] text-white rounded-full">
-            인기 도구
-          </span>
         </div>
 
-        <div className="bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[2rem] group transition-transform duration-500 hover:scale-[1.005] ease-[cubic-bezier(0.16,1,0.3,1)]">
-          <Link
-            href="/tile-calculator"
-            className="flex flex-col md:flex-row items-start md:items-center justify-between bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(2rem-0.375rem)] p-7 sm:p-9 transition-colors gap-6"
-          >
-            <div className="flex items-start sm:items-center gap-5">
-              <div className="w-14 h-14 bg-[#c55232]/10 rounded-2xl flex items-center justify-center text-[#c55232] text-3xl shrink-0 shadow-xs">
-                <Icon icon="solar:ruler-pen-bold-duotone" />
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          {/* Interior Tool 1: 타일 계산기 */}
+          <div className="bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[1.8rem] group transition-transform duration-500 hover:scale-[1.01] ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <Link 
+              href="/tile-calculator" 
+              className="flex flex-col justify-between h-full bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(1.8rem-0.375rem)] p-7 sm:p-8 transition-colors"
+            >
               <div>
-                <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                  <h3 className="text-xl sm:text-2xl font-black text-[#292520] tracking-tight group-hover:text-[#c55232] transition-colors">
-                    화장실·바닥 타일 소요량 계산기
-                  </h3>
-                  <span className="px-2 py-0.5 bg-[#c55232]/10 text-[#c55232] text-xs font-extrabold rounded-md">
-                    300각·600각 규격 완벽 반영
-                  </span>
+                <div className="w-12 h-12 bg-[#c55232]/10 rounded-2xl flex items-center justify-center text-[#c55232] text-2xl mb-5 shadow-xs">
+                  <Icon icon="solar:ruler-pen-bold-duotone" />
                 </div>
-                <p className="text-sm sm:text-base text-zinc-600 leading-relaxed max-w-2xl">
-                  가로·세로 치수만 넣으면 300각(16장), 600각(4장), 300x600각(8장) 등 규격별 박스당 수량과 절단 로스율(5%~20%)을 반영해 <strong>실제 사야 할 박스 수</strong>를 1초 만에 계산합니다.
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <h3 className="text-xl font-bold text-[#292520] tracking-tight group-hover:text-[#c55232] transition-colors duration-300">
+                    타일 소요량 계산기
+                  </h3>
+                  <span className="px-1.5 py-0.5 bg-[#c55232] text-white text-[10px] font-bold rounded">HOT</span>
+                </div>
+                <p className="text-sm text-zinc-500 leading-relaxed">
+                  300각·600각 규격별 박스당 수량 및 절단 로스율(5%~20%) 반영 구매 박스 수 1초 계산.
                 </p>
               </div>
-            </div>
 
-            <div className="flex items-center justify-end w-full md:w-auto shrink-0 pt-3 md:pt-0 border-t md:border-t-0 border-zinc-100">
-              <span className="text-sm font-extrabold text-[#c55232] mr-3 group-hover:underline">
-                타일 계산하러 가기
-              </span>
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-black/5 group-hover:bg-[#c55232] group-hover:text-white transition-all duration-300">
-                <Icon icon="solar:arrow-right-linear" width="20" height="20" className="group-hover:translate-x-0.5 transition-transform duration-300" />
+              <div className="mt-8 flex items-center justify-between pt-4 border-t border-zinc-100">
+                <span className="text-xs font-bold text-[#c55232]">300각(16장)·600각(4장)</span>
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-black/5 group-hover:bg-[#c55232] group-hover:text-white transition-all duration-300">
+                  <Icon icon="solar:arrow-right-linear" width="18" height="18" className="group-hover:translate-x-0.5 transition-transform duration-300" />
+                </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
+
+          {/* Interior Tool 2: 도배지 계산기 */}
+          <div className="bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[1.8rem] group transition-transform duration-500 hover:scale-[1.01] ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <Link 
+              href="/wallpaper-calculator" 
+              className="flex flex-col justify-between h-full bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(1.8rem-0.375rem)] p-7 sm:p-8 transition-colors"
+            >
+              <div>
+                <div className="w-12 h-12 bg-[#c55232]/10 rounded-2xl flex items-center justify-center text-[#c55232] text-2xl mb-5 shadow-xs">
+                  <Icon icon="solar:brush-bold-duotone" />
+                </div>
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <h3 className="text-xl font-bold text-[#292520] tracking-tight group-hover:text-[#c55232] transition-colors duration-300">
+                    도배지 소요량 계산기
+                  </h3>
+                  <span className="px-1.5 py-0.5 bg-[#c55232]/10 text-[#c55232] text-[10px] font-bold rounded">NEW</span>
+                </div>
+                <p className="text-sm text-zinc-500 leading-relaxed">
+                  실크(5평형)·합지(5평/2평형) 롤 수와 천장 포함 여부, 도배 풀·본드 부자재까지 자동 산출.
+                </p>
+              </div>
+
+              <div className="mt-8 flex items-center justify-between pt-4 border-t border-zinc-100">
+                <span className="text-xs font-bold text-[#c55232]">실크·광폭·소폭 롤 계산</span>
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-black/5 group-hover:bg-[#c55232] group-hover:text-white transition-all duration-300">
+                  <Icon icon="solar:arrow-right-linear" width="18" height="18" className="group-hover:translate-x-0.5 transition-transform duration-300" />
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          {/* Interior Tool 3: 장판 계산기 */}
+          <div className="bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[1.8rem] group transition-transform duration-500 hover:scale-[1.01] ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <Link 
+              href="/flooring-calculator" 
+              className="flex flex-col justify-between h-full bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(1.8rem-0.375rem)] p-7 sm:p-8 transition-colors"
+            >
+              <div>
+                <div className="w-12 h-12 bg-[#c55232]/10 rounded-2xl flex items-center justify-center text-[#c55232] text-2xl mb-5 shadow-xs">
+                  <Icon icon="solar:floor-lamp-bold-duotone" />
+                </div>
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <h3 className="text-xl font-bold text-[#292520] tracking-tight group-hover:text-[#c55232] transition-colors duration-300">
+                    장판(모노륨) 계산기
+                  </h3>
+                  <span className="px-1.5 py-0.5 bg-[#c55232]/10 text-[#c55232] text-[10px] font-bold rounded">NEW</span>
+                </div>
+                <p className="text-sm text-zinc-500 leading-relaxed">
+                  국내 표준 1.8m 폭 기준 최적 깔기 방향 자동 비교 및 꺾어올림 포함 구매 미터(m) 수 계산.
+                </p>
+              </div>
+
+              <div className="mt-8 flex items-center justify-between pt-4 border-t border-zinc-100">
+                <span className="text-xs font-bold text-[#c55232]">1.8m 폭 최적화 재단</span>
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-black/5 group-hover:bg-[#c55232] group-hover:text-white transition-all duration-300">
+                  <Icon icon="solar:arrow-right-linear" width="18" height="18" className="group-hover:translate-x-0.5 transition-transform duration-300" />
+                </div>
+              </div>
+            </Link>
+          </div>
+
         </div>
       </section>
 
-      {/* Tool Grid Section: 월급 & 세무 도구 (2x2 Balanced Grid) */}
+      {/* Section 2: 월급 & 세무 도구 (2x2 Balanced Grid) */}
       <section>
         <div className="flex items-center justify-between mb-8 px-1">
           <div>
@@ -202,7 +259,7 @@ export default function Home() {
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#292520] tracking-tight">
               알짜 생활 가이드
             </h2>
-            <p className="text-xs text-zinc-400 mt-1">놓치기 쉬운 세무·노무 상식을 알기 쉽게 짚어드립니다</p>
+            <p className="text-xs text-zinc-400 mt-1">놓치기 쉬운 세무·노무·인테리어 상식을 알기 쉽게 짚어드립니다</p>
           </div>
           <Link 
             href="/guide" 

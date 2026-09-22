@@ -29,21 +29,31 @@ export default function Navbar() {
           <Link href="/" className="hover:text-[#c55232] transition-colors duration-200">
             홈
           </Link>
-          <Link href="/tile-calculator" className="text-[#c55232] font-bold hover:text-[#a74126] transition-colors duration-200 flex items-center gap-1">
-            <Icon icon="solar:ruler-pen-bold-duotone" width="16" height="16" />
-            <span>타일계산기</span>
+          
+          <div className="h-3.5 w-px bg-zinc-300 mx-0.5" />
+
+          {/* Interior Tools */}
+          <Link href="/tile-calculator" className="hover:text-[#c55232] transition-colors duration-200 flex items-center gap-1">
+            <span>타일</span>
           </Link>
+          <Link href="/wallpaper-calculator" className="hover:text-[#c55232] transition-colors duration-200 flex items-center gap-1">
+            <span>도배지</span>
+          </Link>
+          <Link href="/flooring-calculator" className="hover:text-[#c55232] transition-colors duration-200 flex items-center gap-1">
+            <span>장판</span>
+          </Link>
+
+          <div className="h-3.5 w-px bg-zinc-300 mx-0.5" />
+
+          {/* Finance Tools */}
           <Link href="/salary-calculator" className="hover:text-[#c55232] transition-colors duration-200">
-            연봉계산기
+            연봉
           </Link>
           <Link href="/severance-pay-calculator" className="hover:text-[#c55232] transition-colors duration-200">
             퇴직금
           </Link>
           <Link href="/wage-calculator" className="hover:text-[#c55232] transition-colors duration-200">
-            최저임금·주휴
-          </Link>
-          <Link href="/vat-calculator" className="hover:text-[#c55232] transition-colors duration-200">
-            부가세
+            최저임금
           </Link>
           <Link href="/guide" className="hover:text-[#c55232] transition-colors duration-200">
             가이드
@@ -54,12 +64,15 @@ export default function Navbar() {
         </nav>
 
         {/* Medium Screen Quick Access (when lg is not hit) */}
-        <div className="hidden md:flex lg:hidden items-center gap-3 text-xs font-bold">
+        <div className="hidden md:flex lg:hidden items-center gap-2 text-xs font-bold">
           <Link href="/tile-calculator" className="px-3 py-1.5 bg-[#c55232]/10 text-[#c55232] rounded-full hover:bg-[#c55232]/20 transition-colors">
-            타일계산기
+            타일
           </Link>
-          <Link href="/salary-calculator" className="px-3 py-1.5 bg-zinc-100 text-zinc-700 rounded-full hover:bg-zinc-200 transition-colors">
-            연봉계산기
+          <Link href="/wallpaper-calculator" className="px-3 py-1.5 bg-zinc-100 text-zinc-700 rounded-full hover:bg-zinc-200 transition-colors">
+            도배
+          </Link>
+          <Link href="/flooring-calculator" className="px-3 py-1.5 bg-zinc-100 text-zinc-700 rounded-full hover:bg-zinc-200 transition-colors">
+            장판
           </Link>
         </div>
 
@@ -75,7 +88,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="pointer-events-auto lg:hidden w-full max-w-sm mt-2 p-5 bg-[#fdfbf7]/95 backdrop-blur-2xl border border-zinc-200/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] rounded-3xl animate-in fade-in slide-in-from-top-3 duration-200">
+        <div className="pointer-events-auto lg:hidden w-full max-w-sm mt-2 p-5 bg-[#fdfbf7]/95 backdrop-blur-2xl border border-zinc-200/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] rounded-3xl animate-in fade-in slide-in-from-top-3 duration-200 max-h-[85vh] overflow-y-auto">
           <div className="space-y-1 text-[15px] font-bold text-[#292520]">
             <Link
               href="/"
@@ -86,50 +99,83 @@ export default function Navbar() {
               <span>홈으로</span>
             </Link>
             
+            {/* Interior Category in Drawer */}
+            <div className="pt-2 pb-1 px-4 text-xs font-bold text-[#c55232] uppercase tracking-wider">
+              생활 & 셀프 인테리어 도구
+            </div>
             <Link
               href="/tile-calculator"
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-[#c55232]/10 text-[#c55232] transition-colors"
+              className="flex items-center justify-between px-4 py-2 rounded-xl hover:bg-white/80 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <Icon icon="solar:ruler-pen-bold-duotone" width="20" height="20" />
-                <span>화장실·바닥 타일 계산기</span>
+                <Icon icon="solar:ruler-pen-bold-duotone" className="text-[#c55232]" width="18" height="18" />
+                <span>타일 소요량 계산기</span>
               </div>
-              <span className="text-[10px] px-1.5 py-0.5 bg-[#c55232] text-white rounded font-bold">HOT</span>
+              <span className="text-[10px] px-1.5 py-0.5 bg-[#c55232] text-white rounded font-bold">300/600각</span>
             </Link>
 
             <Link
+              href="/wallpaper-calculator"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-between px-4 py-2 rounded-xl hover:bg-white/80 transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <Icon icon="solar:brush-bold-duotone" className="text-[#c55232]" width="18" height="18" />
+                <span>도배지 소요량 계산기</span>
+              </div>
+              <span className="text-[10px] px-1.5 py-0.5 bg-[#c55232]/10 text-[#c55232] rounded font-bold">실크/합지</span>
+            </Link>
+
+            <Link
+              href="/flooring-calculator"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-between px-4 py-2 rounded-xl hover:bg-white/80 transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <Icon icon="solar:floor-lamp-bold-duotone" className="text-[#c55232]" width="18" height="18" />
+                <span>장판(모노륨) 계산기</span>
+              </div>
+              <span className="text-[10px] px-1.5 py-0.5 bg-[#c55232]/10 text-[#c55232] rounded font-bold">1.8m 폭</span>
+            </Link>
+
+            {/* Finance Category in Drawer */}
+            <div className="pt-3 pb-1 px-4 text-xs font-bold text-zinc-400 uppercase tracking-wider">
+              월급 & 세무 도구
+            </div>
+            <Link
               href="/salary-calculator"
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/80 transition-colors"
+              className="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/80 transition-colors"
             >
-              <Icon icon="solar:wallet-money-bold-duotone" className="text-[#c55232]" width="20" height="20" />
+              <Icon icon="solar:wallet-money-bold-duotone" className="text-[#c55232]" width="18" height="18" />
               <span>연봉 실수령액 계산기</span>
             </Link>
             <Link
               href="/severance-pay-calculator"
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/80 transition-colors"
+              className="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/80 transition-colors"
             >
-              <Icon icon="solar:calculator-minimalistic-bold-duotone" className="text-[#c55232]" width="20" height="20" />
+              <Icon icon="solar:calculator-minimalistic-bold-duotone" className="text-[#c55232]" width="18" height="18" />
               <span>퇴직금 실수령액 계산기</span>
             </Link>
             <Link
               href="/wage-calculator"
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/80 transition-colors"
+              className="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/80 transition-colors"
             >
-              <Icon icon="solar:clock-circle-bold-duotone" className="text-[#c55232]" width="20" height="20" />
+              <Icon icon="solar:clock-circle-bold-duotone" className="text-[#c55232]" width="18" height="18" />
               <span>최저임금 & 주휴수당 계산기</span>
             </Link>
             <Link
               href="/vat-calculator"
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/80 transition-colors"
+              className="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/80 transition-colors"
             >
-              <Icon icon="solar:bill-check-bold-duotone" className="text-[#c55232]" width="20" height="20" />
+              <Icon icon="solar:bill-check-bold-duotone" className="text-[#c55232]" width="18" height="18" />
               <span>부가세(VAT) 계산기</span>
             </Link>
+
             <div className="border-t border-zinc-200/60 my-2 pt-2">
               <Link
                 href="/guide"
