@@ -99,7 +99,9 @@ export default function Navbar() {
         {/* Mobile Hamburger Toggle Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          aria-label="메뉴 열기"
+          aria-label={isOpen ? '메뉴 닫기' : '메뉴 열기'}
+          aria-expanded={isOpen}
+          aria-controls="mobile-navigation"
           className="lg:hidden p-1.5 text-zinc-700 hover:text-[#c55232] rounded-full hover:bg-zinc-100 transition-colors flex items-center justify-center"
         >
           <Icon icon={isOpen ? 'solar:close-circle-linear' : 'solar:hamburger-menu-linear'} width="22" height="22" />
@@ -108,7 +110,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="pointer-events-auto lg:hidden w-full max-w-sm mt-2 p-5 bg-[#fdfbf7]/95 backdrop-blur-2xl border border-zinc-200/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] rounded-3xl animate-in fade-in slide-in-from-top-3 duration-200 max-h-[85vh] overflow-y-auto">
+        <div id="mobile-navigation" className="pointer-events-auto lg:hidden w-full max-w-sm mt-2 p-5 bg-[#fdfbf7]/95 backdrop-blur-2xl border border-zinc-200/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] rounded-3xl animate-in fade-in slide-in-from-top-3 duration-200 max-h-[85vh] overflow-y-auto">
           <div className="space-y-1 text-[15px] font-bold text-[#292520]">
             <Link
               href="/"

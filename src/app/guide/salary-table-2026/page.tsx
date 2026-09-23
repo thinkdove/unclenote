@@ -5,25 +5,25 @@ import Script from "next/script";
 import { Icon } from "@iconify/react";
 
 const salaryRows = [
-  { annual: "3,000만", gross: "250.0만", insurance: "21.6만", tax: "4.8만", net: "223.6만", highlight: false },
-  { annual: "3,500만", gross: "291.6만", insurance: "25.5만", tax: "8.5만", net: "257.6만", highlight: false },
-  { annual: "4,000만", gross: "333.3만", insurance: "29.4만", tax: "12.8만", net: "291.1만", highlight: false },
-  { annual: "4,500만", gross: "375.0만", insurance: "33.3만", tax: "17.6만", net: "324.1만", highlight: false },
-  { annual: "5,000만", gross: "416.7만", insurance: "37.2만", tax: "24.9만", net: "354.6만", highlight: true },
-  { annual: "6,000만", gross: "500.0만", insurance: "45.0만", tax: "36.8만", net: "418.2만", highlight: false },
-  { annual: "7,000만", gross: "583.3만", insurance: "52.8만", tax: "49.4만", net: "481.1만", highlight: false },
-  { annual: "8,000만", gross: "666.7만", insurance: "58.1만", tax: "64.8만", net: "543.8만", highlight: false },
-  { annual: "9,000만", gross: "750.0만", insurance: "65.9만", tax: "80.4만", net: "603.7만", highlight: false },
-  { annual: "1억", gross: "833.3만", insurance: "73.7만", tax: "95.5만", net: "664.1만", highlight: false },
+  { annual: "3,000만", gross: "250.0만", insurance: "22.3만", tax: "3.0만", net: "224.6만", highlight: false },
+  { annual: "3,500만", gross: "291.7만", insurance: "26.4만", tax: "4.8만", net: "260.4만", highlight: false },
+  { annual: "4,000만", gross: "333.3만", insurance: "30.4만", tax: "9.2만", net: "293.7만", highlight: false },
+  { annual: "4,500만", gross: "375.0만", insurance: "34.5만", tax: "14.4만", net: "326.1만", highlight: false },
+  { annual: "5,000만", gross: "416.7만", insurance: "38.5만", tax: "20.1만", net: "358.0만", highlight: true },
+  { annual: "6,000만", gross: "500.0만", insurance: "46.6만", tax: "33.1만", net: "420.3만", highlight: false },
+  { annual: "7,000만", gross: "583.3만", insurance: "54.7만", tax: "45.3만", net: "483.3만", highlight: false },
+  { annual: "8,000만", gross: "666.7만", insurance: "62.8만", tax: "63.0만", net: "540.9만", highlight: false },
+  { annual: "9,000만", gross: "750.0만", insurance: "67.6만", tax: "83.7만", net: "598.7만", highlight: false },
+  { annual: "1억", gross: "833.3만", insurance: "71.7만", tax: "104.6만", net: "657.0만", highlight: false },
 ];
 
 export const metadata: Metadata = {
   title: "2026년 연봉 실수령액 표 | 3,000만~1억 구간별 월급 & 공제액 분석",
-  description: "2026년 연봉 3,000만 원부터 1억 원까지의 실제 월 실수령액을 정리했습니다. 4대보험, 소득세, 식대 월 20만 원 비과세 기준을 확인하세요.",
+  description: "2026년 연봉 3,000만 원부터 1억 원까지 월 실수령액 추정치를 정리했습니다. 실제 원천징수액은 급여명세서에서 확인하세요.",
   alternates: { canonical: "https://unclenote.com/guide/salary-table-2026" },
   openGraph: {
     title: "2026년 연봉 실수령액 표 | 3,000만~1억 구간별 월급",
-    description: "연봉 협상 전에 확인하는 2026년 실제 월 실수령액과 4대보험 공제 분석.",
+    description: "연봉 협상 전에 참고하는 2026년 예상 월 실수령액과 보험료 분석.",
     url: "https://unclenote.com/guide/salary-table-2026",
     images: [{ url: "/images/salary-guide-thumbnail.jpg", width: 1200, height: 675, alt: "2026 연봉 실수령액 안내" }],
   },
@@ -50,7 +50,7 @@ export default function SalaryGuidePage() {
         name: "연봉 5,000만 원이면 실제 월 실수령액은 얼마인가요?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "월 식대 20만 원 비과세, 부양가족 본인 1인 기준 월 세전 급여는 416.7만 원이며, 4대 보험과 소득세로 약 62만 원이 공제되어 실제 월 실수령액은 약 354.6만 원입니다.",
+          text: "월 식대 20만 원 비과세, 부양가족 본인 1인 기준 월 세전 급여는 약 416.7만 원이며, 이 페이지의 참고용 계산 기준 예상 월 실수령액은 약 358.0만 원입니다. 실제 금액은 다를 수 있습니다.",
         },
       },
       {
@@ -139,8 +139,8 @@ export default function SalaryGuidePage() {
       {/* 2. Key Stats Strip */}
       <section className="mb-24 grid gap-6 border-y border-zinc-200/80 py-8 sm:grid-cols-3">
         {[
-          { number: "4.5%", label: "국민연금 근로자 부담", detail: "기준소득월액 상한(617만 원) 적용" },
-          { number: "4.004%", label: "건강·장기요양 합산", detail: "건보 3.545% + 요양 12.95%" },
+          { number: "4.75%", label: "국민연금 근로자 부담", detail: "2026년 7월 기준 상한 659만 원" },
+          { number: "약 4.0674%", label: "건강·장기요양 합산", detail: "건보 3.595% + 장기요양 약 0.4724%" },
           { number: "20만 원", label: "월 식대 비과세 한도", detail: "연간 240만 원 과세 제외 혜택" },
         ].map((item, idx) => (
           <div key={idx} className="border-zinc-200/80 px-1 sm:border-r sm:px-7 sm:last:border-0">
@@ -185,17 +185,17 @@ export default function SalaryGuidePage() {
             
             <p className="mt-8 text-sm text-[#d8d0c7]">예상 월 실수령액</p>
             <p className="mt-1 text-5xl font-extrabold tracking-[-.07em] text-white">
-              354.6<span className="ml-1.5 text-xl font-normal text-[#d8d0c7]">만 원</span>
+              358.0<span className="ml-1.5 text-xl font-normal text-[#d8d0c7]">만 원</span>
             </p>
             
             <div className="mt-8 grid grid-cols-2 border-t border-white/10 pt-5 text-sm">
               <div>
                 <p className="text-[#b9aea4] text-xs font-medium">4대 보험 합계</p>
-                <p className="mt-1 font-bold text-white">약 37.2만 원</p>
+                <p className="mt-1 font-bold text-white">약 38.5만 원</p>
               </div>
               <div className="border-l border-white/10 pl-5">
                 <p className="text-[#b9aea4] text-xs font-medium">소득세·지방세</p>
-                <p className="mt-1 font-bold text-white">약 24.9만 원</p>
+                <p className="mt-1 font-bold text-white">약 20.1만 원</p>
               </div>
             </div>
           </div>
@@ -212,7 +212,7 @@ export default function SalaryGuidePage() {
             </h2>
           </div>
           <p className="max-w-sm text-xs leading-5 text-zinc-500">
-            원 단위는 반올림했습니다. 실제 원천징수액은 회사의 세부 급여 규정과 가족 공제에 따라 다소 달라질 수 있습니다.
+            2026년 9월 기준, 식대 비과세 월 20만 원·부양가족 1명으로 계산한 참고용 추정치입니다. 금액은 만 원 단위로 반올림했으며 실제 원천징수액은 다를 수 있습니다.
           </p>
         </div>
 
@@ -252,13 +252,13 @@ export default function SalaryGuidePage() {
             같은 1,000만 원 인상이라도<br />통장에 남는 금액은 다릅니다.
           </h2>
           <p className="mt-6 max-w-xl leading-8 text-zinc-600">
-            연봉이 오를수록 누진 소득세율과 사회보험료가 가파르게 증가합니다. 다만 국민연금은 기준소득월액 상한선(617만 원)이 있어 고소득 구간부터 공제 증가 폭이 둔화됩니다.
+            연봉이 오를수록 누진 소득세율과 사회보험료가 증가합니다. 다만 국민연금은 기준소득월액 상한선(2026년 7월 기준 659만 원)이 있어 고소득 구간부터 공제 증가 폭이 둔화됩니다.
           </p>
         </div>
 
         <div className="space-y-3">
           {[
-            { num: "01", title: "국민연금 상한액", desc: "근로자 부담분 4.5%가 적용되며, 월 상한액 약 27.7만 원까지만 공제됩니다." },
+            { num: "01", title: "국민연금 상한액", desc: "2026년 근로자 부담분 4.75%가 적용되며, 7월 기준 상한소득월액은 659만 원입니다." },
             { num: "02", title: "건강보험 & 장기요양", desc: "상한선이 사실상 매우 높아 연봉이 늘어날수록 비례하여 공제액이 커집니다." },
             { num: "03", title: "누진 소득세율", desc: "소득 구간에 따라 6%부터 최대 40% 이상까지 누진세율이 적용되어 실수령액 차이를 만듭니다." },
           ].map((item) => (
@@ -310,7 +310,7 @@ export default function SalaryGuidePage() {
           {[
             {
               q: "연봉 5,000만 원이면 월 실수령액은 정확히 얼마인가요?",
-              a: "부양가족 본인 1명, 퇴직금 별도, 식대 20만 원 비과세 기준 약 354.6만 원입니다. 회사 급여 규정과 연말정산 공제 항목에 따라 약간의 차이가 있을 수 있습니다.",
+              a: "부양가족 본인 1명, 퇴직금 별도, 식대 20만 원 비과세 기준 참고용 추정치는 약 358.0만 원입니다. 실제 원천징수 방식에 따라 차이가 있을 수 있습니다.",
             },
             {
               q: "퇴직금 별도와 퇴직금 포함은 실수령액에 얼마나 차이가 나나요?",

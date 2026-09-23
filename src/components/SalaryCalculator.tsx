@@ -25,22 +25,27 @@ export default function SalaryCalculator() {
     taxTotal: number;
   } | null>(null);
 
+  const clearResult = () => setResult(null);
+
   const formatNumber = (num: number) => {
     return new Intl.NumberFormat("ko-KR").format(Math.max(0, Math.floor(num)));
   };
 
   const handleSalaryChange = (val: string) => {
+    clearResult();
     const numeric = val.replace(/[^0-9]/g, "");
     setAnnualSalary(numeric ? new Intl.NumberFormat("ko-KR").format(Number(numeric)) : "");
   };
 
   const addSalary = (addition: number) => {
+    clearResult();
     const current = Number(annualSalary.replace(/,/g, "")) || 0;
     const updated = current + addition;
     setAnnualSalary(new Intl.NumberFormat("ko-KR").format(updated));
   };
 
   const setPresetSalary = (amount: number) => {
+    clearResult();
     setAnnualSalary(new Intl.NumberFormat("ko-KR").format(amount));
   };
 
@@ -56,22 +61,22 @@ export default function SalaryCalculator() {
     // 과세 대상 월 급여
     const taxableMonthly = Math.max(0, monthlyGross - monthlyNonTax);
 
-    // 1. 국민연금 (4.5%, 상한액 6,170,000원, 하한액 390,000원)
-    const pensionBase = Math.min(Math.max(taxableMonthly, 390000), 6170000);
-    const pension = Math.floor((pensionBase * 0.045) / 10) * 10;
+    // 2026년 7월부터 국민연금 기준소득월액 41만~659만 원, 근로자 부담 4.75%.
+    const pensionBase = Math.min(Math.max(taxableMonthly, 410000), 6590000);
+    const pension = Math.floor((pensionBase * 0.0475) / 10) * 10;
 
-    // 2. 건강보험 (3.545%)
-    const health = Math.floor((taxableMonthly * 0.03545) / 10) * 10;
+    // 2026년 건강보험료율 7.19%, 근로자 50% 부담.
+    const health = Math.floor((taxableMonthly * 0.03595) / 10) * 10;
 
-    // 3. 장기요양보험 (건강보험료의 12.95%)
-    const care = Math.floor((health * 0.1295) / 10) * 10;
+    // 2026년 장기요양보험료율 0.9448% / 건강보험료율 7.19%.
+    const care = Math.floor((health * (0.009448 / 0.0719)) / 10) * 10;
 
     // 4. 고용보험 (0.9%)
     const employment = Math.floor((taxableMonthly * 0.009) / 10) * 10;
 
     const insuranceTotal = pension + health + care + employment;
 
-    // 5. 근로소득세 계산 (연간 과세소득 기준 간이세액 공식 반영)
+    // 5. 근로소득세 추정. 국세청의 월별 근로소득 간이세액표를 직접 조회한 값은 아님.
     const taxableAnnual = taxableMonthly * 12;
     
     // 근로소득공제
@@ -109,15 +114,15 @@ export default function SalaryCalculator() {
     if (taxBase <= 14000000) {
       calculatedTax = taxBase * 0.06;
     } else if (taxBase <= 50000000) {
-      calculatedTax = 840000 + (taxBase - 14000000) * 0.14;
+      calculatedTax = 840000 + (taxBase - 14000000) * 0.15;
     } else if (taxBase <= 88000000) {
-      calculatedTax = 5880000 + (taxBase - 50000000) * 0.24;
+      calculatedTax = 6240000 + (taxBase - 50000000) * 0.24;
     } else if (taxBase <= 150000000) {
-      calculatedTax = 14980000 + (taxBase - 88000000) * 0.35;
+      calculatedTax = 15360000 + (taxBase - 88000000) * 0.35;
     } else if (taxBase <= 300000000) {
-      calculatedTax = 36680000 + (taxBase - 150000000) * 0.38;
+      calculatedTax = 37060000 + (taxBase - 150000000) * 0.38;
     } else {
-      calculatedTax = 93680000 + (taxBase - 300000000) * 0.40;
+      calculatedTax = 94060000 + (taxBase - 300000000) * 0.40;
     }
 
     // 근로소득세액공제
@@ -178,7 +183,7 @@ export default function SalaryCalculator() {
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between">
               <label className="text-sm font-bold text-zinc-800 tracking-tight">희망 / 계약 연봉</label>
-              <span className="text-xs text-blue-600 font-semibold">세전 기준</span>
+              <span className="text-xs text-[#c55232] font-semibold">세전 기준</span>
             </div>
             
             <div className="relative flex items-center">
@@ -187,7 +192,7 @@ export default function SalaryCalculator() {
                 value={annualSalary}
                 onChange={(e) => handleSalaryChange(e.target.value)}
                 placeholder="50,000,000"
-                className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 text-2xl font-extrabold rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all duration-300"
+                className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 text-2xl font-extrabold rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-[#c55232]/20 focus:border-[#c55232] transition-all duration-300"
               />
               <span className="absolute right-5 text-zinc-400 font-bold text-base">원</span>
             </div>
@@ -199,7 +204,7 @@ export default function SalaryCalculator() {
                   key={amt}
                   type="button"
                   onClick={() => setPresetSalary(amt)}
-                  className="py-2 text-xs font-bold text-zinc-600 bg-zinc-100 hover:bg-blue-50 hover:text-blue-600 rounded-xl transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  className="py-2 text-xs font-bold text-zinc-600 bg-zinc-100 hover:bg-[#fff4ee] hover:text-[#c55232] rounded-xl transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 >
                   {amt / 10000000}천만
                 </button>
@@ -227,10 +232,10 @@ export default function SalaryCalculator() {
             <div className="grid grid-cols-2 gap-2 p-1 bg-zinc-100/50 rounded-2xl border border-zinc-200/50">
               <button
                 type="button"
-                onClick={() => setSeverancePay("exclude")}
+                onClick={() => { clearResult(); setSeverancePay("exclude"); }}
                 className={`py-3 text-[14px] font-bold rounded-xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                   severancePay === "exclude"
-                    ? "bg-white text-blue-600 shadow-sm border border-zinc-200/50"
+                    ? "bg-white text-[#c55232] shadow-sm border border-zinc-200/50"
                     : "text-zinc-500 hover:text-zinc-900"
                 }`}
               >
@@ -238,10 +243,10 @@ export default function SalaryCalculator() {
               </button>
               <button
                 type="button"
-                onClick={() => setSeverancePay("include")}
+                onClick={() => { clearResult(); setSeverancePay("include"); }}
                 className={`py-3 text-[14px] font-bold rounded-xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                   severancePay === "include"
-                    ? "bg-white text-blue-600 shadow-sm border border-zinc-200/50"
+                    ? "bg-white text-[#c55232] shadow-sm border border-zinc-200/50"
                     : "text-zinc-500 hover:text-zinc-900"
                 }`}
               >
@@ -265,9 +270,10 @@ export default function SalaryCalculator() {
                   value={nonTaxableMonthly}
                   onChange={(e) => {
                     const val = e.target.value.replace(/[^0-9]/g, "");
+                    clearResult();
                     setNonTaxableMonthly(val ? new Intl.NumberFormat("ko-KR").format(Number(val)) : "");
                   }}
-                  className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 font-bold rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-blue-600"
+                  className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 font-bold rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#c55232]"
                 />
                 <span className="absolute right-4 text-xs text-zinc-400 font-semibold">원</span>
               </div>
@@ -277,12 +283,12 @@ export default function SalaryCalculator() {
             <div className="flex flex-col gap-2">
               <label className="text-xs font-bold text-zinc-700 flex items-center justify-between">
                 <span>부양가족 수 (본인 포함)</span>
-                <span className="text-[11px] text-blue-600 font-medium">{dependents}명</span>
+                <span className="text-[11px] text-[#c55232] font-medium">{dependents}명</span>
               </label>
               <div className="flex items-center bg-zinc-50 border border-zinc-200 rounded-xl px-2 py-1">
                 <button
                   type="button"
-                  onClick={() => setDependents(Math.max(1, dependents - 1))}
+                  onClick={() => { clearResult(); const next = Math.max(1, dependents - 1); setDependents(next); setChildrenCount(Math.min(childrenCount, next - 1)); }}
                   className="w-8 h-8 rounded-lg flex items-center justify-center text-zinc-600 hover:bg-zinc-200 active:scale-95 transition-all"
                 >
                   -
@@ -290,7 +296,7 @@ export default function SalaryCalculator() {
                 <span className="flex-1 text-center font-bold text-zinc-900 text-sm">{dependents}명</span>
                 <button
                   type="button"
-                  onClick={() => setDependents(dependents + 1)}
+                  onClick={() => { clearResult(); setDependents(dependents + 1); }}
                   className="w-8 h-8 rounded-lg flex items-center justify-center text-zinc-600 hover:bg-zinc-200 active:scale-95 transition-all"
                 >
                   +
@@ -302,21 +308,21 @@ export default function SalaryCalculator() {
 
           {/* 20세 이하 자녀 수 (부양가족 2명 이상일 때 노출) */}
           {dependents > 1 && (
-            <div className="flex flex-col gap-2 p-3.5 bg-blue-50/40 rounded-2xl border border-blue-100/60 animate-in fade-in duration-300">
+            <div className="flex flex-col gap-2 p-3.5 bg-[#fff4ee]/40 rounded-2xl border border-[#f1d8cc]/60 animate-in fade-in duration-300">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-zinc-800">20세 이하 자녀 수</span>
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
-                    onClick={() => setChildrenCount(Math.max(0, childrenCount - 1))}
+                    onClick={() => { clearResult(); setChildrenCount(Math.max(0, childrenCount - 1)); }}
                     className="w-7 h-7 rounded-lg bg-white border border-zinc-200 flex items-center justify-center font-bold text-zinc-600 hover:bg-zinc-100"
                   >
                     -
                   </button>
-                  <span className="font-bold text-blue-600 text-sm min-w-[20px] text-center">{childrenCount}명</span>
+                  <span className="font-bold text-[#c55232] text-sm min-w-[20px] text-center">{childrenCount}명</span>
                   <button
                     type="button"
-                    onClick={() => setChildrenCount(Math.min(dependents - 1, childrenCount + 1))}
+                    onClick={() => { clearResult(); setChildrenCount(Math.min(dependents - 1, childrenCount + 1)); }}
                     className="w-7 h-7 rounded-lg bg-white border border-zinc-200 flex items-center justify-center font-bold text-zinc-600 hover:bg-zinc-100"
                   >
                     +
@@ -331,7 +337,7 @@ export default function SalaryCalculator() {
           <button
             type="button"
             onClick={calculateSalary}
-            className="group relative w-full bg-blue-600 text-white font-bold text-lg rounded-full px-8 py-4 mt-2 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.01] active:scale-[0.98] shadow-[0_4px_20px_rgba(37,99,235,0.2)] hover:shadow-[0_8px_30px_rgba(37,99,235,0.3)]"
+            className="group relative w-full bg-[#c55232] text-white font-bold text-lg rounded-full px-8 py-4 mt-2 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.01] active:scale-[0.98] shadow-[0_4px_20px_rgba(197,82,50,0.2)] hover:shadow-[0_8px_30px_rgba(197,82,50,0.3)]"
           >
             <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
             <span className="relative z-10 flex items-center justify-center gap-3">
@@ -344,11 +350,11 @@ export default function SalaryCalculator() {
 
           {/* 4. 결과 창 (Supanova Editorial Layout) */}
           {result && (
-            <div className="mt-2 bg-blue-50/40 border border-blue-100 rounded-[2rem] p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col gap-6">
+            <div className="mt-2 bg-[#fff4ee]/40 border border-[#f1d8cc] rounded-[2rem] p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col gap-6">
               
               {/* 메인 하이라이트 박스 */}
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-blue-100/80 text-center flex flex-col items-center">
-                <span className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">
+              <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#f1d8cc]/80 text-center flex flex-col items-center">
+                <span className="text-xs font-bold text-[#c55232] uppercase tracking-wider mb-1">
                   예상 월 실수령액
                 </span>
                 <div className="text-4xl sm:text-5xl font-extrabold text-zinc-900 tracking-tight my-2">
@@ -363,7 +369,7 @@ export default function SalaryCalculator() {
               </div>
 
               {/* 연간 환산 배지 */}
-              <div className="flex items-center justify-between px-4 py-3 bg-white/70 rounded-xl border border-blue-100/50 text-sm">
+              <div className="flex items-center justify-between px-4 py-3 bg-white/70 rounded-xl border border-[#f1d8cc]/50 text-sm">
                 <span className="font-semibold text-zinc-600">연간 실수령 환산액</span>
                 <span className="font-bold text-zinc-900">{formatNumber(result.annualNet)}원</span>
               </div>
@@ -378,22 +384,22 @@ export default function SalaryCalculator() {
                 <div className="bg-white rounded-2xl p-4 border border-zinc-100 shadow-xs flex flex-col gap-2.5">
                   <div className="flex justify-between items-center pb-2 border-b border-zinc-100 text-xs font-bold text-zinc-800">
                     <span className="flex items-center gap-1.5">
-                      <Icon icon="solar:shield-check-bold-duotone" className="text-blue-600 text-base" />
+                      <Icon icon="solar:shield-check-bold-duotone" className="text-[#c55232] text-base" />
                       4대 보험 합계
                     </span>
-                    <span className="text-blue-600">-{formatNumber(result.insuranceTotal)}원</span>
+                    <span className="text-[#c55232]">-{formatNumber(result.insuranceTotal)}원</span>
                   </div>
                   
                   <div className="flex justify-between text-xs text-zinc-500">
-                    <span>국민연금 (4.5%)</span>
+                    <span>국민연금 (4.75%)</span>
                     <span className="font-semibold text-zinc-700">{formatNumber(result.pension)}원</span>
                   </div>
                   <div className="flex justify-between text-xs text-zinc-500">
-                    <span>건강보험 (3.545%)</span>
+                    <span>건강보험 (3.595%)</span>
                     <span className="font-semibold text-zinc-700">{formatNumber(result.health)}원</span>
                   </div>
                   <div className="flex justify-between text-xs text-zinc-500">
-                    <span>장기요양보험 (건보료의 12.95%)</span>
+                    <span>장기요양보험 (건보료의 약 13.14%)</span>
                     <span className="font-semibold text-zinc-700">{formatNumber(result.care)}원</span>
                   </div>
                   <div className="flex justify-between text-xs text-zinc-500">
@@ -406,14 +412,14 @@ export default function SalaryCalculator() {
                 <div className="bg-white rounded-2xl p-4 border border-zinc-100 shadow-xs flex flex-col gap-2.5">
                   <div className="flex justify-between items-center pb-2 border-b border-zinc-100 text-xs font-bold text-zinc-800">
                     <span className="flex items-center gap-1.5">
-                      <Icon icon="solar:bill-list-bold-duotone" className="text-blue-600 text-base" />
+                      <Icon icon="solar:bill-list-bold-duotone" className="text-[#c55232] text-base" />
                       세금 합계 (소득세·지방세)
                     </span>
-                    <span className="text-blue-600">-{formatNumber(result.taxTotal)}원</span>
+                    <span className="text-[#c55232]">-{formatNumber(result.taxTotal)}원</span>
                   </div>
                   
                   <div className="flex justify-between text-xs text-zinc-500">
-                    <span>근로소득세 (간이세액표)</span>
+                    <span>근로소득세 (추정)</span>
                     <span className="font-semibold text-zinc-700">{formatNumber(result.incomeTax)}원</span>
                   </div>
                   <div className="flex justify-between text-xs text-zinc-500">
@@ -423,6 +429,10 @@ export default function SalaryCalculator() {
                 </div>
 
               </div>
+
+              <p className="text-sm leading-relaxed text-zinc-600">
+                2026년 보험료율을 적용한 참고용 추정치입니다. 소득세는 국세청 월별 간이세액표를 직접 조회한 값이 아니며, 실제 급여명세서와 다를 수 있습니다.
+              </p>
 
             </div>
           )}

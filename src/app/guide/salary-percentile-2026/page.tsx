@@ -605,7 +605,7 @@ export default function SalaryPercentileGuidePage() {
                   <td className="py-3 px-3.5 font-bold text-blue-600">억대 연봉 컷</td>
                   <td className="py-3 px-3.5 font-bold text-blue-600">상위 6.7%</td>
                   <td className="py-3 px-3.5 font-bold text-blue-600">1억 원</td>
-                  <td className="py-3 px-3.5 font-bold text-blue-600">약 660만 원/월</td>
+                  <td className="py-3 px-3.5 font-bold text-blue-600">약 657만 원/월 (추정)</td>
                   <td className="py-3 px-3.5 text-zinc-500">총 139만 명 진입 구간</td>
                 </tr>
                 <tr>
@@ -674,7 +674,7 @@ export default function SalaryPercentileGuidePage() {
           </p>
 
           <p>
-            하지만 억대 연봉자가 체감하는 현실은 또 다릅니다. 대한민국 소득세율은 누진세율 구조이기 때문에, 연봉 1억 원의 세전 월급은 833만 원이지만 <strong>소득세와 4대 보험으로 매달 약 170만 원 이상이 빠져나가 실제 통장에 꽂히는 돈은 월 660만 원 수준</strong>입니다.
+            하지만 억대 연봉자가 체감하는 현실은 또 다릅니다. 대한민국 소득세율은 누진세율 구조이기 때문에, 연봉 1억 원의 세전 월급은 약 833만 원이지만 <strong>이 사이트의 참고용 계산 기준 예상 월 실수령액은 약 657만 원</strong>입니다. 실제 금액은 다를 수 있습니다.
           </p>
         </section>
 
@@ -734,7 +734,7 @@ export default function SalaryPercentileGuidePage() {
             내 연봉의 정확한 세후 월급이 궁금하다면?
           </h3>
           <p className="text-xs sm:text-sm text-zinc-300">
-            2026년 최신 4대 보험 요율과 소득세 간이세액표를 반영한 삼촌표 실수령액 계산기
+            2026년 보험료율과 소득세 추정치를 적용한 참고용 실수령액 계산기
           </p>
         </div>
         <Link

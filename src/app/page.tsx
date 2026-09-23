@@ -220,7 +220,7 @@ export default function Home() {
               </div>
 
               <div className="mt-8 flex items-center justify-between pt-4 border-t border-zinc-100">
-                <span className="text-xs font-bold text-[#c55232]">2026 최신 간이세액표</span>
+                <span className="text-xs font-bold text-[#c55232]">2026 보험료율 기준 예상액</span>
                 <div className="flex items-center justify-center w-8 h-8 rounded-full bg-black/5 group-hover:bg-[#c55232] group-hover:text-white transition-all duration-300">
                   <Icon icon="solar:arrow-right-linear" width="18" height="18" className="group-hover:translate-x-0.5 transition-transform duration-300" />
                 </div>
@@ -274,7 +274,7 @@ export default function Home() {
               </div>
 
               <div className="mt-8 flex items-center justify-between pt-4 border-t border-zinc-100">
-                <span className="text-xs font-bold text-[#c55232]">2026·2027 법정 시급</span>
+                <span className="text-xs font-bold text-[#c55232]">2026·2027 확정 시급</span>
                 <div className="flex items-center justify-center w-8 h-8 rounded-full bg-black/5 group-hover:bg-[#c55232] group-hover:text-white transition-all duration-300">
                   <Icon icon="solar:arrow-right-linear" width="18" height="18" className="group-hover:translate-x-0.5 transition-transform duration-300" />
                 </div>

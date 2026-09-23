@@ -692,7 +692,7 @@ export default function TileCalculatorPage() {
                     <button
                       key={cat.id}
                       type="button"
-                      onClick={() => setPresetCategory(cat.id as any)}
+                      onClick={() => setPresetCategory(cat.id as typeof presetCategory)}
                       className={`px-2.5 py-2.5 rounded-xl text-xs font-bold text-center transition-all border leading-tight ${
                         presetCategory === cat.id
                           ? 'bg-[#292520] text-white border-[#292520] shadow-sm ring-1 ring-[#292520]'

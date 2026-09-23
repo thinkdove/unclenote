@@ -65,12 +65,13 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css" />
       </head>
       <body className="antialiased bg-[#fdfbf7] text-[#292520] min-h-screen flex flex-col font-['Pretendard'] break-keep selection:bg-[#c55232]/10 selection:text-[#a74126] transition-colors duration-500">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-[#292520]">본문으로 건너뛰기</a>
 
         {/* Floating Glass Navigation (Responsive Navbar) */}
         <Navbar />
 
         {/* 메인 콘텐츠 (여백 대폭 확보) */}
-        <main className="flex-1 w-full mx-auto px-4 sm:px-6 pt-32 pb-24 md:py-40 max-w-5xl">
+        <main id="main-content" tabIndex={-1} className="flex-1 w-full mx-auto px-4 sm:px-6 pt-32 pb-24 md:py-40 max-w-5xl">
           {children}
         </main>
 

@@ -24,7 +24,7 @@ const GUIDES = [
   {
     slug: 'salary-table-2026',
     title: '2026년 연봉 실수령액 표 총정리: 3,000만~1억 구간별 월급 & 공제액 분석',
-    description: '최신 4대 보험 요율과 근로소득세 간이세액표를 반영한 연봉 구간별 실제 월 실수령액과 식대 비과세 절세 팁을 상세히 전해드립니다.',
+    description: '2026년 보험료율을 참고한 연봉 구간별 예상 월 실수령액과 식대 비과세 정보를 정리했습니다. 실제 원천징수액은 급여명세서를 확인하세요.',
     category: '세무·노무',
     date: '2026.09.22',
     thumbnail: '/images/salary-guide-thumbnail.jpg',

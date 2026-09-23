@@ -64,7 +64,7 @@ export default function AboutPage() {
               </div>
               <h3 className="font-bold text-[#292520] text-base mb-2">1. 정확성과 최신 세법</h3>
               <p className="text-sm text-zinc-500 leading-relaxed">
-                매년 개정되는 4대 보험 요율과 국세청 근로소득 간이세액표를 지속적으로 모니터링하여 최신 기준을 즉각 반영합니다.
+                공개된 보험료율과 계산 기준을 확인하고 업데이트합니다. 계산 결과는 참고용이며 실제 원천징수액은 급여명세서와 국세청 자료로 확인해 주세요.
               </p>
             </div>
 

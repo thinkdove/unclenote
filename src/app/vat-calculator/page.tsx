@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "부가세 계산기 - 삼촌생각 (Uncle Note)",
-  description: "일반과세자와 간이과세자를 위한 가장 빠르고 쉬운 부가세(VAT) 자동 계산기. 공급가액과 합계금액 역산 1초 완료.",
+  description: "일반과세자 공급가액과 부가세 포함 금액을 계산합니다. 간이과세자 납부세액은 업종과 공제액에 따라 달라져 국세청 안내를 연결합니다.",
 };
 
 export default function VatCalculatorPage() {
@@ -12,7 +12,7 @@ export default function VatCalculatorPage() {
     <div className="flex flex-col items-center gap-10">
       {/* 빵부스러기(Breadcrumb) & 뒤로가기 */}
       <div className="w-full max-w-xl text-sm font-medium text-zinc-500 mb-[-1.5rem]">
-        <Link href="/" className="hover:text-blue-600 transition-colors">
+        <Link href="/" className="hover:text-[#c55232] transition-colors">
           ← 홈으로 돌아가기
         </Link>
         <span className="mx-2">/</span>
@@ -22,11 +22,11 @@ export default function VatCalculatorPage() {
       {/* Hero Section */}
       <section className="text-center max-w-2xl pt-2">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 leading-tight">
-          <span className="text-blue-600">부가세(VAT)</span> 간편 계산기
+          <span className="text-[#c55232]">부가세(VAT)</span> 간편 계산기
         </h1>
         <p className="mt-3 text-base text-zinc-600 [text-wrap:balance]">
-          공급가액부터 세액 역산까지 1초 만에 확인하는 <br className="sm:hidden" />
-          삼촌생각(Uncle Note) 스마트 계산기입니다.
+          일반과세자의 공급가액과 부가세 포함 금액을 계산합니다. <br className="sm:hidden" />
+          간이과세자는 업종별 기준을 먼저 확인해 주세요.
         </p>
       </section>
 

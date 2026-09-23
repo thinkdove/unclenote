@@ -10,12 +10,13 @@ export default function WageCalculatorPage() {
   const hoursPerDayId = useId();
   const breakTimeId = useId();
 
-  // 2026년 법정 최저시급: 10,320원 (2025년 10,030원, 2027년 예상치 약 10,650원)
+  // 최저임금위원회 연도별 결정 현황 (2027년 고시: 10,700원).
   const MIN_WAGE_2025 = 10030;
   const MIN_WAGE_2026 = 10320;
-  const ESTIMATED_WAGE_2027 = 10650;
+  const MIN_WAGE_2027 = 10700;
 
   const [hourlyWage, setHourlyWage] = useState<number>(MIN_WAGE_2026);
+  const [referenceYear, setReferenceYear] = useState<2025 | 2026 | 2027>(2026);
   const [daysPerWeek, setDaysPerWeek] = useState<number>(5);
   const [hoursPerDay, setHoursPerDay] = useState<number>(9); // 체류시간 (예: 9시~18시 9시간 체류)
   const [breakMinutes, setBreakMinutes] = useState<number>(60); // 법정 무급 휴게시간 1시간(60분)
@@ -58,24 +59,20 @@ export default function WageCalculatorPage() {
     deductionAmount = Math.floor(monthlyGrossPay * 0.033);
     deductionLabel = '3.3% 사업소득세';
   } else if (taxOption === 'fourInsurance') {
-    // 4대 보험 (월 60시간 이상 시 의무: 약 9.4%)
-    if (weeklyWorkHours * monthlyAverageWeeks >= 60) {
-      deductionAmount = Math.floor(monthlyGrossPay * 0.094);
-      deductionLabel = '4대 보험료 (약 9.4%)';
-    } else {
-      deductionAmount = 0;
-      deductionLabel = '월 60시간 미만 (4대보험 면제)';
-    }
+    // 2026년 근로자 부담 보험료의 참고용 합산치. 가입 자격은 개별 확인 필요.
+    deductionAmount = Math.floor(monthlyGrossPay * 0.0972);
+    deductionLabel = '2026년 보험료 추정 (약 9.72%, 가입 조건에 따라 다름)';
   }
 
   const monthlyNetPay = Math.max(0, monthlyGrossPay - deductionAmount);
 
   // 최저임금 미달 여부 판별
-  const isUnderMinWage = hourlyWage < MIN_WAGE_2026;
+  const referenceMinimum = referenceYear === 2025 ? MIN_WAGE_2025 : referenceYear === 2027 ? MIN_WAGE_2027 : MIN_WAGE_2026;
+  const isUnderMinWage = hourlyWage < referenceMinimum;
 
   const handleCopy = () => {
     const text = `[삼촌생각 최저임금 & 주휴수당 계산 결과]
-• 적용 시급: ${hourlyWage.toLocaleString()}원 (2026 법정 최저시급: 10,320원)
+• 적용 시급: ${hourlyWage.toLocaleString()}원 (${referenceYear}년 최저시급: ${referenceMinimum.toLocaleString()}원)
 • 근무 조건: 주 ${daysPerWeek}일 / 체류 ${hoursPerDay}시간 (무급 휴게 ${breakMinutes}분 제외, 1일 실근로 ${paidDailyHours}시간)
 • 1주 실근로: ${weeklyWorkHours}시간 ${isHolidayAllowanceEligible ? '(주 15시간 이상: 주휴수당 발생 대상)' : '(주 15시간 미만: 주휴수당 미발생)'}
 • 1주 주휴수당: ${weeklyHolidayPay.toLocaleString()}원 (주휴시간: ${weeklyHolidayHours.toFixed(1)}시간)
@@ -102,7 +99,7 @@ export default function WageCalculatorPage() {
           최저임금 & 주휴수당 급여계산기
         </h1>
         <p className="text-zinc-600 text-base leading-relaxed">
-          2026년 확정 최저시급(10,320원)과 무급 휴게시간 규정을 반영하여, 주 15시간 이상 근로 시 발생하는 <strong className="text-[#292520]">법정 주휴수당과 통장 실수령액</strong>을 1초 만에 정확하게 산출해 드립니다.
+          2026·2027년 고시 최저시급을 선택해 주휴수당을 계산합니다. <strong className="text-[#292520]">공제 후 금액은 가입 조건에 따라 달라지는 참고용 추정치</strong>입니다.
         </p>
       </div>
 
@@ -114,7 +111,7 @@ export default function WageCalculatorPage() {
         </span>
         <div className="flex flex-wrap gap-2">
           <button
-            onClick={() => setHourlyWage(MIN_WAGE_2025)}
+            onClick={() => { setReferenceYear(2025); setHourlyWage(MIN_WAGE_2025); }}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
               hourlyWage === MIN_WAGE_2025
                 ? 'bg-[#292520] text-white shadow-xs'
@@ -124,7 +121,7 @@ export default function WageCalculatorPage() {
             2025년 (10,030원)
           </button>
           <button
-            onClick={() => setHourlyWage(MIN_WAGE_2026)}
+            onClick={() => { setReferenceYear(2026); setHourlyWage(MIN_WAGE_2026); }}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
               hourlyWage === MIN_WAGE_2026
                 ? 'bg-[#c55232] text-white shadow-xs'
@@ -134,14 +131,14 @@ export default function WageCalculatorPage() {
             ⭐ 2026년 확정 (10,320원)
           </button>
           <button
-            onClick={() => setHourlyWage(ESTIMATED_WAGE_2027)}
+            onClick={() => { setReferenceYear(2027); setHourlyWage(MIN_WAGE_2027); }}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-              hourlyWage === ESTIMATED_WAGE_2027
+              hourlyWage === MIN_WAGE_2027
                 ? 'bg-[#292520] text-white shadow-xs'
                 : 'bg-[#fdfbf7] border border-zinc-200 text-zinc-600 hover:border-zinc-400'
             }`}
           >
-            2027년 전망치 (약 10,650원)
+            2027년 확정 (10,700원)
           </button>
         </div>
       </div>
@@ -162,7 +159,7 @@ export default function WageCalculatorPage() {
               </label>
               {isUnderMinWage && (
                 <span className="text-xs font-bold text-rose-600 bg-rose-50 px-2.5 py-0.5 rounded-md">
-                  ⚠️ 2026 최저시급(10,320원) 미달
+                  ⚠️ {referenceYear}년 최저시급({referenceMinimum.toLocaleString()}원) 미달
                 </span>
               )}
             </div>

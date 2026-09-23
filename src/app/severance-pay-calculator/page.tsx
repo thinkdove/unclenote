@@ -21,18 +21,20 @@ export default function SeverancePayCalculatorPage() {
   const [annualLeavePay, setAnnualLeavePay] = useState<number>(0); // 연차수당
   const [copied, setCopied] = useState(false);
 
-  // 날짜 계산
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-  const diffTime = end.getTime() - start.getTime();
-  const totalDays = Math.max(0, Math.floor(diffTime / (1000 * 60 * 60 * 24)));
+  // 퇴사일 입력은 화면 안내대로 마지막 근무일의 다음 날이다.
+  const start = new Date(`${startDate}T00:00:00Z`);
+  const end = new Date(`${endDate}T00:00:00Z`);
+  const datesValid = Number.isFinite(start.getTime()) && Number.isFinite(end.getTime()) && end > start;
+  const totalDays = datesValid ? Math.round((end.getTime() - start.getTime()) / 86400000) : 0;
   const years = Math.floor(totalDays / 365);
   const remainingDays = totalDays % 365;
   const months = Math.floor(remainingDays / 30);
   const serviceYears = Math.max(1, Math.ceil(totalDays / 365));
 
-  // 최근 3개월 일수 (평균 92일)
-  const last3MonthsDays = 92;
+  // 퇴직 전 역산한 실제 3개월의 달력 일수 (월말은 해당 월 마지막 날로 맞춤).
+  const periodStart = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth() - 3, 1));
+  periodStart.setUTCDate(Math.min(end.getUTCDate(), new Date(Date.UTC(periodStart.getUTCFullYear(), periodStart.getUTCMonth() + 1, 0)).getUTCDate()));
+  const last3MonthsDays = datesValid ? Math.round((end.getTime() - periodStart.getTime()) / 86400000) : 0;
 
   // 3개월간 임금 총액 = 3개월 기본급 + 기타수당 + (연간상여금 * 3/12) + (연간연차수당 * 3/12)
   const total3MonthsWages =
@@ -42,7 +44,7 @@ export default function SeverancePayCalculatorPage() {
     (Number(annualLeavePay || 0) * 3) / 12;
 
   // 1일 평균임금
-  const dailyAverageWage = Math.round(total3MonthsWages / last3MonthsDays);
+  const dailyAverageWage = last3MonthsDays > 0 ? Math.round(total3MonthsWages / last3MonthsDays) : 0;
 
   // 세전 퇴직금 = 1일 평균임금 * 30일 * (총 재직일수 / 365)
   const isEligible = totalDays >= 365;
@@ -139,7 +141,7 @@ export default function SeverancePayCalculatorPage() {
           퇴직금 실수령액 계산기
         </h1>
         <p className="text-zinc-600 text-base leading-relaxed">
-          입사일과 퇴사일, 최근 3개월 급여를 입력하시면 법정 퇴직금과 퇴직소득세를 공제한 <strong className="text-[#292520]">실제 통장 입금액</strong>을 1초 만에 산출해 드립니다.
+          입사일과 퇴사일, 최근 3개월 급여를 입력하면 <strong className="text-[#292520]">예상 퇴직금과 세후 참고 금액</strong>을 확인할 수 있습니다. 통상임금이 평균임금보다 높은 경우 등 개별 조건은 별도 확인이 필요합니다.
         </p>
       </div>
 
@@ -190,7 +192,12 @@ export default function SeverancePayCalculatorPage() {
             </span>
           </div>
 
-          {!isEligible && (
+          {!datesValid && (
+            <p role="alert" className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-800">
+              퇴사일은 입사일보다 늦어야 합니다. 마지막 근무일의 다음 날을 입력해 주세요.
+            </p>
+          )}
+          {datesValid && !isEligible && (
             <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 leading-relaxed">
               ⚠️ 근로기준법상 계속근로기간이 <strong>1년(365일) 미만</strong>인 경우 법정 퇴직금 지급 대상이 아닙니다.
             </div>
