@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Script from 'next/script';
 import { Icon } from '@iconify/react';
 
-// 국세청(TASIS) 2,085만 명 전수조사 컷오프 데이터 (단위: 만 원)
+// 2023년 귀속 국세청 통계에 맞춘 참고용 백분위 경계값 (단위: 만 원)
 const PERCENTILE_CUTOFFS = [
   { salary: 102000, topPercent: 0.1 },
   { salary: 18500, topPercent: 1.0 },
@@ -37,6 +37,15 @@ const PERCENTILE_CUTOFFS = [
 const TOTAL_WORKERS = 20850000; // 2,085만 명
 const AVERAGE_SALARY = 4332; // 4,332만 원
 const MEDIAN_SALARY = 3213; // 3,213만 원
+
+function getSalaryFromSliderPointer(clientX: number, slider: HTMLInputElement) {
+  const bounds = slider.getBoundingClientRect();
+  const min = Number(slider.min);
+  const max = Number(slider.max);
+  const step = Number(slider.step) || 1;
+  const ratio = Math.max(0, Math.min(1, (clientX - bounds.left) / bounds.width));
+  return Math.min(max, min + Math.round((ratio * (max - min)) / step) * step);
+}
 
 // 상위 백분위 계산 보간 알고리즘
 function calculatePercentile(salaryManwon: number): number {
@@ -114,8 +123,8 @@ export default function SalaryPercentileGuidePage() {
       {
         '@type': 'BlogPosting',
         '@id': 'https://unclenote.com/guide/salary-percentile-2026#article',
-        'headline': '2026년 대한민국 연봉 통계, 나는 상위 몇%? (국세청 2,085만 명 전수조사 팩트)',
-        'description': '국세청 연말정산 전수조사(2,085만 명)와 통계청 공식 데이터를 기반으로 내 연봉이 대한민국 상위 몇%인지 실시간 계산하고 중위소득과 평균의 함정을 심층 분석합니다.',
+        'headline': '내 연봉은 상위 몇 %? 국세청 2023년 귀속 통계로 살펴보기',
+        'description': '국세청 2023년 귀속 근로소득 연말정산 통계를 바탕으로 연봉 백분위를 참고용으로 추정합니다.',
         'image': 'https://unclenote.com/images/salary-percentile-hero.jpg',
         'author': {
           '@type': 'Organization',
@@ -131,7 +140,7 @@ export default function SalaryPercentileGuidePage() {
           },
         },
         'datePublished': '2026-09-22T09:00:00+09:00',
-        'dateModified': '2026-09-22T09:00:00+09:00',
+        'dateModified': '2026-09-23T09:00:00+09:00',
       },
       {
         '@type': 'WebApplication',
@@ -153,7 +162,7 @@ export default function SalaryPercentileGuidePage() {
             'name': '대한민국 근로자 평균 연봉과 중위 연봉의 차이는 얼마인가요?',
             'acceptedAnswer': {
               '@type': 'Answer',
-              'text': '국세청 2,085만 명 연말정산 전수조사 기준 1인당 평균 연봉은 4,332만 원이지만, 전체 근로자를 줄 세웠을 때 딱 정가운데 위치한 중위 연봉(중간값)은 3,213만 원입니다. 초고소득자들의 영향으로 평균이 중위값보다 약 1,119만 원 더 높게 형성됩니다.',
+              'text': '국세청 2023년 귀속 근로소득 연말정산 신고자 2,085만 명의 평균 총급여는 4,332만 원입니다. 이 페이지의 중위 연봉 약 3,213만 원과 백분위 경계는 참고용 추정치입니다.',
             },
           },
           {
@@ -199,7 +208,7 @@ export default function SalaryPercentileGuidePage() {
       <header className="mb-8 space-y-4">
         <div className="flex flex-wrap items-center gap-2">
           <span className="px-2.5 py-1 rounded-full bg-[#c55232]/10 text-[#c55232] text-xs font-bold">
-            국세청 전수조사 팩트
+            국세청 2023년 귀속 통계
           </span>
           <span className="px-2.5 py-1 rounded-full bg-zinc-100 text-zinc-600 text-xs font-bold">
             인터랙티브 분석
@@ -211,12 +220,12 @@ export default function SalaryPercentileGuidePage() {
         </div>
 
         <h1 className="editorial-h1 text-2xl sm:text-4xl font-extrabold text-[#292520] tracking-tight leading-[1.3] break-keep [text-wrap:balance]">
-          <span className="inline-block">2026년 대한민국 연봉 통계,</span>{' '}
+          <span className="inline-block">2023년 귀속 연봉 통계로,</span>{' '}
           <span className="inline-block whitespace-nowrap text-[#c55232]">나는 상위 몇%일까?</span>
         </h1>
 
         <p className="text-base sm:text-lg text-zinc-600 leading-relaxed font-normal">
-          &ldquo;남들은 다 나보다 많이 버는 것 같은데...&rdquo; 국세청 연말정산 신고자 <strong>2,085만 명의 공식 전수 데이터</strong>를 바탕으로 내 실제 소득 순위와 평균의 진실을 투명하게 공개합니다.
+          &ldquo;남들은 다 나보다 많이 버는 것 같은데...&rdquo; 국세청의 <strong>2023년 귀속 연말정산 신고자 2,085만 명 통계</strong>를 바탕으로 연봉 위치를 참고용으로 추정합니다.
         </p>
 
         <div className="pt-2 pb-4 border-b border-zinc-200/80 flex items-center justify-between text-xs text-zinc-500">
@@ -225,8 +234,8 @@ export default function SalaryPercentileGuidePage() {
               삼촌
             </div>
             <div>
-              <p className="font-bold text-[#292520]">삼촌생각 경제팀</p>
-              <p className="text-zinc-400">2026년 최신 갱신 • 출처: 국세청 TASIS</p>
+              <p className="font-bold text-[#292520]">삼촌생각</p>
+              <p className="text-zinc-400">자료: 2023년 귀속 · 글 수정: 2026.09.23</p>
             </div>
           </div>
           <button
@@ -307,7 +316,7 @@ export default function SalaryPercentileGuidePage() {
         <ul className="space-y-2 text-sm text-[#292520] leading-relaxed">
           <li className="flex items-start gap-2">
             <span className="text-[#c55232] font-black">•</span>
-            <span><strong>대한민국 평균 연봉은 4,332만 원</strong>이지만, 딱 정가운데 사람의 <strong>중위 연봉은 3,213만 원</strong>입니다. (고소득자 착시로 1,119만 원 차이 발생)</span>
+            <span>국세청 발표 기준 <strong>2023년 귀속 평균 총급여는 4,332만 원</strong>입니다. 이 페이지의 <strong>중위값 약 3,213만 원은 참고용 추정치</strong>로, 두 값을 비교할 때 이 차이를 고려해 주세요.</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-[#c55232] font-black">•</span>
@@ -315,7 +324,7 @@ export default function SalaryPercentileGuidePage() {
           </li>
           <li className="flex items-start gap-2">
             <span className="text-[#c55232] font-black">•</span>
-            <span><strong>상위 10% 컷은 8,700만 원</strong>, <strong>상위 1% 초고소득자 컷은 1억 8,500만 원</strong>입니다.</span>
+            <span>이 페이지의 <strong>상위 10% 경계 약 8,700만 원</strong>, <strong>상위 1% 경계 약 1억 8,500만 원</strong>은 공식 발표값이 아닌 참고용 추정치입니다.</span>
           </li>
         </ul>
       </div>
@@ -366,7 +375,16 @@ export default function SalaryPercentileGuidePage() {
               step="100"
               value={salaryManwon}
               onChange={(e) => setSalaryManwon(Number(e.target.value))}
-              className="w-full h-2.5 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-[#c55232]"
+              onPointerDown={(e) => {
+                e.currentTarget.setPointerCapture(e.pointerId);
+                setSalaryManwon(getSalaryFromSliderPointer(e.clientX, e.currentTarget));
+              }}
+              onPointerMove={(e) => {
+                if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+                  setSalaryManwon(getSalaryFromSliderPointer(e.clientX, e.currentTarget));
+                }
+              }}
+              className="salary-range w-full h-2.5 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-[#c55232]"
             />
             <div className="flex justify-between text-[11px] font-bold text-zinc-400">
               <span>1,500만</span>
@@ -552,7 +570,7 @@ export default function SalaryPercentileGuidePage() {
           </p>
 
           <p>
-            따라서 내 소득 수준의 현실적인 위치를 볼 때는 평균값이 아니라, <strong>전체 2,085만 명 중 정확히 정가운데 서 있는 사람의 소득인 &lsquo;중위 연봉(3,213만 원)&rsquo;</strong>을 기준으로 삼아야 합니다. 연봉 3,300만 원만 넘어도 당신은 이미 대한민국 절반 이상의 직장인보다 앞서 나가고 있는 것입니다.
+            평균값만으로 내 위치를 판단하기는 어렵습니다. 이 페이지에서 사용한 <strong>중위 연봉 약 3,213만 원은 추정값</strong>이며, 정확한 개인 순위가 아니라 대략적인 분포를 이해하는 데 활용해 주세요.
           </p>
         </section>
 
@@ -560,7 +578,7 @@ export default function SalaryPercentileGuidePage() {
         <section className="space-y-4">
           <h2 className="text-xl sm:text-2xl font-black text-[#292520] tracking-tight flex items-center gap-2.5">
             <span className="w-8 h-8 rounded-xl bg-[#c55232]/10 text-[#c55232] flex items-center justify-center text-sm font-black shrink-0">2</span>
-            <span>국세청 전수조사 소득 10분위 팩트 시트</span>
+            <span>근로소득 분포 참고표</span>
           </h2>
 
           <p>
@@ -654,7 +672,7 @@ export default function SalaryPercentileGuidePage() {
             </table>
           </div>
           <p className="text-xs text-zinc-400">
-            * 기준: 국세청 국세통계포털(TASIS) 최신 근로소득 연말정산 전수조사 (단위: 세전 총급여액). 비과세 소득 제외.
+            * 기준: 국세청 2023년 귀속 근로소득 연말정산 통계 (단위: 세전 총급여액). 백분위 경계와 중위값은 참고용 추정치입니다.
           </p>
         </section>
 
@@ -709,12 +727,11 @@ export default function SalaryPercentileGuidePage() {
             <span>데이터 출처 및 통계 산출 기준 안내</span>
           </div>
           <p className="leading-relaxed">
-            본 아티클과 상위 백분위 계산기는 공공데이터의 객관성과 신뢰성을 최우선으로 하여 제작되었습니다:
+            신고 인원·평균 총급여·1억 원 초과 비율은 국세청의 2023년 귀속 발표값입니다. 세부 백분위 경계와 중위값은 참고용 추정치이며, 입력 금액 사이의 백분위는 선형 보간으로 계산합니다.
           </p>
           <ul className="space-y-1 list-disc list-inside">
-            <li><strong>국세청 국세통계포털(TASIS)</strong>: 최신 귀속 근로소득 연말정산 신고 현황 (2,085만 명 전수조사 원자료)</li>
-            <li><strong>통계청(KOSIS) 국가통계포털</strong>: 임금근로일자리 소득(보수) 결과 및 소득 10분위 통계</li>
-            <li><strong>고용노동부</strong>: 사업체노동력조사 및 고용형태별 근로실태조사</li>
+            <li><a className="underline text-[#a74126]" href="https://s.nts.go.kr/webtv/na/ntt/selectNttInfo.do?nttSn=1339428" target="_blank" rel="noopener noreferrer"><strong>국세청 2024년 4분기 국세통계 안내</strong></a>: 2023년 귀속 신고 인원 2,085만 명, 평균 총급여 4,332만 원, 1억 원 초과 비율 6.7%</li>
+            <li><strong>계산 방식</strong>: 페이지에 표시된 경계값 사이를 선형 보간한 추정치로, 최신 연도 소득 분포나 개인의 정확한 순위를 뜻하지 않습니다.</li>
           </ul>
           <p className="text-[11px] text-zinc-400">
             ※ 참고: 본 통계는 연말정산을 신고한 모든 근로자(중도 입·퇴사자, 파트타임 근로자 포함)를 포괄하므로, 1년 이상 계속 근속한 전일제 정규직만을 대상으로 한 통계와는 수치상 다소 차이가 있을 수 있습니다.

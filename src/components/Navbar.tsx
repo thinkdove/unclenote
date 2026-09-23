@@ -3,14 +3,20 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Icon } from '@iconify/react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const navLinkClass = (href: string) => {
+    const isActive = href === '/guide' ? pathname.startsWith('/guide') : pathname === href;
+    return `rounded-lg px-1.5 py-1 transition-colors duration-200 ${isActive ? 'bg-[#c55232]/[0.07] text-[#a74126]' : 'text-zinc-600 hover:text-[#c55232]'}`;
+  };
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 px-4 pt-5 pointer-events-none flex flex-col items-center">
-      <header className="pointer-events-auto bg-[#fdfbf7]/85 backdrop-blur-xl border border-zinc-200/80 shadow-[0_8px_30px_rgba(0,0,0,0.04)] rounded-full px-6 py-3 flex items-center justify-between w-full max-w-4xl transition-all duration-300">
+      <header className="pointer-events-auto bg-[#fbf8f3]/95 supports-[backdrop-filter]:bg-[#fbf8f3]/85 backdrop-blur-xl border border-[#e8e1d8] shadow-[0_8px_30px_rgba(54,39,28,0.06)] rounded-2xl sm:rounded-full px-4 sm:px-6 py-3 flex items-center justify-between w-full max-w-6xl transition-all duration-300">
         {/* Logo */}
         <Link 
           href="/" 
@@ -33,65 +39,65 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-4 xl:gap-5 text-[14px] font-semibold text-zinc-600">
-          <Link href="/" className="hover:text-[#c55232] transition-colors duration-200">
+        <nav className="hidden xl:flex items-center gap-2 2xl:gap-3 text-[13px] 2xl:text-[14px] font-semibold">
+          <Link href="/" aria-current={pathname === '/' ? 'page' : undefined} className={navLinkClass('/')}>
             홈
           </Link>
           
           <div className="h-3.5 w-px bg-zinc-300 mx-0.5" />
 
           {/* Interior Tools */}
-          <Link href="/tile-calculator" className="hover:text-[#c55232] transition-colors duration-200 flex items-center gap-1">
+          <Link href="/tile-calculator" aria-current={pathname === '/tile-calculator' ? 'page' : undefined} className={navLinkClass('/tile-calculator')}>
             <span>타일</span>
           </Link>
-          <Link href="/wallpaper-calculator" className="hover:text-[#c55232] transition-colors duration-200 flex items-center gap-1">
+          <Link href="/wallpaper-calculator" aria-current={pathname === '/wallpaper-calculator' ? 'page' : undefined} className={navLinkClass('/wallpaper-calculator')}>
             <span>도배지</span>
           </Link>
-          <Link href="/flooring-calculator" className="hover:text-[#c55232] transition-colors duration-200 flex items-center gap-1">
+          <Link href="/flooring-calculator" aria-current={pathname === '/flooring-calculator' ? 'page' : undefined} className={navLinkClass('/flooring-calculator')}>
             <span>장판</span>
           </Link>
-          <Link href="/paint-calculator" className="hover:text-[#c55232] transition-colors duration-200 flex items-center gap-1">
+          <Link href="/paint-calculator" aria-current={pathname === '/paint-calculator' ? 'page' : undefined} className={navLinkClass('/paint-calculator')}>
             <span>페인트</span>
           </Link>
-          <Link href="/curtain-calculator" className="hover:text-[#c55232] transition-colors duration-200 flex items-center gap-1">
+          <Link href="/curtain-calculator" aria-current={pathname === '/curtain-calculator' ? 'page' : undefined} className={navLinkClass('/curtain-calculator')}>
             <span>커튼</span>
           </Link>
 
           <div className="h-3.5 w-px bg-zinc-300 mx-0.5" />
 
           {/* Finance Tools */}
-          <Link href="/salary-calculator" className="hover:text-[#c55232] transition-colors duration-200">
+          <Link href="/salary-calculator" aria-current={pathname === '/salary-calculator' ? 'page' : undefined} className={navLinkClass('/salary-calculator')}>
             연봉
           </Link>
-          <Link href="/severance-pay-calculator" className="hover:text-[#c55232] transition-colors duration-200">
+          <Link href="/severance-pay-calculator" aria-current={pathname === '/severance-pay-calculator' ? 'page' : undefined} className={navLinkClass('/severance-pay-calculator')}>
             퇴직금
           </Link>
-          <Link href="/wage-calculator" className="hover:text-[#c55232] transition-colors duration-200">
+          <Link href="/wage-calculator" aria-current={pathname === '/wage-calculator' ? 'page' : undefined} className={navLinkClass('/wage-calculator')}>
             최저임금
           </Link>
-          <Link href="/guide" className="hover:text-[#c55232] transition-colors duration-200">
+          <Link href="/guide" aria-current={pathname.startsWith('/guide') ? 'page' : undefined} className={navLinkClass('/guide')}>
             가이드
           </Link>
-          <Link href="/about" className="hover:text-[#c55232] transition-colors duration-200">
+          <Link href="/about" aria-current={pathname === '/about' ? 'page' : undefined} className={navLinkClass('/about')}>
             소개
           </Link>
         </nav>
 
         {/* Medium Screen Quick Access (when lg is not hit) */}
-        <div className="hidden md:flex lg:hidden items-center gap-1.5 text-xs font-bold">
-          <Link href="/tile-calculator" className="px-2.5 py-1 bg-[#c55232]/10 text-[#c55232] rounded-full hover:bg-[#c55232]/20 transition-colors">
+        <div className="hidden md:flex xl:hidden items-center gap-1 sm:gap-1.5 text-[11px] sm:text-xs font-bold">
+          <Link href="/tile-calculator" className={`px-2 sm:px-2.5 py-1 rounded-full transition-colors ${pathname === '/tile-calculator' ? 'bg-[#c55232]/10 text-[#c55232]' : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'}`}>
             타일
           </Link>
-          <Link href="/wallpaper-calculator" className="px-2.5 py-1 bg-zinc-100 text-zinc-700 rounded-full hover:bg-zinc-200 transition-colors">
+          <Link href="/wallpaper-calculator" className={`px-2 sm:px-2.5 py-1 rounded-full transition-colors ${pathname === '/wallpaper-calculator' ? 'bg-[#c55232]/10 text-[#c55232]' : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'}`}>
             도배
           </Link>
-          <Link href="/flooring-calculator" className="px-2.5 py-1 bg-zinc-100 text-zinc-700 rounded-full hover:bg-zinc-200 transition-colors">
+          <Link href="/flooring-calculator" className={`px-2 sm:px-2.5 py-1 rounded-full transition-colors ${pathname === '/flooring-calculator' ? 'bg-[#c55232]/10 text-[#c55232]' : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'}`}>
             장판
           </Link>
-          <Link href="/paint-calculator" className="px-2.5 py-1 bg-zinc-100 text-zinc-700 rounded-full hover:bg-zinc-200 transition-colors">
+          <Link href="/paint-calculator" className={`px-2 sm:px-2.5 py-1 rounded-full transition-colors ${pathname === '/paint-calculator' ? 'bg-[#c55232]/10 text-[#c55232]' : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'}`}>
             페인트
           </Link>
-          <Link href="/curtain-calculator" className="px-2.5 py-1 bg-zinc-100 text-zinc-700 rounded-full hover:bg-zinc-200 transition-colors">
+          <Link href="/curtain-calculator" className={`px-2 sm:px-2.5 py-1 rounded-full transition-colors ${pathname === '/curtain-calculator' ? 'bg-[#c55232]/10 text-[#c55232]' : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'}`}>
             커튼
           </Link>
         </div>
@@ -102,7 +108,7 @@ export default function Navbar() {
           aria-label={isOpen ? '메뉴 닫기' : '메뉴 열기'}
           aria-expanded={isOpen}
           aria-controls="mobile-navigation"
-          className="lg:hidden p-1.5 text-zinc-700 hover:text-[#c55232] rounded-full hover:bg-zinc-100 transition-colors flex items-center justify-center"
+          className="xl:hidden min-h-10 min-w-10 p-1.5 text-zinc-700 hover:text-[#c55232] rounded-full hover:bg-zinc-100 transition-colors flex items-center justify-center"
         >
           <Icon icon={isOpen ? 'solar:close-circle-linear' : 'solar:hamburger-menu-linear'} width="22" height="22" />
         </button>
@@ -110,7 +116,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div id="mobile-navigation" className="pointer-events-auto lg:hidden w-full max-w-sm mt-2 p-5 bg-[#fdfbf7]/95 backdrop-blur-2xl border border-zinc-200/80 shadow-[0_16px_40px_rgba(0,0,0,0.08)] rounded-3xl animate-in fade-in slide-in-from-top-3 duration-200 max-h-[85vh] overflow-y-auto">
+        <div id="mobile-navigation" className="pointer-events-auto xl:hidden w-full max-w-sm mt-2 p-5 bg-[#fbf8f3]/95 backdrop-blur-2xl border border-[#e8e1d8] shadow-[0_16px_40px_rgba(54,39,28,0.1)] rounded-3xl animate-in fade-in slide-in-from-top-3 duration-200 max-h-[85vh] overflow-y-auto">
           <div className="space-y-1 text-[15px] font-bold text-[#292520]">
             <Link
               href="/"

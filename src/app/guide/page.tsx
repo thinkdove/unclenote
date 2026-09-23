@@ -4,19 +4,25 @@ import { Icon } from '@iconify/react';
 
 export const metadata: Metadata = {
   title: '알짜 생활 가이드 전체보기',
-  description: '연봉 실수령액, 퇴직금 계산, 부가가치세 절세 등 실생활에 꼭 필요한 금융·세무 가이드를 알기 쉽게 전해드립니다.',
+  description: '연봉 실수령액과 퇴직금 계산 등 일상에서 필요한 급여·세무 정보를 이해하기 쉽게 정리한 가이드입니다.',
   alternates: {
     canonical: 'https://unclenote.com/guide',
+  },
+  openGraph: {
+    title: '생활·경제 가이드 | 삼촌생각',
+    description: '급여·세무와 셀프 인테리어에 관한 계산 방법과 실용 정보를 살펴보세요.',
+    url: 'https://unclenote.com/guide',
+    type: 'website',
   },
 };
 
 const GUIDES = [
   {
     slug: 'salary-percentile-2026',
-    title: '2026년 대한민국 연봉 통계, 나는 상위 몇%? (국세청 2,085만 명 전수조사 팩트)',
-    description: '국세청 연말정산 전수조사 2,085만 명 공식 데이터를 바탕으로 내 연봉의 상위 백분위를 실시간 계산하고, 대한민국 평균(4,332만)과 중위(3,213만) 소득의 진실을 분석합니다.',
+    title: '내 연봉은 상위 몇 %? 국세청 2023년 귀속 통계로 살펴보기',
+    description: '국세청 2023년 귀속 연말정산 신고자 2,085만 명의 통계를 바탕으로 내 연봉 위치를 참고용으로 추정합니다.',
     category: '경제·연봉 통계',
-    date: '2026.09.22',
+    date: '자료: 2023년 귀속',
     thumbnail: '/images/salary-percentile-hero.jpg',
     icon: 'solar:chart-2-bold-duotone',
     featured: true,
@@ -33,9 +39,9 @@ const GUIDES = [
   {
     slug: 'severance-pay-guide-2026',
     title: '2026년 퇴직금 계산법 총정리: 평균임금 계산식부터 세금 절세 팁까지',
-    description: '입사일과 퇴사일 기준 1일 평균임금 계산법, 지급 기한(14일)과 지연이자, IRP 계좌 이전으로 퇴직소득세 30% 감면받는 실전 꿀팁을 전해드립니다.',
+    description: '1일 평균임금 계산법, 퇴직금 지급 기한과 IRP 계좌 이전·연금 수령 시 세금 차이를 정리했습니다.',
     category: '노무·세무',
-    date: '2026.09.22',
+    date: '2026.09.23',
     thumbnail: '/images/salary-guide-thumbnail.jpg',
     icon: 'solar:wallet-money-bold-duotone',
   },
@@ -75,7 +81,7 @@ export default function GuideIndexPage() {
               <div className="md:col-span-5 bg-gradient-to-br from-[#292520] to-[#38332c] p-6 sm:p-8 text-white flex flex-col justify-between">
                 <div>
                   <span className="px-2.5 py-1 bg-[#c55232] text-white text-xs font-black rounded-md inline-block">
-                    국세청 2,085만 명 전수 팩트
+                    2023년 귀속 국세청 통계
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-black mt-4 leading-tight text-white">
                     내 연봉은 <br />

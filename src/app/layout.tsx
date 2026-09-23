@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Icon } from '@iconify/react';
-import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -14,9 +13,6 @@ export const metadata: Metadata = {
   },
   description: "가장 자주 쓰지만 매번 헷갈리는 금융, 세무 계산과 알짜 정보를 삼촌이 친절하고 정확하게 알려드립니다.",
   keywords: ["삼촌생각", "Uncle Note", "연봉 실수령액 계산기", "부가세 계산기", "세무 계산기", "생활 가이드"],
-  alternates: {
-    canonical: "https://unclenote.com",
-  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -25,14 +21,6 @@ export const metadata: Metadata = {
     apple: [
       { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
     ],
-  },
-  openGraph: {
-    title: "삼촌생각 (Uncle Note) - 유용한 계산기 & 생활 가이드",
-    description: "가장 자주 쓰지만 매번 헷갈리는 금융, 세무 계산과 알짜 정보를 삼촌이 친절하고 정확하게 알려드립니다.",
-    url: "https://unclenote.com",
-    siteName: "삼촌생각 (Uncle Note)",
-    locale: "ko_KR",
-    type: "website",
   },
   robots: {
     index: true,
@@ -71,13 +59,13 @@ export default function RootLayout({
         <Navbar />
 
         {/* 메인 콘텐츠 (여백 대폭 확보) */}
-        <main id="main-content" tabIndex={-1} className="flex-1 w-full mx-auto px-4 sm:px-6 pt-32 pb-24 md:py-40 max-w-5xl">
+        <main id="main-content" tabIndex={-1} className="flex-1 w-full mx-auto px-4 sm:px-6 pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24 max-w-6xl">
           {children}
         </main>
 
         {/* 하단 푸터 (Warm Minimalist Editorial) */}
         <footer className="bg-[#f4efe8]/60 py-16 md:py-24 border-t border-zinc-200/70">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
             <div className="text-center md:text-left">
               <p className="font-extrabold text-zinc-900 text-xl mb-2 flex items-center justify-center md:justify-start gap-2">
                 <Icon icon="solar:lightbulb-bold-duotone" style={{ color: '#c55232' }} />
@@ -91,7 +79,7 @@ export default function RootLayout({
               <Link href="/privacy" className="hover:text-zinc-900 transition-colors duration-300">개인정보처리방침</Link>
             </div>
           </div>
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 mt-12 pt-8 border-t border-zinc-200/70 text-center md:text-left text-sm text-zinc-400 font-medium tracking-wide">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 mt-12 pt-8 border-t border-zinc-200/70 text-center md:text-left text-sm text-zinc-400 font-medium tracking-wide">
             © 2026 Uncle Note. All rights reserved.
           </div>
         </footer>

@@ -4,9 +4,15 @@ import { Icon } from '@iconify/react';
 
 export const metadata: Metadata = {
   title: '서비스 소개 (About)',
-  description: '삼촌생각(Uncle Note)의 탄생 배경과 철학, 운영 가치 및 문의 채널을 소개합니다.',
+  description: '삼촌생각의 생활 계산기와 정보성 가이드, 운영 원칙 및 문의 방법을 소개합니다.',
   alternates: {
     canonical: 'https://unclenote.com/about',
+  },
+  openGraph: {
+    title: '삼촌생각 소개 및 문의',
+    description: '생활 계산기와 정보성 가이드를 제공하는 삼촌생각의 운영 취지와 문의 방법입니다.',
+    url: 'https://unclenote.com/about',
+    type: 'website',
   },
 };
 
@@ -23,7 +29,7 @@ export default function AboutPage() {
           복잡한 세상, 셈이라도 편하게.
         </h1>
         <p className="text-zinc-600 text-lg leading-relaxed font-medium">
-          가장 자주 쓰지만 매번 헷갈리는 금융과 세무의 계산을 삼촌처럼 친절하고 정확하게 풀어드립니다.
+          셀프 인테리어 자재, 급여·세금 등 일상에서 필요한 계산과 정보를 이해하기 쉽게 제공합니다.
         </p>
       </header>
 
@@ -45,7 +51,7 @@ export default function AboutPage() {
               &apos;이번 달 매출에서 부가세로 떼어둬야 할 돈은 정확히 얼마일까?&apos;
             </p>
             <p>
-              <strong>삼촌생각(Uncle Note)</strong>은 마치 세상 물정 밝은 친근한 삼촌이 종이와 펜을 꺼내 조목조목 짚어주듯, 누구나 1초 만에 가장 직관적이고 정확하게 계산 결과를 확인할 수 있도록 돕기 위해 시작되었습니다.
+              <strong>삼촌생각(Uncle Note)</strong>은 필요한 값을 쉽게 입력하고 참고용 계산 결과와 관련 설명을 함께 확인할 수 있도록 돕기 위해 시작되었습니다.
             </p>
           </div>
         </section>
@@ -62,9 +68,9 @@ export default function AboutPage() {
               <div className="w-10 h-10 rounded-xl bg-[#c55232]/10 text-[#c55232] flex items-center justify-center text-xl mb-4">
                 <Icon icon="solar:calculator-minimalistic-bold-duotone" />
               </div>
-              <h3 className="font-bold text-[#292520] text-base mb-2">1. 정확성과 최신 세법</h3>
+              <h3 className="font-bold text-[#292520] text-base mb-2">1. 기준과 한계 표시</h3>
               <p className="text-sm text-zinc-500 leading-relaxed">
-                공개된 보험료율과 계산 기준을 확인하고 업데이트합니다. 계산 결과는 참고용이며 실제 원천징수액은 급여명세서와 국세청 자료로 확인해 주세요.
+                계산에 사용한 기준을 설명하고 변경 사항을 확인해 갱신합니다. 결과는 참고용이며 실제 금액은 급여명세서와 공식 자료로 확인해 주세요.
               </p>
             </div>
 
@@ -73,9 +79,9 @@ export default function AboutPage() {
               <div className="w-10 h-10 rounded-xl bg-[#c55232]/10 text-[#c55232] flex items-center justify-center text-xl mb-4">
                 <Icon icon="solar:shield-keyhole-bold-duotone" />
               </div>
-              <h3 className="font-bold text-[#292520] text-base mb-2">2. 철저한 프라이버시</h3>
+              <h3 className="font-bold text-[#292520] text-base mb-2">2. 간편한 이용</h3>
               <p className="text-sm text-zinc-500 leading-relaxed">
-                회원가입도, 개인정보 입력도 요구하지 않습니다. 입력하신 모든 수치는 브라우저 내에서만 안전하게 연산됩니다.
+                회원가입 없이 계산기를 이용할 수 있습니다. 계산기에 입력한 수치는 브라우저에서 연산하며, 문의 이메일과 접속·이용 정보의 처리는 개인정보처리방침에 안내합니다.
               </p>
             </div>
 
@@ -86,7 +92,7 @@ export default function AboutPage() {
               </div>
               <h3 className="font-bold text-[#292520] text-base mb-2">3. 에디토리얼 가이드</h3>
               <p className="text-sm text-zinc-500 leading-relaxed">
-                단순 수치 계산에 그치지 않고, 그 이면에 담긴 절세 팁과 경제 상식을 알기 쉬운 스토리로 함께 전달합니다.
+                계산 결과와 함께 급여·세무·생활 정보를 알기 쉬운 글로 제공하고, 확인 가능한 자료를 바탕으로 내용을 보완합니다.
               </p>
             </div>
           </div>
@@ -99,7 +105,7 @@ export default function AboutPage() {
             문의 및 제휴 안내
           </h2>
           <p className="text-zinc-600 mb-4 leading-relaxed">
-            삼촌생각은 사용자 여러분의 피드백을 통해 매일 더 편리하게 발전하고 있습니다. 계산기 오류 제보, 새로운 기능 요청, 제휴 문의는 언제든 열려 있습니다:
+            계산기 오류 제보, 내용 정정 요청, 기능 제안 및 제휴 문의는 아래 이메일로 보내주세요.
           </p>
           <div className="bg-[#fdfbf7] p-5 rounded-xl border border-zinc-200/60 text-sm space-y-2 text-zinc-700">
             <p className="flex items-center gap-2">
@@ -110,11 +116,7 @@ export default function AboutPage() {
             </p>
             <p className="flex items-center gap-2">
               <span className="font-semibold w-20">운영 주체:</span>
-              <span>삼촌생각 (Uncle Note) 에디토리얼 팀</span>
-            </p>
-            <p className="flex items-center gap-2">
-              <span className="font-semibold w-20">답변 시간:</span>
-              <span className="text-zinc-500">평일 기준 24시간 이내 성실히 답변드립니다.</span>
+              <span>삼촌생각 (Uncle Note)</span>
             </p>
           </div>
         </section>

@@ -173,11 +173,9 @@ export default function SalaryCalculator() {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
-      {/* Double-Bezel Architecture Outer */}
-      <div className="bg-black/[0.03] ring-1 ring-black/5 p-2 sm:p-2.5 rounded-[2.5rem]">
-        {/* Inner Core */}
-        <div className="bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(2.5rem-0.625rem)] p-6 sm:p-10 flex flex-col gap-8">
+    <div className="salary-calculator w-full">
+      <div className="salary-calculator-panel">
+        <div className="flex flex-col gap-8">
           
           {/* 1. 연봉 입력 & 퀵 프리셋 버튼 */}
           <div className="flex flex-col gap-3">
@@ -198,13 +196,13 @@ export default function SalaryCalculator() {
             </div>
 
             {/* 연봉 빠른 선택 버튼 */}
-            <div className="grid grid-cols-4 gap-1.5 pt-1">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
               {[30000000, 40000000, 50000000, 60000000].map((amt) => (
                 <button
                   key={amt}
                   type="button"
                   onClick={() => setPresetSalary(amt)}
-                  className="py-2 text-xs font-bold text-zinc-600 bg-zinc-100 hover:bg-[#fff4ee] hover:text-[#c55232] rounded-xl transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  className="min-h-11 py-2 text-sm font-bold text-zinc-600 bg-zinc-100 hover:bg-[#fff4ee] hover:text-[#c55232] rounded-xl transition-colors"
                 >
                   {amt / 10000000}천만
                 </button>
@@ -218,7 +216,7 @@ export default function SalaryCalculator() {
                   key={amt}
                   type="button"
                   onClick={() => addSalary(amt)}
-                  className="flex-1 py-1.5 text-xs font-semibold text-zinc-500 bg-zinc-50 hover:bg-zinc-200/70 rounded-lg border border-zinc-200/50 transition-colors"
+                  className="flex-1 min-h-11 py-1.5 text-sm font-semibold text-zinc-600 bg-zinc-50 hover:bg-zinc-200/70 rounded-lg border border-zinc-200/50 transition-colors"
                 >
                   +{amt / 10000}만
                 </button>
@@ -256,7 +254,7 @@ export default function SalaryCalculator() {
           </div>
 
           {/* 3. 비과세액 & 부양가족 설정 */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             
             {/* 비과세액 */}
             <div className="flex flex-col gap-2">
@@ -288,6 +286,7 @@ export default function SalaryCalculator() {
               <div className="flex items-center bg-zinc-50 border border-zinc-200 rounded-xl px-2 py-1">
                 <button
                   type="button"
+                  aria-label="부양가족 수 줄이기"
                   onClick={() => { clearResult(); const next = Math.max(1, dependents - 1); setDependents(next); setChildrenCount(Math.min(childrenCount, next - 1)); }}
                   className="w-8 h-8 rounded-lg flex items-center justify-center text-zinc-600 hover:bg-zinc-200 active:scale-95 transition-all"
                 >
@@ -296,6 +295,7 @@ export default function SalaryCalculator() {
                 <span className="flex-1 text-center font-bold text-zinc-900 text-sm">{dependents}명</span>
                 <button
                   type="button"
+                  aria-label="부양가족 수 늘리기"
                   onClick={() => { clearResult(); setDependents(dependents + 1); }}
                   className="w-8 h-8 rounded-lg flex items-center justify-center text-zinc-600 hover:bg-zinc-200 active:scale-95 transition-all"
                 >
@@ -314,6 +314,7 @@ export default function SalaryCalculator() {
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
+                    aria-label="20세 이하 자녀 수 줄이기"
                     onClick={() => { clearResult(); setChildrenCount(Math.max(0, childrenCount - 1)); }}
                     className="w-7 h-7 rounded-lg bg-white border border-zinc-200 flex items-center justify-center font-bold text-zinc-600 hover:bg-zinc-100"
                   >
@@ -322,6 +323,7 @@ export default function SalaryCalculator() {
                   <span className="font-bold text-[#c55232] text-sm min-w-[20px] text-center">{childrenCount}명</span>
                   <button
                     type="button"
+                    aria-label="20세 이하 자녀 수 늘리기"
                     onClick={() => { clearResult(); setChildrenCount(Math.min(dependents - 1, childrenCount + 1)); }}
                     className="w-7 h-7 rounded-lg bg-white border border-zinc-200 flex items-center justify-center font-bold text-zinc-600 hover:bg-zinc-100"
                   >
@@ -357,11 +359,11 @@ export default function SalaryCalculator() {
                 <span className="text-xs font-bold text-[#c55232] uppercase tracking-wider mb-1">
                   예상 월 실수령액
                 </span>
-                <div className="text-4xl sm:text-5xl font-extrabold text-zinc-900 tracking-tight my-2">
+                <div className="text-3xl sm:text-5xl font-extrabold text-zinc-900 tracking-tight my-2 break-all">
                   {formatNumber(result.monthlyNet)}
                   <span className="text-2xl sm:text-3xl font-bold ml-1 text-zinc-600">원</span>
                 </div>
-                <div className="flex items-center gap-3 text-xs text-zinc-500 font-medium mt-1">
+                <div className="flex flex-wrap justify-center items-center gap-2 text-sm text-zinc-500 font-medium mt-1">
                   <span>세전 월급 {formatNumber(result.monthlyGross)}원</span>
                   <span>•</span>
                   <span className="text-red-500 font-bold">공제액 {formatNumber(result.totalDeduction)}원</span>

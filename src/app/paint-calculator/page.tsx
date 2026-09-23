@@ -290,7 +290,7 @@ export default function PaintCalculatorPage() {
 
             {targetType === 'room' && (
               <div className="space-y-3">
-                <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
                   <div>
                     <label htmlFor={roomWidthId} className="block text-xs font-bold text-zinc-600 mb-1">
                       방 가로 (m)

@@ -161,6 +161,7 @@ export default function TileCalculatorPage() {
   const [lengthM, setLengthM] = useState<number>(2.1); // 세로 (일반 아파트 욕실 기준 2.1m)
   const [heightM, setHeightM] = useState<number>(2.2); // 높이 (일반 아파트 욕실 기준 2.2m)
   const [scope3D, setScope3D] = useState<'all' | 'wallOnly'>('all'); // all: 바닥+벽4면, wallOnly: 벽4면만
+  const [singleSurface, setSingleSurface] = useState<'floor' | 'wall'>('floor');
   const [doorDeductionSqm, setDoorDeductionSqm] = useState<number>(2.0); // 문/거울장 공제 면적 (기본 2㎡)
 
   // 직접 면적 입력 모드용
@@ -178,6 +179,8 @@ export default function TileCalculatorPage() {
   const [customTileWidthMm, setCustomTileWidthMm] = useState<number>(400);
   const [customTileHeightMm, setCustomTileHeightMm] = useState<number>(800);
   const [customPiecesPerBox, setCustomPiecesPerBox] = useState<number>(4);
+  const [tileThicknessMm, setTileThicknessMm] = useState<number>(10);
+  const [groutJointMm, setGroutJointMm] = useState<number>(3);
 
   // 로스율 (표준 기본값: 10%)
   const [lossRate, setLossRate] = useState<number>(10);
@@ -237,11 +240,31 @@ export default function TileCalculatorPage() {
   // 예상 자재 무게 (kg)
   const estimatedWeightKg = totalBoxesWithLoss * currentWeightPerBoxKg;
 
-  // 부자재 예상량 (참고용 삼촌 팁)
-  // 타일 본드/압착 시멘트: 약 2~3박스당 1포(20kg)
-  const estimatedAdhesiveBags = Math.ceil(totalBoxesWithLoss / 2.5);
-  // 줄눈 시멘트(홈멘트): 약 4~5박스당 1포(2kg)
-  const estimatedGroutBags = Math.ceil(totalBoxesWithLoss / 4);
+  // 부자재 참고량: 제조사 표준 사용량을 바탕으로 면적과 타일 크기별 추정.
+  // 일반 타일(최대 600mm)은 벽 2.5kg/㎡, 바닥 4kg/㎡를 기준으로 하며,
+  // 600mm 초과 대형 타일은 벽 4kg/㎡, 바닥 5kg/㎡로 여유 있게 추정한다.
+  const isLargeFormat = Math.max(currentTileWidthMm, currentTileHeightMm) > 600;
+  const wallAdhesiveRate = isLargeFormat ? 4 : 2.5;
+  const floorAdhesiveRate = isLargeFormat ? 5 : 4;
+  let wallAreaSqm = 0;
+  let floorAreaSqm = 0;
+  if (calcMode === '3d') {
+    floorAreaSqm = scope3D === 'all' ? widthM * lengthM : 0;
+    wallAreaSqm = Math.max(0, 2 * (widthM + lengthM) * heightM - doorDeductionSqm);
+    if (scope3D === 'all') wallAreaSqm = Math.max(0, wallAreaSqm);
+  } else if (singleSurface === 'wall') {
+    wallAreaSqm = netAreaSqm;
+  } else {
+    floorAreaSqm = netAreaSqm;
+  }
+  const adhesiveKg = (wallAreaSqm * wallAdhesiveRate + floorAreaSqm * floorAdhesiveRate) * (1 + lossRate / 100);
+  const estimatedAdhesiveBags = Math.ceil(adhesiveKg / 20);
+  const estimatedWallAdhesiveBags = Math.ceil((wallAreaSqm * wallAdhesiveRate * (1 + lossRate / 100)) / 20);
+  const estimatedFloorAdhesiveBags = Math.ceil((floorAreaSqm * floorAdhesiveRate * (1 + lossRate / 100)) / 20);
+  // Mapei 제조사 산식: ((타일 길이+폭)/(길이×폭))×두께×줄눈폭×1.6 = kg/㎡
+  const groutKgPerSqm = ((currentTileWidthMm + currentTileHeightMm) / (currentTileWidthMm * currentTileHeightMm)) * tileThicknessMm * groutJointMm * 1.6;
+  const estimatedGroutKg = groutKgPerSqm * totalAreaWithLoss;
+  const estimatedGroutBags = Math.ceil(estimatedGroutKg / 2);
 
   // 필터링된 프리셋 목록
   const filteredPresets =
@@ -270,7 +293,7 @@ export default function TileCalculatorPage() {
 • 순수 필요량: ${netBoxes}박스 (${netPieces}장)
 • 절단 손실 대비 여유분: +${Math.max(0, totalBoxesWithLoss - netBoxes)}박스
 • 예상 총 무게: 약 ${estimatedWeightKg}kg (1박스 약 ${currentWeightPerBoxKg}kg)
-• 추천 부자재: 압착시멘트 약 ${estimatedAdhesiveBags}포 / 줄눈시멘트 약 ${estimatedGroutBags}포
+• 타일 접착재 참고량: 총 약 ${estimatedAdhesiveBags}포(20kg) / 줄눈재 약 ${estimatedGroutKg.toFixed(1)}kg
 계산기 바로가기: https://unclenote.com/tile-calculator`;
 
     navigator.clipboard.writeText(text);
@@ -492,7 +515,7 @@ export default function TileCalculatorPage() {
                   </button>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
                   <div>
                     <label className="block text-xs font-bold text-zinc-600 mb-1">
                       가로 폭 (m)
@@ -614,6 +637,21 @@ export default function TileCalculatorPage() {
             )}
           </div>
 
+          {calcMode !== '3d' && (
+            <div className="rounded-xl border border-zinc-200 bg-[#fdfbf7] p-3 space-y-2">
+              <p className="text-xs font-bold text-zinc-700">시공 면 구분 (접착재 참고량에 반영)</p>
+              <div className="flex gap-2">
+                {(['floor', 'wall'] as const).map((surface) => (
+                  <button key={surface} type="button" onClick={() => setSingleSurface(surface)}
+                    className={`flex-1 rounded-lg border py-2 text-xs font-bold ${singleSurface === surface ? 'border-[#c55232] bg-[#c55232]/10 text-[#c55232]' : 'border-zinc-200 text-zinc-600'}`}>
+                    {surface === 'floor' ? '바닥' : '벽'}
+                  </button>
+                ))}
+              </div>
+              <p className="text-[11px] text-zinc-500">일반 실내 기준 추정입니다. 벽은 바탕·타일 무게·습윤 여부에 맞는 벽체용 제품을 선택하세요.</p>
+            </div>
+          )}
+
           {/* 2. Tile Preset Selector (300각, 300x600, 600각, 600x1200, 800각, 1200x600, 1200각, 빅슬랩) */}
           <div className="space-y-3 pt-2">
             <div className="border-b border-zinc-100 pb-2 flex items-center justify-between">
@@ -637,7 +675,7 @@ export default function TileCalculatorPage() {
             {isCustomTile ? (
               <div className="p-4 bg-[#fdfbf7] rounded-2xl border border-zinc-200 space-y-3">
                 <p className="text-xs font-bold text-[#292520]">타일 규격 및 박스 수량 직접 입력:</p>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   <div>
                     <label className="block text-[11px] text-zinc-500 mb-1">가로 폭 (mm)</label>
                     <div className="editorial-input-box !py-1 !px-2">
@@ -755,6 +793,16 @@ export default function TileCalculatorPage() {
                 </div>
               </>
             )}
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 rounded-xl border border-zinc-200 bg-[#fdfbf7] p-3">
+            <label className="text-xs font-bold text-zinc-600">타일 두께 (mm)
+              <input type="number" min="1" max="50" value={tileThicknessMm} onChange={(e) => setTileThicknessMm(Math.max(1, Number(e.target.value)))} className="mt-1 w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm" />
+            </label>
+            <label className="text-xs font-bold text-zinc-600">줄눈 폭 (mm)
+              <input type="number" min="1" max="20" value={groutJointMm} onChange={(e) => setGroutJointMm(Math.max(1, Number(e.target.value)))} className="mt-1 w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm" />
+            </label>
+            <p className="col-span-2 text-[11px] text-zinc-500">줄눈재 양은 타일 규격·두께·줄눈 폭으로 계산합니다. 기본값은 두께 10mm, 줄눈 3mm입니다.</p>
           </div>
 
           {/* 3. Loss Rate (로스율) Setting: 5%, 10%(기본값), 15%, 20% + 임의 직접 설정 */}
@@ -919,15 +967,14 @@ export default function TileCalculatorPage() {
               </div>
 
               <div className="bg-zinc-50 p-3 rounded-xl border border-zinc-100 text-xs space-y-1 mt-3">
-                <p className="font-bold text-[#292520]">📦 함께 살 부자재 추천 (참고용):</p>
+                <p className="font-bold text-[#292520]">📦 부자재 참고량 (로스율 포함)</p>
+                {floorAreaSqm > 0 && <div className="flex justify-between text-zinc-600"><span>바닥용 시멘트계 접착 모르타르 (20kg)</span><span className="font-semibold text-[#292520]">약 {estimatedFloorAdhesiveBags}포</span></div>}
+                {wallAreaSqm > 0 && <div className="flex justify-between text-zinc-600"><span>벽용 시멘트계 타일 접착재* (20kg 기준)</span><span className="font-semibold text-[#292520]">약 {estimatedWallAdhesiveBags}포</span></div>}
                 <div className="flex justify-between text-zinc-600">
-                  <span>타일 압착시멘트 (20kg)</span>
-                  <span className="font-semibold text-[#292520]">약 {estimatedAdhesiveBags}포</span>
+                  <span>줄눈재 예상량 / 2kg 포장 환산</span>
+                  <span className="font-semibold text-[#292520]">약 {estimatedGroutKg.toFixed(1)}kg / {estimatedGroutBags}포</span>
                 </div>
-                <div className="flex justify-between text-zinc-600">
-                  <span>줄눈 백시멘트/홈멘트 (2kg)</span>
-                  <span className="font-semibold text-[#292520]">약 {estimatedGroutBags}포</span>
-                </div>
+                <p className="pt-1 text-[10px] leading-relaxed text-zinc-500">* 면적당 참고량: 벽 {wallAdhesiveRate}kg/㎡, 바닥 {floorAdhesiveRate}kg/㎡. 벽이라고 모두 본드, 바닥이라고 모두 압착재로 단정할 수 없습니다. 제품 허용 용도·바탕·타일 크기를 확인하고 욕실/외부/대형 타일은 시멘트계 접착 모르타르 시방을 우선 확인하세요. 실제 포장 단위와 현장 바탕면에 따라 달라집니다. <a className="underline" href="https://mapeiworld.cafe24.com/exec/front/Board/download/?filename=Adesilex_P9_TDS.pdf&no=3&realname=2025%2F05%2F07%2F242c408a5c9558410c0ce2f07fc075a5.pdf" target="_blank" rel="noreferrer">제조사 시방 보기</a></p>
               </div>
             </div>
           </div>

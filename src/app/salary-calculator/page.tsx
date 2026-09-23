@@ -4,9 +4,16 @@ import Link from "next/link";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "연봉 실수령액 계산기 - 삼촌생각 (Uncle Note)",
+  title: "연봉 실수령액 계산기",
   description: "2026년 보험료율을 적용하고 소득세를 추정하는 연봉 실수령액 참고 계산기. 실제 원천징수액은 급여명세서와 국세청 간이세액표를 확인하세요.",
   keywords: ["연봉 실수령액", "2026 연봉 계산기", "월급 실수령액", "4대보험 계산", "삼촌생각", "Uncle Note"],
+  alternates: { canonical: "https://unclenote.com/salary-calculator" },
+  openGraph: {
+    title: "연봉 실수령액 계산기 | 삼촌생각",
+    description: "연봉과 비과세액, 부양가족 수를 입력하고 2026년 예상 월 실수령액을 확인하세요.",
+    url: "https://unclenote.com/salary-calculator",
+    type: "website",
+  },
 };
 
 export default function SalaryCalculatorPage() {
@@ -43,7 +50,7 @@ export default function SalaryCalculatorPage() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-10">
+    <div className="calculator-page">
       {/* FAQ Structured Data for Google/AI Rich Snippet */}
       <Script
         id="faq-schema"
@@ -52,65 +59,64 @@ export default function SalaryCalculatorPage() {
       />
 
       {/* 빵부스러기(Breadcrumb) */}
-      <div className="w-full max-w-xl text-sm font-medium text-zinc-500 mb-[-1.5rem]">
+      <nav aria-label="현재 위치" className="page-breadcrumb">
         <Link href="/" className="hover:text-[#c55232] transition-colors">
           ← 홈으로 돌아가기
         </Link>
         <span className="mx-2">/</span>
         <span className="text-zinc-800">연봉 실수령액 계산기</span>
-      </div>
+      </nav>
 
       {/* Hero Section */}
-      <section className="text-center max-w-2xl pt-2">
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 leading-tight">
+      <header className="calculator-page-header">
+        <span className="editorial-badge">SALARY CALCULATOR · 2026</span>
+        <h1 className="editorial-h1 mt-3">
           <span className="text-[#c55232]">연봉 실수령액</span> 스마트 계산기
         </h1>
-        <p className="mt-3 text-base text-zinc-600 [text-wrap:balance]">
-          2026년 보험료율과 소득세 추정치를 바탕으로 <br className="sm:hidden" />
+        <p className="editorial-body mt-4 max-w-2xl text-zinc-600">
+          2026년 보험료율과 소득세 추정치를 바탕으로
           월 실수령액의 참고 범위를 확인해 보세요.
         </p>
-      </section>
+      </header>
 
       {/* Calculator Section */}
-      <section className="w-full flex justify-center">
+      <section aria-label="연봉 실수령액 계산" className="w-full">
         <SalaryCalculator />
       </section>
 
       {/* SEO & Guide Section for AdSense (AEO 최적화 지식 콘텐츠) */}
-      <section className="w-full max-w-xl bg-white border border-zinc-200 rounded-2xl p-6 sm:p-8 space-y-6 shadow-xs">
-        <div className="border-b border-zinc-100 pb-3">
-          <h2 className="text-xl font-bold text-zinc-900 flex items-center gap-2">
-            <span>📖</span>
-            <span>삼촌생각 연봉·급여 알짜 상식</span>
-          </h2>
-          <p className="text-sm text-zinc-500 mt-1">월급 명세서를 받기 전 알아두면 돈이 되는 핵심 가이드</p>
+      <section className="calculator-guide" aria-labelledby="salary-guide-title">
+        <div className="calculator-guide-heading">
+          <span className="editorial-badge">PAYCHECK GUIDE</span>
+          <h2 id="salary-guide-title" className="editorial-h2 mt-2">월급 명세서 읽는 법</h2>
+          <p className="editorial-desc mt-2">계산 결과를 확인할 때 함께 알아두면 좋은 세 가지입니다.</p>
         </div>
 
-        <div className="space-y-4 text-zinc-700 leading-relaxed">
+        <div className="calculator-guide-list">
           
-          <div className="p-4 bg-zinc-50 rounded-xl border border-zinc-100">
+          <div className="calculator-guide-item">
             <h3 className="text-base font-bold text-zinc-900 mb-2">
               Q. 연봉 5,000만 원이면 한 달에 실제로 얼마나 들어오나요?
             </h3>
-            <p className="text-sm text-zinc-600 leading-relaxed">
+            <p className="editorial-desc">
               연봉 5,000만 원을 12개월로 나누면 세전 월급은 약 <strong>416만 6,667원</strong>입니다. 월 식대 비과세 20만 원, 부양가족 1명 가정 시 이 계산기의 참고값은 보험료 약 38.5만 원, 세금 추정 약 20.1만 원을 뺀 <strong>월 약 358만 원</strong>입니다. 실제 원천징수액은 다를 수 있습니다.
             </p>
           </div>
 
-          <div className="p-4 bg-zinc-50 rounded-xl border border-zinc-100">
+          <div className="calculator-guide-item">
             <h3 className="text-base font-bold text-zinc-900 mb-2">
               Q. 식대 20만 원 비과세는 왜 중요한가요?
             </h3>
-            <p className="text-sm text-zinc-600 leading-relaxed">
+            <p className="editorial-desc">
               월 급여 항목 중 <strong>비과세 식대(월 최대 20만 원)</strong>는 소득세와 4대 보험료를 부과하는 기준 금액에서 통째로 제외됩니다. 따라서 식대 비과세 처리가 되어 있으면 매월 수만 원 이상의 절세 및 보험료 절감 효과가 발생하여 실수령액이 직접적으로 올라갑니다.
             </p>
           </div>
 
-          <div className="p-4 bg-zinc-50 rounded-xl border border-zinc-100">
+          <div className="calculator-guide-item">
             <h3 className="text-base font-bold text-zinc-900 mb-2">
               Q. 4대 보험 공제 요율 총정리
             </h3>
-            <ul className="text-xs text-zinc-600 space-y-1.5 mt-2 bg-white p-3 rounded-lg border border-zinc-200/60">
+            <ul className="editorial-desc space-y-1.5 mt-3">
               <li>• <strong>국민연금</strong>: 4.75% (2026년 7월 기준 상한 659만 원)</li>
               <li>• <strong>건강보험</strong>: 3.595%</li>
               <li>• <strong>장기요양보험</strong>: 건강보험료 × 0.9448% ÷ 7.19%</li>

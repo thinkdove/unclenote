@@ -1,21 +1,34 @@
 import Link from "next/link";
 import { Icon } from '@iconify/react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  alternates: { canonical: 'https://unclenote.com' },
+  openGraph: {
+    title: '삼촌생각 | 생활 계산기와 실용 가이드',
+    description: '셀프 인테리어 자재부터 급여·세금까지, 일상에 필요한 계산기와 이해하기 쉬운 가이드를 제공합니다.',
+    url: 'https://unclenote.com',
+    siteName: '삼촌생각',
+    locale: 'ko_KR',
+    type: 'website',
+  },
+};
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-20 pb-16">
+    <div className="flex flex-col gap-14 sm:gap-20 pb-10 sm:pb-16">
       
       {/* Hero Section (Warm Editorial Vibe) */}
-      <section className="text-center flex flex-col items-center pt-6">
+      <section className="relative isolate overflow-hidden rounded-[2rem] border border-[#eadfd5] bg-[linear-gradient(125deg,rgba(255,255,255,0.95)_0%,rgba(251,244,237,0.92)_58%,rgba(247,232,222,0.8)_100%)] px-6 py-10 sm:px-10 sm:py-14 lg:px-14 lg:py-16 text-left flex flex-col items-start">
         <div className="rounded-full px-4 py-1.5 text-[12px] uppercase tracking-[0.2em] font-bold bg-[#c55232]/10 text-[#c55232] mb-6 inline-block">
           Smart Life & Work Tools
         </div>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#292520] leading-[1.15] mb-5">
-          복잡한 셈을 1초 만에, <br className="sm:hidden" />
+        <h1 className="max-w-3xl text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#292520] leading-[1.18] mb-5 [text-wrap:balance]">
+          복잡한 계산을 <br className="sm:hidden" />
           <span className="text-[#c55232]">삼촌생각</span>
         </h1>
-        <p className="text-base sm:text-lg text-zinc-600 max-w-xl mx-auto leading-relaxed font-medium [text-wrap:balance]">
-          셀프 인테리어 자재 계산부터 내 통장 월급·세무까지, <br className="hidden sm:inline" />
+        <p className="text-[15px] sm:text-lg text-zinc-600 max-w-2xl leading-relaxed font-medium [text-wrap:pretty]">
+          셀프 인테리어 자재부터 월급·세금까지, <br className="hidden sm:inline" />
           매번 헷갈리는 일상의 계산을 삼촌이 친절하고 정확하게 알려드립니다.
         </p>
       </section>
@@ -32,13 +45,13 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="home-tool-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
           
           {/* Interior Tool 1: 타일 계산기 */}
           <div className="bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[1.8rem] group transition-transform duration-500 hover:scale-[1.01] ease-[cubic-bezier(0.16,1,0.3,1)]">
             <Link 
               href="/tile-calculator" 
-              className="flex flex-col justify-between h-full bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(1.8rem-0.375rem)] p-7 sm:p-8 transition-colors"
+                className="home-tool-card flex flex-col justify-between h-full bg-white rounded-[calc(1.8rem-0.375rem)] p-5 sm:p-7 lg:p-8"
             >
               <div>
                 <div className="w-12 h-12 bg-[#c55232]/10 rounded-2xl flex items-center justify-center text-[#c55232] text-2xl mb-5 shadow-xs">
@@ -72,7 +85,10 @@ export default function Home() {
             >
               <div>
                 <div className="w-12 h-12 bg-[#c55232]/10 rounded-2xl flex items-center justify-center text-[#c55232] text-2xl mb-5 shadow-xs">
-                  <Icon icon="solar:brush-bold-duotone" />
+                  <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 4.5A2.5 2.5 0 0 1 9.5 2H17a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7.5A2.5 2.5 0 0 1 7 17.5z" />
+                    <path d="M7 6h12M10 9h5M10 12h4M10 15h5M7 17.5A2.5 2.5 0 0 0 9.5 20H12v2" />
+                  </svg>
                 </div>
                 <div className="flex items-center gap-1.5 mb-1.5">
                   <h3 className="text-xl font-bold text-[#292520] tracking-tight group-hover:text-[#c55232] transition-colors duration-300">
@@ -199,7 +215,7 @@ export default function Home() {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="home-tool-grid grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 lg:gap-6">
           
           {/* Card 1: 연봉 실수령액 계산기 */}
           <div className="bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[1.8rem] group transition-transform duration-500 hover:scale-[1.01] ease-[cubic-bezier(0.16,1,0.3,1)]">

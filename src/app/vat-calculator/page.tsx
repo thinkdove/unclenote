@@ -3,8 +3,15 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "부가세 계산기 - 삼촌생각 (Uncle Note)",
+  title: "부가세 계산기",
   description: "일반과세자 공급가액과 부가세 포함 금액을 계산합니다. 간이과세자 납부세액은 업종과 공제액에 따라 달라져 국세청 안내를 연결합니다.",
+  alternates: { canonical: "https://unclenote.com/vat-calculator" },
+  openGraph: {
+    title: "부가세 계산기 | 삼촌생각",
+    description: "일반과세자 공급가액과 부가세 포함 금액을 계산합니다.",
+    url: "https://unclenote.com/vat-calculator",
+    type: "website",
+  },
 };
 
 export default function VatCalculatorPage() {

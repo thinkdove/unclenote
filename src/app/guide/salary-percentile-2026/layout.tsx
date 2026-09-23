@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '2026년 대한민국 연봉 통계, 나는 상위 몇%? | 국세청 2,085만 명 전수 팩트',
+  title: '연봉 상위 몇 %일까? | 국세청 2023년 귀속 통계',
   description:
-    '국세청 연말정산 전수조사 2,085만 명 공식 데이터를 바탕으로 내 연봉의 상위 백분위를 실시간 계산하고, 대한민국 평균(4,332만)과 중위소득(3,213만)의 진실, 소득 10분위 팩트 시트를 분석합니다.',
+    '국세청 2023년 귀속 연말정산 신고자 2,085만 명 통계를 바탕으로 평균 총급여와 내 연봉의 상위 백분위 추정치를 살펴봅니다.',
   keywords: [
     '대한민국 연봉 순위',
     '연봉 상위 몇 프로',
@@ -19,8 +19,8 @@ export const metadata: Metadata = {
     canonical: 'https://unclenote.com/guide/salary-percentile-2026',
   },
   openGraph: {
-    title: '2026년 대한민국 연봉 통계, 나는 상위 몇%? | 삼촌생각',
-    description: '국세청 2,085만 명 전수조사 기준 내 연봉 상위 백분위 실시간 계산기 & 소득 10분위 팩트 분석',
+    title: '연봉 상위 몇 %일까? | 2023년 귀속 국세청 통계',
+    description: '2023년 귀속 근로소득 통계에 기반한 연봉 백분위 참고 계산기',
     url: 'https://unclenote.com/guide/salary-percentile-2026',
     siteName: '삼촌생각 (Uncle Note)',
     locale: 'ko_KR',
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary',
-    title: '2026년 대한민국 연봉 통계, 나는 상위 몇%?',
-    description: '국세청 2,085만 명 전수조사 기준 내 연봉 상위 백분위 실시간 계산기',
+    title: '연봉 상위 몇 %일까? | 2023년 귀속 국세청 통계',
+    description: '국세청 2023년 귀속 통계에 기반한 연봉 백분위 참고 계산기',
   },
 };
 

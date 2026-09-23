@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
 :root { 
-  --background: #fdfbf7; 
+  --background: #fbf8f3;
+  --surface: #ffffff;
+  --surface-soft: #f5f0e9;
   --foreground: #292520; 
+  --muted: #746d65;
+  --line: #e8e1d8;
   --accent: #c55232;
   --accent-dark: #a74126;
+  --accent-wash: #f7e9e2;
 }
 
 * { 
@@ -13,15 +18,74 @@
 
 html { 
   scroll-behavior: smooth; 
+  scroll-padding-top: 6rem;
 }
 
 body { 
-  background: var(--background); 
+  background: radial-gradient(ellipse at 50% -18rem, rgba(197, 82, 50, 0.075), transparent 44rem), var(--background);
   color: var(--foreground); 
   font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont, sans-serif; 
   line-height: 1.65;
   word-break: keep-all;
+  font-variant-numeric: tabular-nums;
 }
+
+::selection { background: rgba(197, 82, 50, 0.16); color: var(--foreground); }
+
+:focus-visible {
+  outline: 3px solid rgba(197, 82, 50, 0.7);
+  outline-offset: 3px;
+}
+
+button, a { -webkit-tap-highlight-color: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.home-tool-card,
+.home-tool-grid > div > a {
+  border: 1px solid rgba(232, 225, 216, 0.9);
+  box-shadow: 0 8px 26px rgba(54, 39, 28, 0.035), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.home-tool-card:hover,
+.home-tool-grid > div > a:hover {
+  border-color: rgba(197, 82, 50, 0.3);
+  box-shadow: 0 16px 36px rgba(74, 45, 30, 0.075), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.home-tool-grid > div > a > div:first-child > p {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-tool-card,
+  .home-tool-grid > div > a { transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease; }
+  .home-tool-card:active,
+  .home-tool-grid > div > a:active { transform: translateY(1px) scale(0.995); }
+}
+
+@media (max-width: 639px) {
+  .home-tool-grid > div > a { padding: 1.25rem; }
+  .home-tool-grid > div > a > div:first-child > p { font-size: 0.9375rem; }
+  input:not([type='checkbox']):not([type='radio']):not([type='range']),
+  select,
+  textarea { min-height: 2.75rem; font-size: max(1rem, 16px); }
+  .editorial-input-box input { min-height: 2.5rem; }
+}
+
+@media (max-width: 1279px) {
+  #mobile-navigation a { min-height: 2.75rem; }
+}
+
+table { font-variant-numeric: tabular-nums; }
 
 .font-serif {
   font-family: "Georgia", "Times New Roman", serif;
@@ -184,4 +248,147 @@ summary::-webkit-details-marker {
   scrollbar-width: none;
 }
 
+.salary-range {
+  touch-action: none;
+}
+.salary-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: #c55232;
+  box-shadow: 0 0 0 1px #c55232;
+  cursor: grab;
+}
+.salary-range:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+.salary-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: #c55232;
+  box-shadow: 0 0 0 1px #c55232;
+  cursor: grab;
+}
+.salary-range:active::-moz-range-thumb {
+  cursor: grabbing;
+}
 
+/* Shared reading and calculator rhythm */
+.page-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 2rem;
+  color: var(--muted);
+  font-size: .8125rem;
+  font-weight: 600;
+}
+
+.calculator-page {
+  width: min(100%, 48rem);
+  margin-inline: auto;
+}
+.calculator-page-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid var(--line);
+}
+.salary-calculator-panel {
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  border: 1px solid var(--line);
+  border-radius: 1.5rem;
+  background: var(--surface);
+  box-shadow: 0 12px 36px rgba(54, 39, 28, .045);
+}
+.calculator-guide {
+  margin-top: 4rem;
+  border-top: 1px solid var(--line);
+  padding-top: 2.5rem;
+}
+.calculator-guide-heading { margin-bottom: 1rem; }
+.calculator-guide-list { border-top: 1px solid var(--line); }
+.calculator-guide-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.reading-article {
+  width: min(100%, 46rem);
+  margin-inline: auto;
+  padding-top: 1rem;
+}
+.reading-header {
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--line);
+}
+.reading-lead {
+  color: #5b544d;
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+.reading-summary {
+  margin-block: 2.5rem 3rem;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 1rem 1rem 0;
+  background: #f7f0e9;
+}
+.reading-body { color: var(--foreground); }
+.reading-section + .reading-section {
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--line);
+}
+.reading-section > p { line-height: 1.8; }
+.reading-paired-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  padding-block: .75rem;
+}
+.reading-paired-list > div { border-top: 2px solid var(--line); padding-top: 1rem; }
+.reading-formula {
+  display: grid;
+  gap: 1rem;
+  margin-block: 1.5rem;
+  padding: 1.5rem;
+  background: var(--surface-soft);
+  border-radius: 1rem;
+  font-size: 1rem;
+}
+.reading-formula > div + div { padding-top: 1rem; border-top: 1px solid #ded4c9; }
+.reading-note {
+  padding-left: 1rem;
+  border-left: 2px solid #d59b62;
+  color: #5c4633;
+  font-size: .9375rem;
+  line-height: 1.75;
+}
+.reading-detail { display: grid; gap: 1rem; }
+.reading-detail ul { list-style-position: outside; padding-left: 1.4rem; }
+.reading-faq > div { padding-block: 1.25rem; border-bottom: 1px solid var(--line); }
+.reading-faq > div:first-child { border-top: 1px solid var(--line); }
+.reading-footer-cta {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  margin-top: 4rem;
+  padding: 2rem;
+  border-radius: 1.25rem;
+  background: var(--surface-soft);
+}
+
+@media (max-width: 639px) {
+  .calculator-page-header { margin-bottom: 1.5rem; }
+  .reading-paired-list { grid-template-columns: 1fr; gap: 1.25rem; }
+  .reading-header { padding-bottom: 2rem; }
+  .reading-summary { margin-block: 2rem 2.5rem; }
+  .reading-section + .reading-section { margin-top: 2.5rem; padding-top: 2.5rem; }
+  .reading-footer-cta { padding: 1.5rem; }
+}

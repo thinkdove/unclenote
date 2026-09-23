@@ -8,6 +8,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://unclenote.com/terms',
   },
+  openGraph: {
+    title: '서비스 이용약관 | 삼촌생각',
+    description: '삼촌생각의 계산기와 정보성 글 이용 시 알아둘 사항입니다.',
+    url: 'https://unclenote.com/terms',
+    type: 'website',
+  },
 };
 
 export default function TermsPage() {
@@ -26,7 +32,7 @@ export default function TermsPage() {
           삼촌생각(Uncle Note) 웹사이트를 이용해 주셔서 감사합니다. 본 약관은 서비스 이용에 관한 권리와 의무, 책임사항을 규정합니다.
         </p>
         <p className="text-xs text-zinc-400 mt-4">
-          시행일자: 2026년 9월 22일
+          시행일자: 2026년 9월 23일
         </p>
       </header>
 
@@ -40,7 +46,7 @@ export default function TermsPage() {
             목적 및 정의
           </h2>
           <p className="text-zinc-600">
-            본 약관은 삼촌생각(이하 &apos;사이트&apos;)이 제공하는 온라인 금융·세무 계산기, 생활 가이드 및 제반 정보 콘텐츠(이하 &apos;서비스&apos;)의 이용 조건과 절차에 관한 기본 사항을 정함을 목적으로 합니다.
+            본 약관은 삼촌생각(이하 &apos;사이트&apos;)이 제공하는 생활·셀프 인테리어 계산기, 급여·세무 계산기 및 정보성 글(이하 &apos;서비스&apos;)의 이용에 관한 기본 사항을 정합니다.
           </p>
         </section>
 
@@ -48,7 +54,7 @@ export default function TermsPage() {
         <section className="bg-white/80 backdrop-blur-xs p-6 sm:p-8 rounded-2xl border border-[#c55232]/40 shadow-xs bg-[#fdfbf7]/50">
           <h2 className="text-xl font-bold text-[#292520] mb-3 flex items-center gap-2">
             <span className="w-6 h-6 rounded-full bg-[#c55232] text-white text-xs flex items-center justify-center font-bold">2</span>
-            계산 결과 및 정보 제공에 관한 법적 면책 조항 (중요)
+            계산 결과와 정보의 이용 범위
           </h2>
           <div className="space-y-3 text-zinc-700">
             <p className="font-semibold text-[#a74126]">
@@ -59,10 +65,10 @@ export default function TermsPage() {
                 <strong>세무·법률 자문 대체 불가:</strong> 본 사이트의 연봉 실수령액, 보험료, 세액 등은 입력 조건에 따른 참고용 추정치입니다. 근로소득세는 국세청 월별 간이세액표를 직접 조회하지 않으며, 개인별 조건과 회사의 원천징수 방식에 따라 실제 수령액과 납부 세액이 달라질 수 있습니다.
               </li>
               <li>
-                <strong>공식 증빙 효력 없음:</strong> 계산 결과는 어떠한 법적 분쟁, 금융 대출 심사, 세무 신고 증빙 자료로도 공식적 법적 효력을 갖지 않습니다.
+                <strong>공식 자료 확인:</strong> 계산 결과는 공식 증빙이나 신고 자료로 제공되지 않습니다. 신고·계약·금융 심사 등에 활용하기 전 해당 기관의 기준과 원자료를 확인해 주세요.
               </li>
               <li>
-                <strong>최종 판단 책임:</strong> 이용자가 본 사이트의 정보를 신뢰하여 행한 금전적 거래, 세무 신고, 계약 등의 결과에 대하여 삼촌생각은 직·간접적인 법적 책임을 지지 않습니다. 중대한 의사결정 시 반드시 공인회계사, 세무사, 공인노무사 등 전문가의 자문을 받으시기 바랍니다.
+                <strong>중요한 결정:</strong> 세무 신고나 근로계약 등 중요한 결정에는 국세청·고용노동부 등 공식 자료를 확인하고 필요하면 전문가에게 상담해 주세요. 사이트는 발견한 오류를 제보받아 검토합니다.
               </li>
             </ul>
           </div>
@@ -75,11 +81,11 @@ export default function TermsPage() {
             지적재산권 및 저작권
           </h2>
           <p className="text-zinc-600 mb-2">
-            삼촌생각이 직접 작성한 텍스트, 디자인, 로고, 소프트웨어 코드, UI/UX 구조에 대한 저작권 및 지적재산권은 삼촌생각에 귀속됩니다.
+            사이트가 직접 작성한 글, 디자인, 로고 및 코드의 권리는 해당 권리자에게 귀속됩니다. 외부 자료·이미지·라이브러리의 권리는 각각의 원권리자에게 있습니다.
           </p>
           <ul className="list-disc list-inside space-y-1 text-zinc-600 text-sm">
             <li>이용자는 사이트의 사전 서면 승낙 없이 콘텐츠를 영리 목적으로 복제, 출판, 방송, 배포할 수 없습니다.</li>
-            <li>비영리 목적의 단순 인용 및 출처를 명시한 하이퍼링크 공유는 자유롭게 허용됩니다.</li>
+            <li>관련 법령상 허용되는 인용과 출처를 표시한 링크 공유는 가능합니다.</li>
           </ul>
         </section>
 

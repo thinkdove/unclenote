@@ -306,7 +306,7 @@ export default function WallpaperCalculatorPage() {
                   </button>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
                   <div>
                     <label htmlFor={widthInputId} className="block text-xs font-bold text-zinc-600 mb-1">
                       가로 폭 (m)

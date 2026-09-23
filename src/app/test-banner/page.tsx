@@ -10,13 +10,13 @@ export default function TestBannerPage() {
       <div className="text-center space-y-2">
         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
           <Icon icon="solar:shield-check-bold" width="16" height="16" />
-          비공개 로컬 테스트 페이지
+          광고 배너 테스트 페이지
         </span>
         <h1 className="text-2xl font-black text-[#292520]">
           쿠팡파트너스 다이내믹 배너 테스트
         </h1>
         <p className="text-sm text-zinc-600">
-          본 페이지는 메뉴나 검색엔진에 노출되지 않는 테스트용 독립 공간입니다.
+          메뉴와 사이트맵에 연결되지 않는 테스트용 페이지입니다. 주소를 알고 있으면 접근할 수 있습니다.
         </p>
       </div>
 
