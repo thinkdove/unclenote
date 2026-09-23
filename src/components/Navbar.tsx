@@ -42,6 +42,12 @@ export default function Navbar() {
           <Link href="/flooring-calculator" className="hover:text-[#c55232] transition-colors duration-200 flex items-center gap-1">
             <span>장판</span>
           </Link>
+          <Link href="/paint-calculator" className="hover:text-[#c55232] transition-colors duration-200 flex items-center gap-1">
+            <span>페인트</span>
+          </Link>
+          <Link href="/curtain-calculator" className="hover:text-[#c55232] transition-colors duration-200 flex items-center gap-1">
+            <span>커튼</span>
+          </Link>
 
           <div className="h-3.5 w-px bg-zinc-300 mx-0.5" />
 
@@ -64,15 +70,21 @@ export default function Navbar() {
         </nav>
 
         {/* Medium Screen Quick Access (when lg is not hit) */}
-        <div className="hidden md:flex lg:hidden items-center gap-2 text-xs font-bold">
-          <Link href="/tile-calculator" className="px-3 py-1.5 bg-[#c55232]/10 text-[#c55232] rounded-full hover:bg-[#c55232]/20 transition-colors">
+        <div className="hidden md:flex lg:hidden items-center gap-1.5 text-xs font-bold">
+          <Link href="/tile-calculator" className="px-2.5 py-1 bg-[#c55232]/10 text-[#c55232] rounded-full hover:bg-[#c55232]/20 transition-colors">
             타일
           </Link>
-          <Link href="/wallpaper-calculator" className="px-3 py-1.5 bg-zinc-100 text-zinc-700 rounded-full hover:bg-zinc-200 transition-colors">
+          <Link href="/wallpaper-calculator" className="px-2.5 py-1 bg-zinc-100 text-zinc-700 rounded-full hover:bg-zinc-200 transition-colors">
             도배
           </Link>
-          <Link href="/flooring-calculator" className="px-3 py-1.5 bg-zinc-100 text-zinc-700 rounded-full hover:bg-zinc-200 transition-colors">
+          <Link href="/flooring-calculator" className="px-2.5 py-1 bg-zinc-100 text-zinc-700 rounded-full hover:bg-zinc-200 transition-colors">
             장판
+          </Link>
+          <Link href="/paint-calculator" className="px-2.5 py-1 bg-zinc-100 text-zinc-700 rounded-full hover:bg-zinc-200 transition-colors">
+            페인트
+          </Link>
+          <Link href="/curtain-calculator" className="px-2.5 py-1 bg-zinc-100 text-zinc-700 rounded-full hover:bg-zinc-200 transition-colors">
+            커튼
           </Link>
         </div>
 
@@ -137,6 +149,30 @@ export default function Navbar() {
                 <span>장판(모노륨) 계산기</span>
               </div>
               <span className="text-[10px] px-1.5 py-0.5 bg-[#c55232]/10 text-[#c55232] rounded font-bold">1.8m 폭</span>
+            </Link>
+
+            <Link
+              href="/paint-calculator"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-between px-4 py-2 rounded-xl hover:bg-white/80 transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <Icon icon="solar:paint-roller-bold-duotone" className="text-[#c55232]" width="18" height="18" />
+                <span>페인트 소요량 계산기</span>
+              </div>
+              <span className="text-[10px] px-1.5 py-0.5 bg-[#c55232]/10 text-[#c55232] rounded font-bold">리터(L)·젯소</span>
+            </Link>
+
+            <Link
+              href="/curtain-calculator"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-between px-4 py-2 rounded-xl hover:bg-white/80 transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <Icon icon="solar:hanger-2-bold-duotone" className="text-[#c55232]" width="18" height="18" />
+                <span>커튼·블라인드 치수 계산기</span>
+              </div>
+              <span className="text-[10px] px-1.5 py-0.5 bg-[#c55232]/10 text-[#c55232] rounded font-bold">폭수·헤베</span>
             </Link>
 
             {/* Finance Category in Drawer */}

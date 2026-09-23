@@ -32,7 +32,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           
           {/* Interior Tool 1: 타일 계산기 */}
           <div className="bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[1.8rem] group transition-transform duration-500 hover:scale-[1.01] ease-[cubic-bezier(0.16,1,0.3,1)]">
@@ -117,6 +117,66 @@ export default function Home() {
 
               <div className="mt-8 flex items-center justify-between pt-4 border-t border-zinc-100">
                 <span className="text-xs font-bold text-[#c55232]">1.8m 폭 최적화 재단</span>
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-black/5 group-hover:bg-[#c55232] group-hover:text-white transition-all duration-300">
+                  <Icon icon="solar:arrow-right-linear" width="18" height="18" className="group-hover:translate-x-0.5 transition-transform duration-300" />
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          {/* Interior Tool 4: 페인트 계산기 */}
+          <div className="bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[1.8rem] group transition-transform duration-500 hover:scale-[1.01] ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <Link 
+              href="/paint-calculator" 
+              className="flex flex-col justify-between h-full bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(1.8rem-0.375rem)] p-7 sm:p-8 transition-colors"
+            >
+              <div>
+                <div className="w-12 h-12 bg-[#c55232]/10 rounded-2xl flex items-center justify-center text-[#c55232] text-2xl mb-5 shadow-xs">
+                  <Icon icon="solar:paint-roller-bold-duotone" />
+                </div>
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <h3 className="text-xl font-bold text-[#292520] tracking-tight group-hover:text-[#c55232] transition-colors duration-300">
+                    페인트 소요량 계산기
+                  </h3>
+                  <span className="px-1.5 py-0.5 bg-[#c55232]/10 text-[#c55232] text-[10px] font-bold rounded">NEW</span>
+                </div>
+                <p className="text-sm text-zinc-500 leading-relaxed">
+                  벽면·방문 2회 도장 기준 필요 리터(L) 수와 캔 규격(1L·4L), 젯소 및 부자재 자동 산출.
+                </p>
+              </div>
+
+              <div className="mt-8 flex items-center justify-between pt-4 border-t border-zinc-100">
+                <span className="text-xs font-bold text-[#c55232]">2회 도장·젯소·캔 조합</span>
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-black/5 group-hover:bg-[#c55232] group-hover:text-white transition-all duration-300">
+                  <Icon icon="solar:arrow-right-linear" width="18" height="18" className="group-hover:translate-x-0.5 transition-transform duration-300" />
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          {/* Interior Tool 5: 커튼·블라인드 계산기 */}
+          <div className="bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[1.8rem] group transition-transform duration-500 hover:scale-[1.01] ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <Link 
+              href="/curtain-calculator" 
+              className="flex flex-col justify-between h-full bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(1.8rem-0.375rem)] p-7 sm:p-8 transition-colors"
+            >
+              <div>
+                <div className="w-12 h-12 bg-[#c55232]/10 rounded-2xl flex items-center justify-center text-[#c55232] text-2xl mb-5 shadow-xs">
+                  <Icon icon="solar:hanger-2-bold-duotone" />
+                </div>
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <h3 className="text-xl font-bold text-[#292520] tracking-tight group-hover:text-[#c55232] transition-colors duration-300">
+                    커튼·블라인드 치수 계산기
+                  </h3>
+                  <span className="px-1.5 py-0.5 bg-[#c55232]/10 text-[#c55232] text-[10px] font-bold rounded">NEW</span>
+                </div>
+                <p className="text-sm text-zinc-500 leading-relaxed">
+                  나비주름(2배)·평주름 원단 폭(장) 수와 레일·봉 세로 길이 공제, 블라인드 헤베 1초 계산.
+                </p>
+              </div>
+
+              <div className="mt-8 flex items-center justify-between pt-4 border-t border-zinc-100">
+                <span className="text-xs font-bold text-[#c55232]">주름 배수·황금 세로 핏</span>
                 <div className="flex items-center justify-center w-8 h-8 rounded-full bg-black/5 group-hover:bg-[#c55232] group-hover:text-white transition-all duration-300">
                   <Icon icon="solar:arrow-right-linear" width="18" height="18" className="group-hover:translate-x-0.5 transition-transform duration-300" />
                 </div>
