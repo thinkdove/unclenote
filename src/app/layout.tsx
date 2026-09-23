@@ -82,7 +82,6 @@ export default function RootLayout({
                 <div className="site-footer-nav-group">
                   <p>사이트 안내</p>
                   <Link href="/about">소개 및 문의</Link>
-                  <Link href="/terms">이용약관</Link>
                   <Link href="/privacy">개인정보처리방침</Link>
                 </div>
               </nav>
