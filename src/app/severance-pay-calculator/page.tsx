@@ -116,7 +116,7 @@ export default function SeverancePayCalculatorPage() {
   const netSeverance = Math.max(0, grossSeverance - estimatedTax);
 
   const handleCopy = () => {
-    const text = `[삼촌생각 퇴직금 계산 결과]
+    const text = `[삼촌노트 퇴직금 계산 결과]
 • 재직기간: ${startDate} ~ ${endDate} (${totalDays}일 / 약 ${years}년 ${months}개월)
 • 1일 평균임금: ${dailyAverageWage.toLocaleString()}원
 • 세전 퇴직금: ${grossSeverance.toLocaleString()}원

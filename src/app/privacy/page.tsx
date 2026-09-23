@@ -3,11 +3,13 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: '개인정보처리방침',
-  description: '삼촌생각의 문의 이메일, 접속·이용 정보 및 광고 관련 정보 처리 방식을 안내합니다.',
+  description: '삼촌노트의 문의 이메일, 접속·이용 정보 및 광고 관련 정보 처리 방식을 안내합니다.',
   alternates: { canonical: 'https://unclenote.com/privacy' },
   openGraph: {
-    title: '개인정보처리방침 | 삼촌생각',
-    description: '삼촌생각의 문의 이메일, 접속·이용 정보 및 광고 관련 정보 처리 방식입니다.',
+    siteName: '삼촌노트',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    title: '개인정보처리방침 | 삼촌노트',
+    description: '삼촌노트의 문의 이메일, 접속·이용 정보 및 광고 관련 정보 처리 방식입니다.',
     url: 'https://unclenote.com/privacy',
     type: 'website',
   },
@@ -23,7 +25,7 @@ export default function PrivacyPolicyPage() {
       <header className="reading-header">
         <span className="editorial-badge">PRIVACY</span>
         <h1 className="editorial-h1 mt-3 mb-4">개인정보처리방침</h1>
-        <p className="reading-lead">삼촌생각에서 어떤 정보가 처리될 수 있는지, 문의는 어디로 보낼 수 있는지 안내합니다.</p>
+        <p className="reading-lead">삼촌노트에서 어떤 정보가 처리될 수 있는지, 문의는 어디로 보낼 수 있는지 안내합니다.</p>
         <p className="mt-4 text-sm text-zinc-500">시행일: 2026년 9월 23일</p>
       </header>
 

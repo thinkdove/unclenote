@@ -4,13 +4,15 @@ import { Icon } from '@iconify/react';
 
 export const metadata: Metadata = {
   title: '소개 및 문의',
-  description: '삼촌생각에서 제공하는 정보 글과 생활 도구, 콘텐츠 이용 안내 및 문의 방법을 소개합니다.',
+  description: '삼촌노트에서 제공하는 정보 글과 생활 도구, 콘텐츠 이용 안내 및 문의 방법을 소개합니다.',
   alternates: {
     canonical: 'https://unclenote.com/about',
   },
   openGraph: {
-    title: '삼촌생각 소개 및 문의',
-    description: '정보 글과 생활 도구를 제공하는 삼촌생각의 소개 및 문의 방법입니다.',
+    siteName: '삼촌노트',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    title: '삼촌노트 소개 및 문의',
+    description: '정보 글과 생활 도구를 제공하는 삼촌노트의 소개 및 문의 방법입니다.',
     url: 'https://unclenote.com/about',
     type: 'website',
   },
@@ -23,13 +25,13 @@ export default function AboutPage() {
       <header className="mb-12 border-b border-zinc-200/80 pb-8">
         <div className="flex items-center gap-2 text-sm font-bold text-[#c55232] mb-3">
           <Icon icon="solar:lightbulb-bold-duotone" width="20" height="20" />
-          <span>삼촌생각 소개</span>
+          <span>삼촌노트 소개</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-[#292520] tracking-tight mb-4">
           일상에 필요한 정보와 도구를 한곳에.
         </h1>
         <p className="text-zinc-600 text-lg leading-relaxed font-medium">
-          삼촌생각은 생활 속 궁금한 주제를 읽기 쉽게 정리하고, 필요한 값을 직접 살펴볼 수 있는 간단한 웹 도구를 제공합니다.
+          삼촌노트는 생활 속 궁금한 주제를 읽기 쉽게 정리하고, 필요한 값을 직접 살펴볼 수 있는 간단한 웹 도구를 제공합니다.
         </p>
       </header>
 
@@ -44,7 +46,7 @@ export default function AboutPage() {
           </h2>
           <div className="space-y-4 text-zinc-600 leading-relaxed">
             <p>
-              정보를 찾다가 낯선 용어나 복잡한 설명 때문에 다시 검색해야 하는 순간이 있습니다. 삼촌생각은 그런 주제를 가능한 한 분명한 말로 풀어 쓰고, 실제로 써볼 수 있는 도구를 함께 모으는 사이트입니다.
+              정보를 찾다가 낯선 용어나 복잡한 설명 때문에 다시 검색해야 하는 순간이 있습니다. 삼촌노트는 그런 주제를 가능한 한 분명한 말로 풀어 쓰고, 실제로 써볼 수 있는 도구를 함께 모으는 사이트입니다.
             </p>
             <p>
               현재는 셀프 인테리어 자재 소요량과 급여·세금 관련 계산 도구, 관련 읽을거리를 제공하고 있습니다. 앞으로 다루는 글의 주제는 계산기나 금융·세무에 한정하지 않습니다.
@@ -112,7 +114,7 @@ export default function AboutPage() {
             </p>
             <p className="flex items-center gap-2">
               <span className="font-semibold w-20 shrink-0">사이트:</span>
-              <span>삼촌생각 (Uncle Note)</span>
+              <span>삼촌노트 (Uncle Note)</span>
             </p>
           </div>
         </section>

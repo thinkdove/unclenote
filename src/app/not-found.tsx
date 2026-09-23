@@ -18,7 +18,7 @@ export default function NotFound() {
         className="inline-flex items-center gap-2 bg-[#c55232] hover:bg-[#a74126] text-white font-bold text-sm px-6 py-3.5 rounded-full transition-all duration-300 shadow-sm"
       >
         <Icon icon="solar:home-2-bold-duotone" />
-        <span>삼촌생각 홈으로 가기</span>
+        <span>삼촌노트 홈으로 가기</span>
       </Link>
     </div>
   );

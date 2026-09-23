@@ -282,7 +282,7 @@ export default function TileCalculatorPage() {
       modeDesc = `직접 입력 면적: ${netAreaSqm.toFixed(2)}㎡ (${netAreaPyung}평)`;
     }
 
-    const text = `[삼촌생각 타일 소요량 견적서]
+    const text = `[삼촌노트 타일 소요량 견적서]
 • 시공 방식: ${modeDesc}
 • 순 면적: ${netAreaSqm.toFixed(2)}㎡ (약 ${netAreaPyung}평)
 • 타일 규격: ${currentTileName}

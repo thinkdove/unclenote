@@ -6,11 +6,13 @@ import Script from 'next/script';
 export const metadata: Metadata = {
   title: '퇴직금, 얼마를 받을 수 있을까? | 2026년 계산법과 IRP 세금',
   description: '법정 퇴직금 계산 공식, 1일 평균임금 산출법, 퇴직소득세의 연금 수령 시 과세 차이와 미지급 시 대처법을 정리했습니다.',
-  keywords: ['2026 퇴직금 계산법', '퇴직금 계산기', '1일 평균임금', '퇴직소득세 계산', 'IRP 퇴직금 절세', '삼촌생각'],
+  keywords: ['2026 퇴직금 계산법', '퇴직금 계산기', '1일 평균임금', '퇴직소득세 계산', 'IRP 퇴직금 절세', '삼촌노트'],
   alternates: {
     canonical: 'https://unclenote.com/guide/severance-pay-guide-2026',
   },
   openGraph: {
+    siteName: '삼촌노트',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
     title: '퇴직금, 얼마를 받을 수 있을까? | 2026년 계산법과 IRP 세금',
     description: '1일 평균임금 계산식과 IRP 연금 수령 시 적용되는 퇴직소득세 차이를 정리했습니다.',
     url: 'https://unclenote.com/guide/severance-pay-guide-2026',
@@ -27,8 +29,8 @@ export default function SeverancePayGuidePage() {
     mainEntityOfPage: 'https://unclenote.com/guide/severance-pay-guide-2026',
     datePublished: '2026-09-22',
     dateModified: '2026-09-23',
-    author: { '@type': 'Organization', name: '삼촌생각', url: 'https://unclenote.com/about' },
-    publisher: { '@type': 'Organization', name: '삼촌생각', url: 'https://unclenote.com' },
+    author: { '@type': 'Organization', name: '삼촌노트', url: 'https://unclenote.com/about' },
+    publisher: { '@type': 'Organization', name: '삼촌노트', url: 'https://unclenote.com' },
   };
 
   return (
@@ -52,7 +54,7 @@ export default function SeverancePayGuidePage() {
           2026년 기준 퇴직금의 지급 요건부터 평균임금 계산법, IRP 계좌로 받을 때 달라지는 세금까지 차례로 살펴봅니다.
         </p>
         <div className="essay-byline">
-          <span>삼촌생각</span>
+          <span>삼촌노트</span>
           <span aria-hidden="true">·</span>
           <time dateTime="2026-09-23">2026. 09. 23.</time>
           <span aria-hidden="true">·</span>

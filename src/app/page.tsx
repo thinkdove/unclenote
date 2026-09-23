@@ -5,31 +5,40 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   alternates: { canonical: 'https://unclenote.com' },
   openGraph: {
-    title: '삼촌생각 | 읽을거리와 생활 계산 도구',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    title: '삼촌노트 | 읽을거리와 생활 계산 도구',
     description: '생활 속 궁금한 주제를 정리한 정보 글과 일상에 유용한 계산 도구를 한곳에서 살펴보세요.',
     url: 'https://unclenote.com',
-    siteName: '삼촌생각',
+    siteName: '삼촌노트',
     locale: 'ko_KR',
     type: 'website',
   },
 };
 
 export default function Home() {
+  const siteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: '삼촌노트',
+    alternateName: 'Uncle Note',
+    url: 'https://unclenote.com/',
+  };
+
   return (
     <div className="flex flex-col gap-14 sm:gap-20 pb-10 sm:pb-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }} />
       
       {/* Hero Section (Warm Editorial Vibe) */}
       <section className="relative isolate overflow-hidden rounded-[2rem] border border-[#eadfd5] bg-[linear-gradient(125deg,rgba(255,255,255,0.95)_0%,rgba(251,244,237,0.92)_58%,rgba(247,232,222,0.8)_100%)] px-6 py-10 sm:px-10 sm:py-14 lg:px-14 lg:py-16 text-left flex flex-col items-start">
         <div className="rounded-full px-4 py-1.5 text-[12px] uppercase tracking-[0.2em] font-bold bg-[#c55232]/10 text-[#c55232] mb-6 inline-block">
-          Smart Life & Work Tools
+          Read & Use
         </div>
         <h1 className="max-w-3xl text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#292520] leading-[1.18] mb-5 [text-wrap:balance]">
-          복잡한 계산을 <br className="sm:hidden" />
-          <span className="text-[#c55232]">삼촌생각</span>
+          일상의 궁금증, <br className="sm:hidden" />
+          <span className="text-[#c55232]">삼촌노트</span>에서 풀어보세요.
         </h1>
         <p className="text-[15px] sm:text-lg text-zinc-600 max-w-2xl leading-relaxed font-medium [text-wrap:pretty]">
-          셀프 인테리어 자재부터 월급·세금까지, <br className="hidden sm:inline" />
-          매번 헷갈리는 일상의 계산을 삼촌이 친절하고 정확하게 알려드립니다.
+          읽기 쉬운 정보 글과 필요한 순간 바로 써볼 수 있는 생활 도구를 모았습니다.
         </p>
       </section>
 

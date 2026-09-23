@@ -132,7 +132,7 @@ export default function WallpaperCalculatorPage() {
       specSummary = `직접 입력 ${netPyung}평`;
     }
 
-    const text = `[삼촌생각 도배지 소요량 견적서]
+    const text = `[삼촌노트 도배지 소요량 견적서]
 • 시공 대상: ${specSummary}
 • 순 도배 면적: 약 ${netPyung}평 (${netSqm.toFixed(2)}㎡)
 • 선택 벽지: ${currentPreset.name} (${currentPreset.alias})
@@ -770,7 +770,7 @@ export default function WallpaperCalculatorPage() {
           className="inline-flex items-center gap-2 text-sm font-bold text-zinc-600 hover:text-[#c55232] transition-colors"
         >
           <Icon icon="solar:home-2-linear" width="18" height="18" />
-          <span>삼촌생각 홈으로</span>
+          <span>삼촌노트 홈으로</span>
         </Link>
       </div>
     </div>

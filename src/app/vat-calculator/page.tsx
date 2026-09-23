@@ -7,7 +7,9 @@ export const metadata: Metadata = {
   description: "일반과세자 공급가액과 부가세 포함 금액을 계산합니다. 간이과세자 납부세액은 업종과 공제액에 따라 달라져 국세청 안내를 연결합니다.",
   alternates: { canonical: "https://unclenote.com/vat-calculator" },
   openGraph: {
-    title: "부가세 계산기 | 삼촌생각",
+    siteName: '삼촌노트',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    title: "부가세 계산기 | 삼촌노트",
     description: "일반과세자 공급가액과 부가세 포함 금액을 계산합니다.",
     url: "https://unclenote.com/vat-calculator",
     type: "website",
@@ -47,7 +49,7 @@ export default function VatCalculatorPage() {
         <div className="border-b border-zinc-100 pb-3">
           <h2 className="text-xl font-bold text-zinc-900 flex items-center gap-2">
             <span>📖</span>
-            <span>삼촌생각 부가세 알짜 상식</span>
+            <span>삼촌노트 부가세 알짜 상식</span>
           </h2>
           <p className="text-sm text-zinc-500 mt-1">계산하기 전 알아두면 좋은 필수 세무 지식</p>
         </div>

@@ -113,7 +113,7 @@ export default function PaintCalculatorPage() {
     else if (targetType === 'door') targetLabel = `방문 ${doorCount}개 (${includeDoorFrame ? '문틀 포함' : '문짝만'})`;
     else targetLabel = `직접 입력 (${customSqm}㎡)`;
 
-    const text = `[삼촌생각 셀프 페인트 소요량 견적서]
+    const text = `[삼촌노트 셀프 페인트 소요량 견적서]
 • 시공 대상: ${targetLabel}
 • 1회 면적: ${singleCoatAreaSqm.toFixed(2)}㎡ (총 도장 횟수: ${coats}회)
 • 젯소(프라이머): ${needGesso ? '필요 (1회 도포)' : '생략'}

@@ -8,11 +8,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://unclenote.com"),
   title: {
-    default: "삼촌생각 (Uncle Note) - 읽을거리와 생활 계산 도구",
-    template: "%s | 삼촌생각 (Uncle Note)",
+    default: "삼촌노트 (Uncle Note) - 읽을거리와 생활 계산 도구",
+    template: "%s | 삼촌노트 (Uncle Note)",
   },
   description: "생활 속 궁금한 주제를 읽기 쉽게 정리한 정보 글과 일상에 유용한 계산 도구를 제공합니다.",
-  keywords: ["삼촌생각", "Uncle Note", "연봉 실수령액 계산기", "부가세 계산기", "세무 계산기", "생활 가이드"],
+  keywords: ["삼촌노트", "Uncle Note", "연봉 실수령액 계산기", "부가세 계산기", "세무 계산기", "생활 가이드"],
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -67,9 +67,9 @@ export default function RootLayout({
           <div className="site-footer-inner">
             <div className="site-footer-main">
               <div className="site-footer-brand">
-                <Link href="/" className="site-footer-logo" aria-label="삼촌생각 홈">
+                <Link href="/" className="site-footer-logo" aria-label="삼촌노트 홈">
                   <Image src="/images/logo.png" alt="" width={32} height={32} />
-                  <span>삼촌생각</span>
+                  <span>삼촌노트</span>
                 </Link>
                 <p>읽기 쉬운 정보 글과<br className="hidden sm:block" /> 유용한 생활 도구를 모았습니다.</p>
               </div>
@@ -86,7 +86,7 @@ export default function RootLayout({
                 </div>
               </nav>
             </div>
-            <div className="site-footer-bottom">© 2026 삼촌생각 · Uncle Note</div>
+            <div className="site-footer-bottom">© 2026 삼촌노트 · Uncle Note</div>
           </div>
         </footer>
         <Analytics />

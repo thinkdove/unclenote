@@ -71,7 +71,7 @@ export default function WageCalculatorPage() {
   const isUnderMinWage = hourlyWage < referenceMinimum;
 
   const handleCopy = () => {
-    const text = `[삼촌생각 최저임금 & 주휴수당 계산 결과]
+    const text = `[삼촌노트 최저임금 & 주휴수당 계산 결과]
 • 적용 시급: ${hourlyWage.toLocaleString()}원 (${referenceYear}년 최저시급: ${referenceMinimum.toLocaleString()}원)
 • 근무 조건: 주 ${daysPerWeek}일 / 체류 ${hoursPerDay}시간 (무급 휴게 ${breakMinutes}분 제외, 1일 실근로 ${paidDailyHours}시간)
 • 1주 실근로: ${weeklyWorkHours}시간 ${isHolidayAllowanceEligible ? '(주 15시간 이상: 주휴수당 발생 대상)' : '(주 15시간 미만: 주휴수당 미발생)'}

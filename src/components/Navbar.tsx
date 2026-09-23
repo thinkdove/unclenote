@@ -70,9 +70,9 @@ export default function Navbar() {
   return (
     <div className="site-nav-shell">
       <header className="site-nav-header">
-        <Link href="/" onClick={closeMenus} className="site-nav-logo" aria-label="삼촌생각 홈">
+        <Link href="/" onClick={closeMenus} className="site-nav-logo" aria-label="삼촌노트 홈">
           <Image src="/images/logo.png" alt="" width={28} height={28} priority />
-          <span>삼촌생각</span>
+          <span>삼촌노트</span>
         </Link>
 
         <nav className="site-nav-desktop" aria-label="주 메뉴">

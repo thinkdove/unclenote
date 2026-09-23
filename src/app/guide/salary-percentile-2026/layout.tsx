@@ -19,10 +19,11 @@ export const metadata: Metadata = {
     canonical: 'https://unclenote.com/guide/salary-percentile-2026',
   },
   openGraph: {
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
     title: '연봉 상위 몇 %일까? | 2024년 귀속 국세청 통계',
     description: '2024년 귀속 근로소득 자료에 기반한 연봉 백분위 참고 계산기',
     url: 'https://unclenote.com/guide/salary-percentile-2026',
-    siteName: '삼촌생각 (Uncle Note)',
+    siteName: '삼촌노트',
     locale: 'ko_KR',
     type: 'article',
   },

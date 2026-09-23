@@ -4,12 +4,14 @@ import { Icon } from '@iconify/react';
 
 export const metadata: Metadata = {
   title: '읽을거리',
-  description: '생활 속 궁금한 주제를 읽기 쉽게 정리한 삼촌생각의 정보 글을 모았습니다.',
+  description: '생활 속 궁금한 주제를 읽기 쉽게 정리한 삼촌노트의 정보 글을 모았습니다.',
   alternates: {
     canonical: 'https://unclenote.com/guide',
   },
   openGraph: {
-    title: '읽을거리 | 삼촌생각',
+    siteName: '삼촌노트',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    title: '읽을거리 | 삼촌노트',
     description: '생활 속 궁금한 주제를 읽기 쉽게 정리한 정보 글을 살펴보세요.',
     url: 'https://unclenote.com/guide',
     type: 'website',
@@ -57,7 +59,7 @@ export default function GuideIndexPage() {
       <header className="mb-10 border-b border-zinc-200/80 pb-8 text-center sm:text-left">
         <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-bold tracking-wider text-[#c55232] uppercase mb-3">
           <Icon icon="solar:book-bookmark-bold-duotone" width="20" height="20" />
-          <span>삼촌생각 읽을거리</span>
+          <span>삼촌노트 읽을거리</span>
         </div>
         <h1 className="editorial-h1 mb-3">
           읽을거리

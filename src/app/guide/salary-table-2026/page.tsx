@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   description: "2026년 연봉 3,000만 원부터 1억 원까지 월 실수령액 추정치를 정리했습니다. 실제 원천징수액은 급여명세서에서 확인하세요.",
   alternates: { canonical: "https://unclenote.com/guide/salary-table-2026" },
   openGraph: {
+    siteName: '삼촌노트',
     title: "2026년 연봉 실수령액 표 | 3,000만~1억 구간별 월급",
     description: "연봉 협상 전에 참고하는 2026년 예상 월 실수령액과 보험료 분석.",
     url: "https://unclenote.com/guide/salary-table-2026",
@@ -37,8 +38,8 @@ export default function SalaryGuidePage() {
     description: metadata.description,
     datePublished: "2026-09-22",
     dateModified: "2026-09-22",
-    author: { "@type": "Organization", name: "삼촌생각" },
-    publisher: { "@type": "Organization", name: "삼촌생각" },
+    author: { "@type": "Organization", name: "삼촌노트" },
+    publisher: { "@type": "Organization", name: "삼촌노트" },
   };
 
   const faqSchema = {
@@ -66,7 +67,7 @@ export default function SalaryGuidePage() {
         name: "가장 정확한 내 실수령액은 어떻게 확인하나요?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "삼촌생각 연봉 실수령액 계산기에서 본인의 부양가족 수와 비과세액을 적용해 즉시 모의 계산해 볼 수 있습니다.",
+          text: "삼촌노트 연봉 실수령액 계산기에서 본인의 부양가족 수와 비과세액을 적용해 즉시 모의 계산해 볼 수 있습니다.",
         },
       },
     ],

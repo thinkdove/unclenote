@@ -4,13 +4,15 @@ import { Icon } from '@iconify/react';
 
 export const metadata: Metadata = {
   title: '서비스 이용약관',
-  description: '삼촌생각(Uncle Note) 서비스 이용약관입니다. 서비스 이용 조건 및 절차, 권리와 의무, 계산 결과에 대한 면책 조항을 규정합니다.',
+  description: '삼촌노트(Uncle Note) 서비스 이용약관입니다. 서비스 이용 조건 및 절차, 권리와 의무, 계산 결과에 대한 면책 조항을 규정합니다.',
   alternates: {
     canonical: 'https://unclenote.com/terms',
   },
   openGraph: {
-    title: '서비스 이용약관 | 삼촌생각',
-    description: '삼촌생각의 계산기와 정보성 글 이용 시 알아둘 사항입니다.',
+    siteName: '삼촌노트',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    title: '서비스 이용약관 | 삼촌노트',
+    description: '삼촌노트의 계산기와 정보성 글 이용 시 알아둘 사항입니다.',
     url: 'https://unclenote.com/terms',
     type: 'website',
   },
@@ -29,7 +31,7 @@ export default function TermsPage() {
           서비스 이용약관
         </h1>
         <p className="text-zinc-600 text-base leading-relaxed">
-          삼촌생각(Uncle Note) 웹사이트를 이용해 주셔서 감사합니다. 본 약관은 서비스 이용에 관한 권리와 의무, 책임사항을 규정합니다.
+          삼촌노트(Uncle Note) 웹사이트를 이용해 주셔서 감사합니다. 본 약관은 서비스 이용에 관한 권리와 의무, 책임사항을 규정합니다.
         </p>
         <p className="text-xs text-zinc-400 mt-4">
           시행일자: 2026년 9월 23일
@@ -46,7 +48,7 @@ export default function TermsPage() {
             목적 및 정의
           </h2>
           <p className="text-zinc-600">
-            본 약관은 삼촌생각(이하 &apos;사이트&apos;)이 제공하는 생활·셀프 인테리어 계산기, 급여·세무 계산기 및 정보성 글(이하 &apos;서비스&apos;)의 이용에 관한 기본 사항을 정합니다.
+            본 약관은 삼촌노트(이하 &apos;사이트&apos;)이 제공하는 생활·셀프 인테리어 계산기, 급여·세무 계산기 및 정보성 글(이하 &apos;서비스&apos;)의 이용에 관한 기본 사항을 정합니다.
           </p>
         </section>
 
@@ -58,7 +60,7 @@ export default function TermsPage() {
           </h2>
           <div className="space-y-3 text-zinc-700">
             <p className="font-semibold text-[#a74126]">
-              삼촌생각에서 제공하는 모든 계산기 및 가이드 콘텐츠는 이용자의 편의와 일반적인 이해를 돕기 위한 &apos;모의 참고용 자료&apos;입니다.
+              삼촌노트에서 제공하는 모든 계산기 및 가이드 콘텐츠는 이용자의 편의와 일반적인 이해를 돕기 위한 &apos;모의 참고용 자료&apos;입니다.
             </p>
             <ul className="list-disc list-inside space-y-2 text-zinc-600 text-sm">
               <li>

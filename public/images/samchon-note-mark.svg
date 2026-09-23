@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">삼촌노트 아이콘</title>
+  <rect width="512" height="512" rx="116" fill="#203b58"/>
+  <path d="M86 238c17-24 36-34 62-34m216 0c26 0 45 10 62 34" fill="none" stroke="#f9eee3" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="178" cy="260" r="78" fill="#f9eee3" stroke="#c55232" stroke-width="20"/>
+  <circle cx="334" cy="260" r="78" fill="#f9eee3" stroke="#c55232" stroke-width="20"/>
+  <path d="M218 355c21 18 55 18 76 0" fill="none" stroke="#f9eee3" stroke-width="24" stroke-linecap="round"/>
+</svg>

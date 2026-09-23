@@ -96,8 +96,8 @@ export default function SalaryPercentileGuidePage() {
     description: '국세청의 2024년 귀속 근로소득 백분위 자료를 바탕으로 총급여 위치를 참고용으로 추정합니다.',
     datePublished: '2026-09-22',
     dateModified: '2026-09-23',
-    author: { '@type': 'Organization', name: '삼촌생각', url: 'https://unclenote.com' },
-    publisher: { '@type': 'Organization', name: '삼촌생각', url: 'https://unclenote.com' },
+    author: { '@type': 'Organization', name: '삼촌노트', url: 'https://unclenote.com' },
+    publisher: { '@type': 'Organization', name: '삼촌노트', url: 'https://unclenote.com' },
     mainEntityOfPage: 'https://unclenote.com/guide/salary-percentile-2026',
     isBasedOn: SOURCE_URL,
   };

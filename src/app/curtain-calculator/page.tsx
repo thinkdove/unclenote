@@ -116,7 +116,7 @@ export default function CurtainCalculatorPage() {
   const handleCopy = () => {
     let text = '';
     if (productType === 'curtain') {
-      text = `[삼촌생각 커튼 제작 치수 견적서]
+      text = `[삼촌노트 커튼 제작 치수 견적서]
 • 실측 치수: 창문 가로 ${windowWidthCm}cm × 천장 높이 ${ceilingHeightCm}cm
 • 주름 스타일: ${currentPleat.name} (${currentPleat.desc})
 • 시공 방식: ${currentHardware.name} (-${currentHardware.deductionCm}cm 공제)
@@ -129,7 +129,7 @@ export default function CurtainCalculatorPage() {
 • 추천 레일/봉 규격: ${windowWidthCm}cm용 슬라이딩 레일 (${railJa}자 규격)
 계산기 바로가기: https://unclenote.com/curtain-calculator`;
     } else {
-      text = `[삼촌생각 블라인드 견적서]
+      text = `[삼촌노트 블라인드 견적서]
 • 창문 실측: 가로 ${windowWidthCm}cm × 세로 ${ceilingHeightCm}cm
 • 설치 방식: ${blindInstallType === 'outside' ? '창틀 바깥 덮기 (빛샘 방지 여유 포함)' : '창틀 안쪽 매립'}
 ---------------------------------

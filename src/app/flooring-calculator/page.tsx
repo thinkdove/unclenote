@@ -111,7 +111,7 @@ export default function FlooringCalculatorPage() {
   const currentThickness = THICKNESS_PRESETS.find((t) => t.id === selectedThickness) || THICKNESS_PRESETS[1];
 
   const handleCopy = () => {
-    const text = `[삼촌생각 장판(모노륨) 소요량 견적서]
+    const text = `[삼촌노트 장판(모노륨) 소요량 견적서]
 • 방 치수: 가로 ${widthM}m × 세로 ${lengthM}m (바닥 약 ${floorAreaPyung}평 / ${floorAreaSqm.toFixed(2)}㎡)
 • 마감 방식: ${finishType === 'fold' ? '벽면 꺾어올림 마감 (여유치수 +20cm)' : '굽도리/걸레받이 직각 컷팅'}
 • 선택 두께: ${currentThickness.name} (${currentThickness.tag})

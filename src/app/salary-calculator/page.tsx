@@ -6,10 +6,12 @@ import Script from "next/script";
 export const metadata: Metadata = {
   title: "연봉 실수령액 계산기",
   description: "2026년 보험료율을 적용하고 소득세를 추정하는 연봉 실수령액 참고 계산기. 실제 원천징수액은 급여명세서와 국세청 간이세액표를 확인하세요.",
-  keywords: ["연봉 실수령액", "2026 연봉 계산기", "월급 실수령액", "4대보험 계산", "삼촌생각", "Uncle Note"],
+  keywords: ["연봉 실수령액", "2026 연봉 계산기", "월급 실수령액", "4대보험 계산", "삼촌노트", "Uncle Note"],
   alternates: { canonical: "https://unclenote.com/salary-calculator" },
   openGraph: {
-    title: "연봉 실수령액 계산기 | 삼촌생각",
+    siteName: '삼촌노트',
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    title: "연봉 실수령액 계산기 | 삼촌노트",
     description: "연봉과 비과세액, 부양가족 수를 입력하고 2026년 예상 월 실수령액을 확인하세요.",
     url: "https://unclenote.com/salary-calculator",
     type: "website",
