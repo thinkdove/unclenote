@@ -1,801 +1,210 @@
 'use client';
 
-import { useState, useId } from 'react';
+import { useId, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import Script from 'next/script';
 import { Icon } from '@iconify/react';
 
-// 2023년 귀속 국세청 통계에 맞춘 참고용 백분위 경계값 (단위: 만 원)
-const PERCENTILE_CUTOFFS = [
-  { salary: 102000, topPercent: 0.1 },
-  { salary: 18500, topPercent: 1.0 },
-  { salary: 13500, topPercent: 3.0 },
-  { salary: 11500, topPercent: 5.0 },
-  { salary: 10000, topPercent: 6.7 }, // 억대 연봉자 컷
-  { salary: 8700, topPercent: 10.0 },
-  { salary: 7400, topPercent: 15.0 },
-  { salary: 6400, topPercent: 20.0 },
-  { salary: 5600, topPercent: 25.0 },
-  { salary: 4900, topPercent: 30.0 },
-  { salary: 4332, topPercent: 35.8 }, // 전체 평균
-  { salary: 4000, topPercent: 40.0 },
-  { salary: 3550, topPercent: 45.0 },
-  { salary: 3213, topPercent: 50.0 }, // 중위소득 (중간값)
-  { salary: 2900, topPercent: 55.0 },
-  { salary: 2650, topPercent: 60.0 },
-  { salary: 2400, topPercent: 65.0 },
-  { salary: 2150, topPercent: 70.0 },
-  { salary: 1900, topPercent: 75.0 },
-  { salary: 1700, topPercent: 80.0 },
-  { salary: 1450, topPercent: 85.0 },
-  { salary: 1150, topPercent: 90.0 },
-  { salary: 800, topPercent: 95.0 },
-  { salary: 0, topPercent: 100.0 },
-];
+// 국세청 「근로소득 백분위(천분위) 자료」 2024년 귀속·2025년 신고분.
+// 각 경계는 인접한 두 구간의 평균 총급여를 중간값으로 놓은 추정치(단위: 만 원)다.
+// 원본에는 개인별 급여나 정확한 백분위 경계가 없다.
+const ESTIMATED_BOUNDARIES = [
+  { top: 1, salary: 18642 },
+  { top: 3, salary: 13917 },
+  { top: 5, salary: 11560 },
+  { top: 7, salary: 10190 },
+  { top: 8, salary: 9712 },
+  { top: 10, salary: 8944 },
+  { top: 15, salary: 7502 },
+  { top: 20, salary: 6443 },
+  { top: 25, salary: 5655 },
+  { top: 30, salary: 5005 },
+  { top: 35, salary: 4490 },
+  { top: 40, salary: 4061 },
+  { top: 45, salary: 3694 },
+  { top: 50, salary: 3388 },
+  { top: 55, salary: 3092 },
+  { top: 60, salary: 2825 },
+  { top: 65, salary: 2570 },
+  { top: 70, salary: 2348 },
+  { top: 75, salary: 1965 },
+  { top: 80, salary: 1542 },
+  { top: 85, salary: 1124 },
+  { top: 90, salary: 730 },
+  { top: 95, salary: 344 },
+  { top: 100, salary: 0 },
+] as const;
 
-const TOTAL_WORKERS = 20850000; // 2,085만 명
-const AVERAGE_SALARY = 4332; // 4,332만 원
-const MEDIAN_SALARY = 3213; // 3,213만 원
+const WORKERS = 21_078_535;
+const AVERAGE = 4475;
+const MEDIAN_ESTIMATE = 3388;
+const SOURCE_URL = 'https://www.data.go.kr/data/15082063/fileData.do';
 
-function getSalaryFromSliderPointer(clientX: number, slider: HTMLInputElement) {
-  const bounds = slider.getBoundingClientRect();
-  const min = Number(slider.min);
-  const max = Number(slider.max);
-  const step = Number(slider.step) || 1;
-  const ratio = Math.max(0, Math.min(1, (clientX - bounds.left) / bounds.width));
-  return Math.min(max, min + Math.round((ratio * (max - min)) / step) * step);
-}
+function estimateTopPercent(salary: number): number {
+  if (salary <= 0) return 100;
+  if (salary >= ESTIMATED_BOUNDARIES[0].salary) return 1;
 
-// 상위 백분위 계산 보간 알고리즘
-function calculatePercentile(salaryManwon: number): number {
-  if (salaryManwon <= 0) return 100.0;
-  if (salaryManwon >= 102000) return 0.1;
-
-  for (let i = 0; i < PERCENTILE_CUTOFFS.length - 1; i++) {
-    const higher = PERCENTILE_CUTOFFS[i];
-    const lower = PERCENTILE_CUTOFFS[i + 1];
-
-    if (salaryManwon <= higher.salary && salaryManwon >= lower.salary) {
-      const salaryRange = higher.salary - lower.salary;
-      const percentRange = lower.topPercent - higher.topPercent;
-      if (salaryRange === 0) return higher.topPercent;
-
-      const ratio = (salaryManwon - lower.salary) / salaryRange;
-      const calculated = lower.topPercent - ratio * percentRange;
-      return Math.max(0.1, Math.min(100.0, Number(calculated.toFixed(1))));
+  for (let i = 0; i < ESTIMATED_BOUNDARIES.length - 1; i++) {
+    const high = ESTIMATED_BOUNDARIES[i];
+    const low = ESTIMATED_BOUNDARIES[i + 1];
+    if (salary <= high.salary && salary >= low.salary) {
+      const share = (high.salary - salary) / (high.salary - low.salary);
+      return Math.round((high.top + share * (low.top - high.top)) * 10) / 10;
     }
   }
 
-  return 50.0;
+  return 100;
 }
 
-// SVG 커브 X 좌표 (0~100) 매핑
-function getSvgXRatio(salaryManwon: number): number {
-  // 1,000만~1억5천만 범위를 비선형 스케일로 압축 매핑
-  if (salaryManwon <= 1000) return 5;
-  if (salaryManwon >= 15000) return 95;
-  if (salaryManwon <= 3213) {
-    return 5 + ((salaryManwon - 1000) / (3213 - 1000)) * 40; // 5% ~ 45%
-  } else if (salaryManwon <= 7000) {
-    return 45 + ((salaryManwon - 3213) / (7000 - 3213)) * 30; // 45% ~ 75%
-  } else {
-    return 75 + ((salaryManwon - 7000) / (15000 - 7000)) * 20; // 75% ~ 95%
-  }
-}
+const examples = [
+  { label: '상위 1%', salary: 18642 },
+  { label: '상위 5%', salary: 11560 },
+  { label: '상위 10%', salary: 8944 },
+  { label: '상위 20%', salary: 6443 },
+  { label: '중간값(상위 50%)', salary: MEDIAN_ESTIMATE },
+];
 
-// SVG 커브 Y 좌표 계산 (벨 커브 높이)
-function getSvgCurveY(xRatio: number): number {
-  // Peak at x=45 (중위소득 구간 3,213만 원 부근)
-  const peakX = 45;
-  const spread = 22;
-  const height = 120; // 최대 높이
-  const baseY = 175; // 바닥 기준선
-  const val = Math.exp(-Math.pow(xRatio - peakX, 2) / (2 * Math.pow(spread, 2)));
-  return baseY - val * height;
-}
+const faqs = [
+  {
+    question: '이 계산기는 어떤 연도 자료를 사용하나요?',
+    answer: '국세청이 공개한 2024년 귀속 근로소득의 2025년 신고 자료를 사용합니다. 2026년에 받는 급여의 분포를 뜻하지 않습니다.',
+  },
+  {
+    question: '상위 10%의 정확한 연봉 기준이 8,944만 원인가요?',
+    answer: '아닙니다. 원본은 구간별 인원과 총급여 합계만 제공하며 개인별 급여나 경계값을 공개하지 않습니다. 약 8,944만 원은 인접 구간 평균을 이용한 추정값입니다.',
+  },
+  {
+    question: '평균과 중간값은 왜 다른가요?',
+    answer: '평균 약 4,475만 원은 전체 총급여를 전체 신고 인원으로 나눈 값입니다. 중간값 약 3,388만 원은 구간별 평균으로 추정한 50% 경계이며 공식 중위급여 발표값이 아닙니다.',
+  },
+  {
+    question: '내 연봉과 비교할 때 무엇을 입력해야 하나요?',
+    answer: '세후 실수령액이나 과세표준이 아닌 연간 세전 총급여를 입력하세요. 비과세 항목과 개인별 신고 조건 때문에 실제 비교 대상과 차이가 있을 수 있습니다.',
+  },
+];
 
 export default function SalaryPercentileGuidePage() {
   const inputId = useId();
-  const [salaryManwon, setSalaryManwon] = useState<number>(5000);
-  const [copied, setCopied] = useState<boolean>(false);
+  const [salary, setSalary] = useState(5000);
+  const top = estimateTopPercent(salary);
+  const rank = salary >= ESTIMATED_BOUNDARIES[0].salary ? '상위 1% 이내' : `상위 약 ${top}%`;
 
-  const topPercent = calculatePercentile(salaryManwon);
-  const workersAhead = Math.round(TOTAL_WORKERS * (topPercent / 100));
-  const workersBehind = Math.max(0, TOTAL_WORKERS - workersAhead);
-
-  const diffAvg = salaryManwon - AVERAGE_SALARY;
-  const diffMedian = salaryManwon - MEDIAN_SALARY;
-
-  const svgX = getSvgXRatio(salaryManwon);
-  const svgY = getSvgCurveY(svgX);
-
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText('https://unclenote.com/guide/salary-percentile-2026');
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  // AEO / SEO Structured Data (BlogPosting + FAQPage + WebApplication)
   const articleSchema = {
     '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'BlogPosting',
-        '@id': 'https://unclenote.com/guide/salary-percentile-2026#article',
-        'headline': '내 연봉은 상위 몇 %? 국세청 2023년 귀속 통계로 살펴보기',
-        'description': '국세청 2023년 귀속 근로소득 연말정산 통계를 바탕으로 연봉 백분위를 참고용으로 추정합니다.',
-        'image': 'https://unclenote.com/images/salary-percentile-hero.jpg',
-        'author': {
-          '@type': 'Organization',
-          'name': '삼촌생각 에디토리얼 팀',
-          'url': 'https://unclenote.com',
-        },
-        'publisher': {
-          '@type': 'Organization',
-          'name': '삼촌생각 (Uncle Note)',
-          'logo': {
-            '@type': 'ImageObject',
-            'url': 'https://unclenote.com/favicon.ico',
-          },
-        },
-        'datePublished': '2026-09-22T09:00:00+09:00',
-        'dateModified': '2026-09-23T09:00:00+09:00',
-      },
-      {
-        '@type': 'WebApplication',
-        'name': '대한민국 연봉 상위 백분위 계산기',
-        'url': 'https://unclenote.com/guide/salary-percentile-2026',
-        'applicationCategory': 'FinanceApplication',
-        'operatingSystem': 'All',
-        'offers': {
-          '@type': 'Offer',
-          'price': '0',
-          'priceCurrency': 'KRW',
-        },
-      },
-      {
-        '@type': 'FAQPage',
-        'mainEntity': [
-          {
-            '@type': 'Question',
-            'name': '대한민국 근로자 평균 연봉과 중위 연봉의 차이는 얼마인가요?',
-            'acceptedAnswer': {
-              '@type': 'Answer',
-              'text': '국세청 2023년 귀속 근로소득 연말정산 신고자 2,085만 명의 평균 총급여는 4,332만 원입니다. 이 페이지의 중위 연봉 약 3,213만 원과 백분위 경계는 참고용 추정치입니다.',
-            },
-          },
-          {
-            '@type': 'Question',
-            'name': '대한민국에서 연봉 1억 원은 상위 몇 %에 해당하나요?',
-            'acceptedAnswer': {
-              '@type': 'Answer',
-              'text': '국세청 공식 통계에 따르면 총급여 1억 원을 초과하는 근로자는 약 139만 명으로 전체 근로자의 상위 6.7%에 해당합니다.',
-            },
-          },
-          {
-            '@type': 'Question',
-            'name': '상위 10%와 상위 1%에 진입하려면 연봉이 얼마여야 하나요?',
-            'acceptedAnswer': {
-              '@type': 'Answer',
-              'text': '상위 10% 커트라인은 세전 연봉 약 8,700만 원 이상이며, 상위 1% 초고소득자 커트라인은 세전 연봉 약 1억 8,500만 원 이상입니다.',
-            },
-          },
-        ],
-      },
-    ],
+    '@type': 'BlogPosting',
+    headline: '내 연봉은 상위 몇 %? 국세청 2024년 귀속 통계로 추정하기',
+    description: '국세청의 2024년 귀속 근로소득 백분위 자료를 바탕으로 총급여 위치를 참고용으로 추정합니다.',
+    datePublished: '2026-09-22',
+    dateModified: '2026-09-23',
+    author: { '@type': 'Organization', name: '삼촌생각', url: 'https://unclenote.com' },
+    publisher: { '@type': 'Organization', name: '삼촌생각', url: 'https://unclenote.com' },
+    mainEntityOfPage: 'https://unclenote.com/guide/salary-percentile-2026',
+    isBasedOn: SOURCE_URL,
   };
 
   return (
     <article className="max-w-[760px] mx-auto py-6 px-3 sm:px-0">
-      {/* AEO / SEO Structured Data */}
-      <Script
-        id="salary-percentile-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
 
-      {/* Breadcrumb */}
-      <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs font-semibold text-zinc-400">
-        <Link href="/" className="hover:text-zinc-700 transition-colors">홈</Link>
-        <span>/</span>
-        <Link href="/guide" className="hover:text-zinc-700 transition-colors">삼촌 매거진</Link>
-        <span>/</span>
-        <span className="text-[#c55232]">경제·연봉 통계</span>
+      <nav aria-label="현재 위치" className="mb-6 text-xs font-semibold text-zinc-500">
+        <Link href="/" className="hover:text-[#c55232]">홈</Link> <span aria-hidden="true">/</span>{' '}
+        <Link href="/guide" className="hover:text-[#c55232]">생활 가이드</Link> <span aria-hidden="true">/</span> 연봉 통계
       </nav>
 
-      {/* Article Header */}
-      <header className="mb-8 space-y-4">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="px-2.5 py-1 rounded-full bg-[#c55232]/10 text-[#c55232] text-xs font-bold">
-            국세청 2023년 귀속 통계
-          </span>
-          <span className="px-2.5 py-1 rounded-full bg-zinc-100 text-zinc-600 text-xs font-bold">
-            인터랙티브 분석
-          </span>
-          <span className="text-xs text-zinc-400 ml-auto flex items-center gap-1">
-            <Icon icon="solar:clock-circle-linear" width="14" height="14" />
-            읽는 시간 약 4분
-          </span>
-        </div>
-
-        <h1 className="editorial-h1 text-2xl sm:text-4xl font-extrabold text-[#292520] tracking-tight leading-[1.3] break-keep [text-wrap:balance]">
-          <span className="inline-block">2023년 귀속 연봉 통계로,</span>{' '}
-          <span className="inline-block whitespace-nowrap text-[#c55232]">나는 상위 몇%일까?</span>
-        </h1>
-
-        <p className="text-base sm:text-lg text-zinc-600 leading-relaxed font-normal">
-          &ldquo;남들은 다 나보다 많이 버는 것 같은데...&rdquo; 국세청의 <strong>2023년 귀속 연말정산 신고자 2,085만 명 통계</strong>를 바탕으로 연봉 위치를 참고용으로 추정합니다.
-        </p>
-
-        <div className="pt-2 pb-4 border-b border-zinc-200/80 flex items-center justify-between text-xs text-zinc-500">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-[#292520] text-white flex items-center justify-center font-bold text-xs">
-              삼촌
-            </div>
-            <div>
-              <p className="font-bold text-[#292520]">삼촌생각</p>
-              <p className="text-zinc-400">자료: 2023년 귀속 · 글 수정: 2026.09.23</p>
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={handleCopyLink}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-700 font-bold transition-all shadow-2xs"
-          >
-            <Icon icon={copied ? 'solar:check-circle-bold' : 'solar:share-linear'} width="15" height="15" className={copied ? 'text-emerald-600' : ''} />
-            <span>{copied ? '링크 복사됨!' : '공유하기'}</span>
-          </button>
-        </div>
+      <header className="reading-hero mb-8">
+        <p className="editorial-eyebrow mb-3">2024년 귀속 국세청 통계 · 2025년 신고분</p>
+        <h1 className="editorial-h1 mb-4">내 연봉은 상위 몇 %일까?</h1>
+        <p className="editorial-lead">국세청 근로소득 신고자 약 2,108만 명의 공개 자료로 내 세전 총급여가 어느 위치인지 살펴보세요. 표시되는 백분위와 연봉 경계는 정확한 개인 순위가 아닌 <strong>참고용 추정치</strong>입니다.</p>
+        <p className="mt-4 text-xs text-zinc-500">자료 기준: 2024년 귀속 · 글 수정: 2026.09.23</p>
       </header>
 
-      {/* 대한민국 소득 계층 5단계 팩트 인포그래픽 카드 (난해한 추상 일러스트 대신 직관적 데이터 시각화) */}
-      <div className="mb-10 p-6 bg-white rounded-3xl border border-zinc-200 shadow-xs space-y-4">
-        <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
-          <span className="font-extrabold text-sm text-[#292520] flex items-center gap-1.5">
-            <Icon icon="solar:chart-square-bold-duotone" className="text-[#c55232]" width="18" height="18" />
-            <span>대한민국 연봉 5단계 핵심 커트라인 한눈에 보기</span>
-          </span>
-          <span className="text-xs text-zinc-400">국세청 2,085만 명 기준</span>
+      <section className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10" aria-label="통계 요약">
+        <div className="rounded-2xl border border-[#e8e1d8] bg-white p-5">
+          <p className="text-sm text-zinc-500">신고 인원</p>
+          <p className="text-2xl font-extrabold text-[#292520] mt-1">약 2,108만 명</p>
+          <p className="text-xs text-zinc-500 mt-2">정확히 {WORKERS.toLocaleString()}명</p>
         </div>
-
-        <div className="space-y-2.5">
-          {/* 상위 1% */}
-          <div className="p-3 bg-amber-500/10 rounded-xl border border-amber-500/20 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded bg-amber-500 text-white font-black text-xs">상위 1%</span>
-              <span className="font-bold text-sm text-[#292520]">세전 1억 8,500만 원 이상</span>
-            </div>
-            <span className="text-xs text-zinc-500 hidden sm:inline">대기업 임원, 상위 전문직</span>
-          </div>
-
-          {/* 상위 6.7% (1억 컷) */}
-          <div className="p-3 bg-blue-50 rounded-xl border border-blue-200 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded bg-blue-600 text-white font-black text-xs">상위 6.7%</span>
-              <span className="font-bold text-sm text-blue-950">세전 1억 원 (억대 연봉자 139만 명)</span>
-            </div>
-            <span className="text-xs text-blue-600 font-bold hidden sm:inline">15명 중 1명 꼴</span>
-          </div>
-
-          {/* 상위 10% */}
-          <div className="p-3 bg-zinc-100 rounded-xl border border-zinc-200 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded bg-[#292520] text-white font-black text-xs">상위 10%</span>
-              <span className="font-bold text-sm text-[#292520]">세전 8,700만 원 이상</span>
-            </div>
-            <span className="text-xs text-zinc-500 hidden sm:inline">대기업 과·차장급</span>
-          </div>
-
-          {/* 평균 */}
-          <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded bg-emerald-700 text-white font-black text-xs">상위 35.8%</span>
-              <span className="font-bold text-sm text-emerald-950">세전 4,332만 원 (대한민국 평균)</span>
-            </div>
-            <span className="text-xs text-emerald-700 font-semibold hidden sm:inline">고소득자 포함 산술평균</span>
-          </div>
-
-          {/* 중위소득 */}
-          <div className="p-3 bg-orange-50 rounded-xl border border-orange-200 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded bg-[#c55232] text-white font-black text-xs">상위 50%</span>
-              <span className="font-black text-sm text-[#c55232]">세전 3,213만 원 (중위소득 · 중간값) ⭐</span>
-            </div>
-            <span className="text-xs text-[#c55232] font-bold hidden sm:inline">대한민국 딱 절반의 위치!</span>
-          </div>
+        <div className="rounded-2xl border border-[#e8e1d8] bg-white p-5">
+          <p className="text-sm text-zinc-500">평균 총급여</p>
+          <p className="text-2xl font-extrabold text-[#292520] mt-1">약 {AVERAGE.toLocaleString()}만 원</p>
+          <p className="text-xs text-zinc-500 mt-2">총급여 합계 ÷ 신고 인원</p>
         </div>
-      </div>
-
-      {/* TL;DR Summary Callout Card (AEO 핵심 타겟) */}
-      <div className="mb-10 p-5 sm:p-6 bg-[#f7f4ed] rounded-2xl border border-[#e8e2d5] space-y-3">
-        <div className="flex items-center gap-2 text-[#c55232] font-bold text-sm">
-          <Icon icon="solar:stars-minimalistic-bold" width="18" height="18" />
-          <span>삼촌의 3줄 핵심 요약 (Fact Check)</span>
-        </div>
-        <ul className="space-y-2 text-sm text-[#292520] leading-relaxed">
-          <li className="flex items-start gap-2">
-            <span className="text-[#c55232] font-black">•</span>
-            <span>국세청 발표 기준 <strong>2023년 귀속 평균 총급여는 4,332만 원</strong>입니다. 이 페이지의 <strong>중위값 약 3,213만 원은 참고용 추정치</strong>로, 두 값을 비교할 때 이 차이를 고려해 주세요.</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-[#c55232] font-black">•</span>
-            <span><strong>연봉 1억 원</strong>을 받으면 대한민국 근로자 2,085만 명 중 <strong>상위 6.7% (139만 명)</strong>의 최상위권입니다.</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-[#c55232] font-black">•</span>
-            <span>이 페이지의 <strong>상위 10% 경계 약 8,700만 원</strong>, <strong>상위 1% 경계 약 1억 8,500만 원</strong>은 공식 발표값이 아닌 참고용 추정치입니다.</span>
-          </li>
-        </ul>
-      </div>
-
-      {/* ========================================================
-          INTERACTIVE WIDGET: 상위 몇 % 실시간 계산기 & 모션그래픽
-          ======================================================== */}
-      <section className="mb-12 p-6 sm:p-8 bg-white rounded-3xl border-2 border-[#292520] shadow-[0_12px_40px_rgba(0,0,0,0.06)] space-y-6">
-        <div className="text-center space-y-1">
-          <span className="inline-block px-3 py-1 bg-[#c55232]/10 text-[#c55232] rounded-full text-xs font-black">
-            LIVE INTERACTIVE
-          </span>
-          <h2 className="text-xl sm:text-2xl font-black text-[#292520]">
-            🎯 내 연봉 넣고 상위 몇 %인지 즉시 확인하기
-          </h2>
-          <p className="text-xs sm:text-sm text-zinc-500">
-            슬라이더를 움직이거나 금액을 입력하면 대한민국 2,085만 명 곡선에서 내 위치를 찾아줍니다.
-          </p>
-        </div>
-
-        {/* Input Controls */}
-        <div className="bg-[#fdfbf7] p-5 rounded-2xl border border-zinc-200 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <label htmlFor={inputId} className="font-extrabold text-sm text-[#292520]">
-              내 세전(총급여) 연봉:
-            </label>
-            <div className="editorial-input-box w-full sm:w-64">
-              <input
-                id={inputId}
-                type="number"
-                step="100"
-                min="1000"
-                max="30000"
-                value={salaryManwon}
-                onChange={(e) => setSalaryManwon(Math.max(0, Number(e.target.value)))}
-                className="text-right font-black text-xl text-[#292520]"
-              />
-              <span className="input-unit text-base font-bold text-zinc-700">만 원</span>
-            </div>
-          </div>
-
-          {/* Slider */}
-          <div className="space-y-1.5">
-            <input
-              type="range"
-              min="1500"
-              max="15000"
-              step="100"
-              value={salaryManwon}
-              onChange={(e) => setSalaryManwon(Number(e.target.value))}
-              onPointerDown={(e) => {
-                e.currentTarget.setPointerCapture(e.pointerId);
-                setSalaryManwon(getSalaryFromSliderPointer(e.clientX, e.currentTarget));
-              }}
-              onPointerMove={(e) => {
-                if (e.currentTarget.hasPointerCapture(e.pointerId)) {
-                  setSalaryManwon(getSalaryFromSliderPointer(e.clientX, e.currentTarget));
-                }
-              }}
-              className="salary-range w-full h-2.5 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-[#c55232]"
-            />
-            <div className="flex justify-between text-[11px] font-bold text-zinc-400">
-              <span>1,500만</span>
-              <span>3,213만 (중간값)</span>
-              <span>4,332만 (평균)</span>
-              <span>1억 (상위 6.7%)</span>
-              <span>1.5억</span>
-            </div>
-          </div>
-
-          {/* Quick Buttons */}
-          <div className="flex flex-wrap gap-1.5 pt-1">
-            <span className="text-xs text-zinc-400 self-center mr-1">빠른 선택:</span>
-            {[
-              { label: '3,200만(중위)', val: 3200 },
-              { label: '4,300만(평균)', val: 4300 },
-              { label: '5,000만', val: 5000 },
-              { label: '6,500만(상위20%)', val: 6500 },
-              { label: '8,700만(상위10%)', val: 8700 },
-              { label: '1억(상위6.7%)', val: 10000 },
-            ].map((btn) => (
-              <button
-                key={btn.val}
-                type="button"
-                onClick={() => setSalaryManwon(btn.val)}
-                className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-white border border-zinc-200 hover:border-zinc-400 text-zinc-700 transition-all shadow-2xs"
-              >
-                {btn.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Clean High-Clarity Income Spectrum Gauge (글자 뭉개짐 없는 선명한 반응형 스펙트럼 인디케이터) */}
-        <div className="p-5 sm:p-6 bg-[#fdfbf7] rounded-2xl border border-zinc-200 space-y-4">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-zinc-600 flex items-center gap-1.5">
-              <Icon icon="solar:align-horizontal-center-bold" width="16" height="16" className="text-[#c55232]" />
-              <span>대한민국 근로소득 2,085만 명 스펙트럼 분포</span>
-            </span>
-            <span className="text-xs font-bold text-[#c55232]">
-              ● 내 위치: 상위 {topPercent}%
-            </span>
-          </div>
-
-          {/* Key Reference Markers (선명한 상단 기준 눈금) */}
-          <div className="relative h-7 text-[11px] sm:text-xs font-bold select-none">
-            <div className="absolute left-[35%] transform -translate-x-1/2 text-center text-zinc-500 whitespace-nowrap">
-              <span>중위 3,213만</span>
-              <span className="block text-[10px] text-zinc-400 font-normal">(50.0%)</span>
-            </div>
-            <div className="absolute left-[52%] transform -translate-x-1/2 text-center text-emerald-700 whitespace-nowrap">
-              <span>평균 4,332만</span>
-              <span className="block text-[10px] text-emerald-600 font-normal">(35.8%)</span>
-            </div>
-            <div className="absolute left-[75%] transform -translate-x-1/2 text-center text-blue-700 whitespace-nowrap hidden xs:block sm:block">
-              <span>상위10% 8,700만</span>
-              <span className="block text-[10px] text-blue-500 font-normal">(10.0%)</span>
-            </div>
-            <div className="absolute left-[88%] transform -translate-x-1/2 text-center text-[#292520] whitespace-nowrap">
-              <span>1억 원</span>
-              <span className="block text-[10px] text-zinc-500 font-normal">(6.7%)</span>
-            </div>
-          </div>
-
-          {/* Spectrum Bar with Dynamic User Pin */}
-          <div className="relative pt-6 pb-2">
-            {/* Background Spectrum Track */}
-            <div className="w-full h-4 rounded-full bg-gradient-to-r from-zinc-200 via-amber-200 via-rose-300 via-orange-400 to-[#292520] shadow-inner relative overflow-hidden">
-              {/* Reference Vertical Divider Lines */}
-              <div className="absolute top-0 bottom-0 left-[35%] w-[1.5px] bg-zinc-400/50" />
-              <div className="absolute top-0 bottom-0 left-[52%] w-[1.5px] bg-emerald-600/60" />
-              <div className="absolute top-0 bottom-0 left-[75%] w-[1.5px] bg-blue-600/60" />
-              <div className="absolute top-0 bottom-0 left-[88%] w-[1.5px] bg-zinc-800/80" />
-            </div>
-
-            {/* Dynamic Moving Pin & Badge */}
-            <div
-              className="absolute top-0 transition-all duration-300 transform -translate-x-1/2 flex flex-col items-center"
-              style={{
-                left: `${Math.min(96, Math.max(4, svgX))}%`,
-              }}
-            >
-              {/* Badge */}
-              <div className="bg-[#292520] text-white px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-black whitespace-nowrap shadow-lg flex items-center gap-1.5 border border-zinc-700">
-                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                <span>상위 {topPercent}%</span>
-                <span className="text-amber-300 font-bold">
-                  ({salaryManwon >= 10000 ? `${(salaryManwon / 10000).toFixed(1)}억` : `${salaryManwon.toLocaleString()}만`})
-                </span>
-              </div>
-
-              {/* Pin Arrow */}
-              <div className="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[6px] border-t-[#292520]" />
-
-              {/* Pin Target Head */}
-              <div className="w-3.5 h-3.5 rounded-full bg-[#c55232] border-2 border-white shadow-md mt-0.5" />
-            </div>
-          </div>
-
-          {/* Bottom Labels */}
-          <div className="flex justify-between text-[11px] font-bold text-zinc-400 pt-1">
-            <span>◀ 하위 소득 구간</span>
-            <span>대한민국 전체 근로자 2,085만 명</span>
-            <span>최상위 소득 구간 ▶</span>
-          </div>
-        </div>
-
-        {/* Calculation Result Cards */}
-        <div className="p-6 bg-[#292520] text-white rounded-2xl space-y-5">
-          <div className="text-center border-b border-zinc-700 pb-5">
-            <p className="text-zinc-400 text-xs font-bold uppercase tracking-wider mb-1">
-              대한민국 2,085만 명 근로자 중 내 소득 순위
-            </p>
-            <div className="flex items-center justify-center gap-2">
-              <span className="text-4xl sm:text-5xl font-black text-[#f39c12] tracking-tight">
-                상위 {topPercent}%
-              </span>
-              <span className="text-sm text-zinc-300 font-bold self-end mb-1">
-                (상위 100명 중 {Math.max(1, Math.round(topPercent))}등)
-              </span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
-            <div className="p-3 bg-zinc-800/80 rounded-xl border border-zinc-700">
-              <span className="text-[11px] text-zinc-400 block font-medium">내 앞의 인원 (나보다 높은 소득)</span>
-              <span className="text-base sm:text-lg font-black text-white mt-0.5 block">
-                약 {(workersAhead / 10000).toFixed(1)}만 명
-              </span>
-            </div>
-
-            <div className="p-3 bg-zinc-800/80 rounded-xl border border-zinc-700">
-              <span className="text-[11px] text-zinc-400 block font-medium">대한민국 평균(4,332만) 대비</span>
-              <span className={`text-base sm:text-lg font-black mt-0.5 block ${diffAvg >= 0 ? 'text-emerald-400' : 'text-zinc-300'}`}>
-                {diffAvg >= 0 ? `+${diffAvg.toLocaleString()}만 원` : `${diffAvg.toLocaleString()}만 원`}
-              </span>
-            </div>
-
-            <div className="p-3 bg-zinc-800/80 rounded-xl border border-zinc-700">
-              <span className="text-[11px] text-zinc-400 block font-medium">중위소득(3,213만) 대비</span>
-              <span className={`text-base sm:text-lg font-black mt-0.5 block ${diffMedian >= 0 ? 'text-amber-400' : 'text-zinc-300'}`}>
-                {diffMedian >= 0 ? `+${diffMedian.toLocaleString()}만 원` : `${diffMedian.toLocaleString()}만 원`}
-              </span>
-            </div>
-          </div>
-
-          <div className="pt-2 text-center text-xs text-zinc-400">
-            ※ 연봉 <strong>{salaryManwon.toLocaleString()}만 원</strong> 기준 월 예상 실수령액은 약 <strong>{Math.round(salaryManwon / 12 * 0.88).toLocaleString()}만 원</strong> 선입니다. (비과세 식대 및 4대보험 기본공제 기준)
-          </div>
+        <div className="rounded-2xl border border-[#e8e1d8] bg-white p-5">
+          <p className="text-sm text-zinc-500">50% 경계 추정</p>
+          <p className="text-2xl font-extrabold text-[#c55232] mt-1">약 {MEDIAN_ESTIMATE.toLocaleString()}만 원</p>
+          <p className="text-xs text-zinc-500 mt-2">공식 중위값이 아닌 추정</p>
         </div>
       </section>
 
-      {/* ========================================================
-          ARTICLE BODY: 정밀 분석 및 가이드
-          ======================================================== */}
-      <div className="space-y-12 text-[#292520] text-base sm:text-[17px] leading-[1.8] font-normal break-keep">
+      <section className="rounded-3xl border border-[#e8e1d8] bg-white p-5 sm:p-8 mb-10 shadow-[0_10px_35px_rgba(41,37,32,0.04)]" aria-labelledby="calculator-title">
+        <div className="mb-6">
+          <p className="editorial-eyebrow">INTERACTIVE TOOL</p>
+          <h2 id="calculator-title" className="editorial-h2 mt-2">내 총급여로 위치 가늠하기</h2>
+          <p className="editorial-desc mt-2">금액을 입력하거나 바를 드래그해 보세요. 2024년 귀속 소득 분포에 대입한 추정값입니다.</p>
+        </div>
+        <label htmlFor={inputId} className="block font-bold text-sm mb-2">연간 세전 총급여</label>
+        <div className="editorial-input-box w-full max-w-xs mb-5">
+          <input id={inputId} type="number" inputMode="numeric" min="0" max="100000" step="100" value={salary} onChange={(event) => setSalary(Math.max(0, Number(event.target.value) || 0))} className="text-right font-black text-xl text-[#292520]" />
+          <span className="input-unit text-base font-bold text-zinc-700">만 원</span>
+        </div>
+        <input type="range" aria-label="연간 세전 총급여 조절" min="1000" max="20000" step="100" value={salary} onChange={(event) => setSalary(Number(event.target.value))} className="salary-range w-full h-2.5 rounded-lg appearance-none cursor-pointer accent-[#c55232]" />
+        <div className="flex justify-between text-xs text-zinc-500 mt-2"><span>1,000만</span><span>1억</span><span>2억</span></div>
+        <div className="flex flex-wrap gap-2 mt-5" aria-label="빠른 금액 선택">
+          {[3388, 4475, 5000, 10000, 18642].map((value) => (
+            <button key={value} type="button" onClick={() => setSalary(value)} className="rounded-full border border-[#e8e1d8] px-3 py-1.5 text-xs font-semibold hover:border-[#c55232] hover:text-[#c55232] transition-colors">{value.toLocaleString()}만</button>
+          ))}
+        </div>
+        <div className="mt-7 rounded-2xl bg-[#292520] p-5 sm:p-6 text-white" aria-live="polite">
+          <p className="text-sm text-zinc-300">2024년 귀속 신고자 중 예상 위치</p>
+          <p className="text-3xl sm:text-4xl font-black text-[#f5b08c] mt-2">{rank}</p>
+          <p className="text-sm text-zinc-300 mt-3">평균 총급여 대비 {salary >= AVERAGE ? '+' : ''}{(salary - AVERAGE).toLocaleString()}만 원</p>
+          <p className="text-xs text-zinc-400 mt-4">구간 평균으로 보간한 대략적인 위치입니다. 정확한 순위·올해의 소득 분포·세후 실수령액을 뜻하지 않습니다.</p>
+        </div>
+      </section>
 
-        {/* Section 1 */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-black text-[#292520] tracking-tight flex items-center gap-2.5">
-            <span className="w-8 h-8 rounded-xl bg-[#c55232]/10 text-[#c55232] flex items-center justify-center text-sm font-black shrink-0">1</span>
-            <span>내가 느끼는 체감과 통계의 괴리: &lsquo;평균의 함정&rsquo;</span>
-          </h2>
-
-          <p>
-            직장인들이 모이는 커뮤니티나 뉴스를 보면 다들 연봉 7,000만 원, 1억 원은 우습게 버는 것처럼 보입니다. 그래서 <strong>&ldquo;대한민국 평균 연봉이 4,332만 원이라는데, 왜 내 주변엔 다들 나보다 훨씬 잘 버는 것 같지?&rdquo;</strong>라는 상대적 박탈감을 느끼곤 합니다.
-          </p>
-
-          <p>
-            하지만 여기에는 통계학에서 가장 유명한 <strong>&lsquo;산술 평균의 착시&rsquo;</strong>가 숨어 있습니다.
-          </p>
-
-          <div className="p-4 bg-zinc-50 rounded-2xl border-l-4 border-[#c55232] text-sm text-zinc-700 space-y-1 my-4">
-            <p className="font-bold text-[#292520]">💡 빌 게이츠가 술집에 들어오면 생기는 일:</p>
-            <p>
-              손님 10명이 모인 술집에 연봉 100억 원의 빌 게이츠가 한 명 들어오는 순간, 그 술집 손님들의 &lsquo;평균 연봉&rsquo;은 순식간에 10억 원으로 뜁니다. 하지만 나머지 9명의 실제 통장 잔고는 단 1원도 변하지 않았습니다.
-            </p>
-          </div>
-
-          <p>
-            대한민국 근로소득 통계도 똑같습니다. 연봉 수억~수십억 원을 받는 대기업 임원과 고소득 전문직이 전체 평균을 위로 강하게 끌어올리기 때문에, <strong>대한민국 근로자의 64.2%는 평균 연봉(4,332만 원)을 받지 못합니다.</strong>
-          </p>
-
-          <p>
-            평균값만으로 내 위치를 판단하기는 어렵습니다. 이 페이지에서 사용한 <strong>중위 연봉 약 3,213만 원은 추정값</strong>이며, 정확한 개인 순위가 아니라 대략적인 분포를 이해하는 데 활용해 주세요.
-          </p>
+      <div className="space-y-10 text-[#292520] leading-[1.8]">
+        <section className="reading-section">
+          <h2 className="editorial-h2 mb-4">평균 4,475만 원과 중간값 추정 3,388만 원이 다른 이유</h2>
+          <p className="editorial-body">평균은 전체 총급여액 9,432,577억 원을 신고 인원 21,078,535명으로 나눈 값입니다. 높은 급여를 받는 소수의 금액도 모두 합산하므로, 평균만으로 &ldquo;보통 사람&rdquo;의 급여를 설명하기는 어렵습니다. 중간값은 사람들을 총급여 순서로 세웠을 때 가운데에 있는 금액을 뜻합니다.</p>
+          <p className="editorial-body mt-4">다만 국세청 원본은 사람마다 받은 급여를 공개하지 않습니다. 이 페이지의 3,388만 원은 상위 50%와 다음 구간의 평균값을 이용해 추정한 경계입니다. 따라서 공식 중위 총급여나 정밀한 개인 순위로 인용하면 안 됩니다.</p>
         </section>
 
-        {/* Section 2 */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-black text-[#292520] tracking-tight flex items-center gap-2.5">
-            <span className="w-8 h-8 rounded-xl bg-[#c55232]/10 text-[#c55232] flex items-center justify-center text-sm font-black shrink-0">2</span>
-            <span>근로소득 분포 참고표</span>
-          </h2>
-
-          <p>
-            국세청이 발표한 가장 최근 근로소득 연말정산 확정 신고 자료를 10분위로 쪼개어 보면 대한민국 소득의 피라미드가 한눈에 드러납니다.
-          </p>
-
-          {/* Table */}
-          <div className="overflow-x-auto my-6">
-            <table className="w-full text-left border-collapse text-xs sm:text-sm">
-              <thead>
-                <tr className="bg-[#292520] text-white">
-                  <th className="py-3 px-3.5 rounded-tl-xl font-bold">소득 분위</th>
-                  <th className="py-3 px-3.5 font-bold">상위 백분위</th>
-                  <th className="py-3 px-3.5 font-bold">세전 연봉 컷</th>
-                  <th className="py-3 px-3.5 font-bold">월 실수령액 (추정)</th>
-                  <th className="py-3 px-3.5 rounded-tr-xl font-bold">해당 계층 비고</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-zinc-200 border border-zinc-200 bg-white">
-                <tr className="bg-amber-50/60 font-bold">
-                  <td className="py-3 px-3.5 text-[#c55232]">최상위 0.1%</td>
-                  <td className="py-3 px-3.5">상위 0.1%</td>
-                  <td className="py-3 px-3.5">약 10억 2,000만 원~</td>
-                  <td className="py-3 px-3.5">약 4,500만 원~/월</td>
-                  <td className="py-3 px-3.5 text-zinc-500 font-normal">대기업 오너, 초고소득 전문직</td>
-                </tr>
-                <tr className="bg-amber-50/30 font-semibold">
-                  <td className="py-3 px-3.5 text-[#c55232]">상위 1%</td>
-                  <td className="py-3 px-3.5">상위 1.0%</td>
-                  <td className="py-3 px-3.5">약 1억 8,500만 원~</td>
-                  <td className="py-3 px-3.5">약 1,060만 원/월</td>
-                  <td className="py-3 px-3.5 text-zinc-500 font-normal">대기업 임원, 개원의, 파트너 변호사</td>
-                </tr>
-                <tr className="font-semibold">
-                  <td className="py-3 px-3.5">상위 5%</td>
-                  <td className="py-3 px-3.5">상위 5.0%</td>
-                  <td className="py-3 px-3.5">약 1억 1,500만 원~</td>
-                  <td className="py-3 px-3.5">약 720만 원/월</td>
-                  <td className="py-3 px-3.5 text-zinc-500 font-normal">대기업 부장급, 금융권 책임자</td>
-                </tr>
-                <tr className="bg-zinc-50">
-                  <td className="py-3 px-3.5 font-bold text-blue-600">억대 연봉 컷</td>
-                  <td className="py-3 px-3.5 font-bold text-blue-600">상위 6.7%</td>
-                  <td className="py-3 px-3.5 font-bold text-blue-600">1억 원</td>
-                  <td className="py-3 px-3.5 font-bold text-blue-600">약 657만 원/월 (추정)</td>
-                  <td className="py-3 px-3.5 text-zinc-500">총 139만 명 진입 구간</td>
-                </tr>
-                <tr>
-                  <td className="py-3 px-3.5 font-medium">상위 10% (10분위)</td>
-                  <td className="py-3 px-3.5">상위 10.0%</td>
-                  <td className="py-3 px-3.5">약 8,700만 원~</td>
-                  <td className="py-3 px-3.5">약 570만 원/월</td>
-                  <td className="py-3 px-3.5 text-zinc-500">대기업 과·차장급, 중견 핵심 인력</td>
-                </tr>
-                <tr>
-                  <td className="py-3 px-3.5 font-medium">상위 20% (9분위)</td>
-                  <td className="py-3 px-3.5">상위 20.0%</td>
-                  <td className="py-3 px-3.5">약 6,400만 원~</td>
-                  <td className="py-3 px-3.5">약 440만 원/월</td>
-                  <td className="py-3 px-3.5 text-zinc-500">경력 7~10년 차 안정권</td>
-                </tr>
-                <tr>
-                  <td className="py-3 px-3.5 font-medium">상위 30% (8분위)</td>
-                  <td className="py-3 px-3.5">상위 30.0%</td>
-                  <td className="py-3 px-3.5">약 4,900만 원~</td>
-                  <td className="py-3 px-3.5">약 350만 원/월</td>
-                  <td className="py-3 px-3.5 text-zinc-500">중견·강소기업 대리급</td>
-                </tr>
-                <tr className="bg-emerald-50/50">
-                  <td className="py-3 px-3.5 font-bold text-emerald-800">전체 평균 (Average)</td>
-                  <td className="py-3 px-3.5 font-bold text-emerald-800">상위 35.8%</td>
-                  <td className="py-3 px-3.5 font-bold text-emerald-800">4,332만 원</td>
-                  <td className="py-3 px-3.5 font-bold text-emerald-800">약 315만 원/월</td>
-                  <td className="py-3 px-3.5 text-zinc-500">고소득자 포함 산술평균</td>
-                </tr>
-                <tr className="bg-amber-100/50">
-                  <td className="py-3 px-3.5 font-black text-[#292520]">중위소득 (Median) ⭐</td>
-                  <td className="py-3 px-3.5 font-black text-[#292520]">상위 50.0%</td>
-                  <td className="py-3 px-3.5 font-black text-[#292520]">3,213만 원</td>
-                  <td className="py-3 px-3.5 font-black text-[#292520]">약 240만 원/월</td>
-                  <td className="py-3 px-3.5 text-[#292520] font-bold">대한민국 딱 절반의 위치</td>
-                </tr>
-                <tr>
-                  <td className="py-3 px-3.5 font-medium">상위 70% (4분위)</td>
-                  <td className="py-3 px-3.5">상위 70.0%</td>
-                  <td className="py-3 px-3.5">약 2,150만 원~</td>
-                  <td className="py-3 px-3.5">약 165만 원/월</td>
-                  <td className="py-3 px-3.5 text-zinc-500">초년생, 단기직, 파트타임 포함</td>
-                </tr>
+        <section className="reading-section">
+          <h2 className="editorial-h2 mb-3">상위 구간별 연봉은 어느 정도일까?</h2>
+          <p className="editorial-body mb-5">아래 금액은 2024년 귀속 자료의 <strong>인접 구간별 평균 총급여</strong> 사이를 중간값으로 잡은 참고 경계입니다. 실제 경계는 원본 자료만으로 알 수 없습니다.</p>
+          <div className="overflow-x-auto rounded-2xl border border-[#e8e1d8]">
+            <table className="w-full text-left text-sm min-w-[430px]">
+              <thead className="bg-[#292520] text-white"><tr><th scope="col" className="p-3">예상 위치</th><th scope="col" className="p-3">경계 추정 연봉(세전 총급여)</th></tr></thead>
+              <tbody className="divide-y divide-[#e8e1d8] bg-white">
+                {examples.map((row) => <tr key={row.label}><th scope="row" className="p-3 font-semibold">{row.label}</th><td className="p-3">약 {row.salary.toLocaleString()}만 원</td></tr>)}
               </tbody>
             </table>
           </div>
-          <p className="text-xs text-zinc-400">
-            * 기준: 국세청 2023년 귀속 근로소득 연말정산 통계 (단위: 세전 총급여액). 백분위 경계와 중위값은 참고용 추정치입니다.
-          </p>
         </section>
 
-        {/* Section 3 */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-black text-[#292520] tracking-tight flex items-center gap-2.5">
-            <span className="w-8 h-8 rounded-xl bg-[#c55232]/10 text-[#c55232] flex items-center justify-center text-sm font-black shrink-0">3</span>
-            <span>억대 연봉자 139만 명 시대의 실체</span>
-          </h2>
-
-          <p>
-            최근 통계에서 가장 눈에 띄는 변화는 <strong>총급여 1억 원을 넘는 근로자가 139만 명(6.7%)</strong>으로 역대 최고치를 기록했다는 점입니다.
-          </p>
-
-          <p>
-            과거에는 &lsquo;억대 연봉&rsquo;이라 하면 극소수 대기업 임원이나 엘리트의 전유물로 여겨졌으나, 최근 대기업의 성과급 확대, IT 개발 직군 및 반도체·배터리 등 신성장 제조업의 연봉 인상으로 인해 <strong>근로자 15명 중 1명은 억대 연봉자</strong>인 세상이 되었습니다.
-          </p>
-
-          <p>
-            하지만 억대 연봉자가 체감하는 현실은 또 다릅니다. 대한민국 소득세율은 누진세율 구조이기 때문에, 연봉 1억 원의 세전 월급은 약 833만 원이지만 <strong>이 사이트의 참고용 계산 기준 예상 월 실수령액은 약 657만 원</strong>입니다. 실제 금액은 다를 수 있습니다.
-          </p>
+        <section className="reading-section">
+          <h2 className="editorial-h2 mb-4">자료와 계산 방법</h2>
+          <p className="editorial-body">출처는 국세청이 공공데이터포털에 공개한 <a className="underline text-[#a74126]" href={SOURCE_URL} target="_blank" rel="noopener noreferrer">근로소득 백분위(천분위) 자료</a>입니다. 데이터는 2024년 소득에 대한 2025년 신고분이며, 2026년의 실시간 연봉 통계가 아닙니다. 1% 미만은 0.1% 간격, 그 밖의 구간은 1% 간격으로 인원과 총급여 합계를 제공합니다.</p>
+          <ol className="list-decimal pl-5 mt-4 space-y-2 text-sm text-zinc-700">
+            <li>각 구간의 총급여 합계를 해당 인원으로 나눠 구간 평균을 구했습니다.</li>
+            <li>인접한 두 구간의 평균을 다시 평균해 백분위 경계를 추정했습니다.</li>
+            <li>입력 금액이 두 경계 사이에 있으면 직선으로 보간해 예상 백분위를 표시합니다.</li>
+          </ol>
+          <p className="mt-4 text-sm text-zinc-600">구간 내부의 소득 분포를 알 수 없으므로 이 방법은 근사치에 불과합니다. 특히 초고소득 구간이나 단기 근무·중도 입퇴사자의 비교에는 오차가 클 수 있습니다. 세후 월급은 <Link href="/salary-calculator" className="underline text-[#a74126]">연봉 실수령액 계산기</Link>에서 별도로 살펴보세요.</p>
         </section>
 
-        {/* Section 4 */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-black text-[#292520] tracking-tight flex items-center gap-2.5">
-            <span className="w-8 h-8 rounded-xl bg-[#c55232]/10 text-[#c55232] flex items-center justify-center text-sm font-black shrink-0">4</span>
-            <span>삼촌의 현실 코멘트: 연봉 인상보다 중요한 세테크</span>
-          </h2>
-
-          <p>
-            연봉 백분위를 높이는 것도 중요하지만, 더 중요한 것은 <strong>&lsquo;세후 통장에 남는 돈&rsquo;</strong>을 지키는 것입니다. 연봉이 오를수록 과세표준 구간이 뛰어올라 추가 인상분의 24%~35%가 세금으로 빠져나가기 때문입니다.
-          </p>
-
-          <div className="p-5 bg-white rounded-2xl border border-zinc-200 shadow-xs space-y-2">
-            <h3 className="font-bold text-[#292520] flex items-center gap-2">
-              <Icon icon="solar:shield-check-bold" className="text-[#c55232]" width="20" height="20" />
-              <span>삼촌이 권하는 3가지 실천 행동</span>
-            </h3>
-            <ul className="text-sm space-y-1.5 text-zinc-600">
-              <li>• <strong>연봉 협상 시</strong>: 단순 총액뿐만 아니라 비과세 식대(월 20만 원 한도)나 복지포인트 등 비과세 항목 확대를 체크하세요.</li>
-              <li>• <strong>절세 삼총사</strong>: IRP(개인형 퇴직연금), 연금저축, 청년도약계좌 등으로 연말정산 환급금을 극대화하세요.</li>
-              <li>• <strong>실수령액 사전 확인</strong>: 이직할 회사의 연봉을 제안받았다면 아래 계산기로 실제 통장 입금액을 1원 단위까지 확인해 보세요.</li>
-            </ul>
+        <section className="reading-section">
+          <h2 className="editorial-h2 mb-4">자주 묻는 질문</h2>
+          <div className="space-y-3">
+            {faqs.map((faq) => <details key={faq.question} className="rounded-xl border border-[#e8e1d8] bg-white p-4"><summary className="cursor-pointer font-bold text-sm">{faq.question}</summary><p className="pt-3 text-sm text-zinc-600">{faq.answer}</p></details>)}
           </div>
-        </section>
-
-        {/* Section 5: Official Sources & Methodology */}
-        <section className="p-5 sm:p-6 bg-zinc-50 rounded-2xl border border-zinc-200/80 space-y-3 text-xs text-zinc-600">
-          <div className="flex items-center gap-2 font-bold text-zinc-800 text-sm">
-            <Icon icon="solar:document-text-bold-duotone" width="18" height="18" className="text-zinc-600" />
-            <span>데이터 출처 및 통계 산출 기준 안내</span>
-          </div>
-          <p className="leading-relaxed">
-            신고 인원·평균 총급여·1억 원 초과 비율은 국세청의 2023년 귀속 발표값입니다. 세부 백분위 경계와 중위값은 참고용 추정치이며, 입력 금액 사이의 백분위는 선형 보간으로 계산합니다.
-          </p>
-          <ul className="space-y-1 list-disc list-inside">
-            <li><a className="underline text-[#a74126]" href="https://s.nts.go.kr/webtv/na/ntt/selectNttInfo.do?nttSn=1339428" target="_blank" rel="noopener noreferrer"><strong>국세청 2024년 4분기 국세통계 안내</strong></a>: 2023년 귀속 신고 인원 2,085만 명, 평균 총급여 4,332만 원, 1억 원 초과 비율 6.7%</li>
-            <li><strong>계산 방식</strong>: 페이지에 표시된 경계값 사이를 선형 보간한 추정치로, 최신 연도 소득 분포나 개인의 정확한 순위를 뜻하지 않습니다.</li>
-          </ul>
-          <p className="text-[11px] text-zinc-400">
-            ※ 참고: 본 통계는 연말정산을 신고한 모든 근로자(중도 입·퇴사자, 파트타임 근로자 포함)를 포괄하므로, 1년 이상 계속 근속한 전일제 정규직만을 대상으로 한 통계와는 수치상 다소 차이가 있을 수 있습니다.
-          </p>
         </section>
       </div>
 
-      {/* ========================================================
-          BOTTOM CONVERSION BANNER: 연봉 계산기로 유입 유도
-          ======================================================== */}
-      <div className="my-12 p-6 sm:p-8 bg-gradient-to-br from-[#292520] to-[#3d3832] text-white rounded-3xl shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6">
-        <div className="space-y-1 text-center sm:text-left">
-          <span className="px-2.5 py-0.5 rounded-full bg-[#c55232] text-white text-[11px] font-bold">
-            1초 자동 계산
-          </span>
-          <h3 className="text-xl font-black">
-            내 연봉의 정확한 세후 월급이 궁금하다면?
-          </h3>
-          <p className="text-xs sm:text-sm text-zinc-300">
-            2026년 보험료율과 소득세 추정치를 적용한 참고용 실수령액 계산기
-          </p>
-        </div>
-        <Link
-          href="/salary-calculator"
-          className="px-6 py-3.5 rounded-xl bg-white text-[#292520] font-black text-sm hover:bg-zinc-100 transition-all shrink-0 flex items-center gap-2 shadow-md"
-        >
-          <span>연봉 실수령액 계산하기</span>
-          <Icon icon="solar:arrow-right-linear" width="16" height="16" />
-        </Link>
+      <div className="reading-footer-cta mt-12">
+        <h2 className="text-xl font-bold text-[#292520]">세후 월급도 궁금하다면?</h2>
+        <p className="text-sm text-zinc-500 max-w-md mx-auto leading-relaxed">연봉과 비과세 조건을 입력해 월 실수령액 참고값을 계산해 보세요.</p>
+        <Link href="/salary-calculator" className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#c55232] text-white font-bold text-sm rounded-full hover:bg-[#a74126] transition-colors"><Icon icon="solar:calculator-minimalistic-bold" width="18" height="18" />연봉 실수령액 계산하기</Link>
       </div>
-
-      {/* Recommended Articles Grid */}
-      <section className="pt-8 border-t border-zinc-200 space-y-4">
-        <h3 className="text-lg font-bold text-[#292520]">
-          삼촌 매거진 다른 추천 글
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Link
-            href="/guide/salary-table-2026"
-            className="p-4 rounded-2xl border border-zinc-200 bg-white hover:border-[#c55232] transition-all group"
-          >
-            <span className="text-xs font-bold text-[#c55232]">근로·세무</span>
-            <h4 className="font-extrabold text-sm text-[#292520] group-hover:text-[#c55232] transition-colors mt-1">
-              2026 연봉 실수령액표 총정리 (2,400만~1억 원)
-            </h4>
-            <p className="text-xs text-zinc-500 mt-1">
-              연봉대별 4대 보험 공제액과 진짜 통장 입금액 한눈에 보기
-            </p>
-          </Link>
-
-          <Link
-            href="/guide/severance-pay-guide-2026"
-            className="p-4 rounded-2xl border border-zinc-200 bg-white hover:border-[#c55232] transition-all group"
-          >
-            <span className="text-xs font-bold text-[#c55232]">노무 상식</span>
-            <h4 className="font-extrabold text-sm text-[#292520] group-hover:text-[#c55232] transition-colors mt-1">
-              2026 퇴직금 지급기준 및 세금 감면 계산법
-            </h4>
-            <p className="text-xs text-zinc-500 mt-1">
-              1년 미만 퇴직금, 주 15시간 미만 알바생도 받을 수 있을까?
-            </p>
-          </Link>
-        </div>
-      </section>
     </article>
   );
 }

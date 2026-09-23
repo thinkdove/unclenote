@@ -19,10 +19,10 @@ export const metadata: Metadata = {
 const GUIDES = [
   {
     slug: 'salary-percentile-2026',
-    title: '내 연봉은 상위 몇 %? 국세청 2023년 귀속 통계로 살펴보기',
-    description: '국세청 2023년 귀속 연말정산 신고자 2,085만 명의 통계를 바탕으로 내 연봉 위치를 참고용으로 추정합니다.',
+    title: '내 연봉은 상위 몇 %? 국세청 2024년 귀속 통계로 살펴보기',
+    description: '국세청 2024년 귀속 근로소득 신고자 약 2,108만 명의 통계로 내 연봉 위치를 참고용으로 추정합니다.',
     category: '경제·연봉 통계',
-    date: '자료: 2023년 귀속',
+    date: '자료: 2024년 귀속',
     thumbnail: '/images/salary-percentile-hero.jpg',
     icon: 'solar:chart-2-bold-duotone',
     featured: true,
@@ -81,7 +81,7 @@ export default function GuideIndexPage() {
               <div className="md:col-span-5 bg-gradient-to-br from-[#292520] to-[#38332c] p-6 sm:p-8 text-white flex flex-col justify-between">
                 <div>
                   <span className="px-2.5 py-1 bg-[#c55232] text-white text-xs font-black rounded-md inline-block">
-                    2023년 귀속 국세청 통계
+                    2024년 귀속 국세청 통계
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-black mt-4 leading-tight text-white">
                     내 연봉은 <br />
@@ -91,15 +91,15 @@ export default function GuideIndexPage() {
                 <div className="text-xs text-zinc-300 space-y-1.5 mt-6 pt-4 border-t border-zinc-700">
                   <div className="flex justify-between">
                     <span className="text-zinc-400">중위 연봉 (중간값):</span>
-                    <span className="font-bold text-white">3,213만 원</span>
+                    <span className="font-bold text-white">약 3,388만 원 (추정)</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-zinc-400">평균 연봉:</span>
-                    <span className="font-bold text-white">4,332만 원</span>
+                    <span className="font-bold text-white">약 4,475만 원</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-zinc-400">억대 연봉 컷:</span>
-                    <span className="font-bold text-amber-300">1억 원 (상위 6.7%)</span>
+                    <span className="text-zinc-400">상위 10% 경계:</span>
+                    <span className="font-bold text-amber-300">약 8,944만 원 (상위 10% 추정)</span>
                   </div>
                 </div>
               </div>

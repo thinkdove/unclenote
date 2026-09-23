@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '연봉 상위 몇 %일까? | 국세청 2023년 귀속 통계',
+  title: '연봉 상위 몇 %일까? | 국세청 2024년 귀속 통계',
   description:
-    '국세청 2023년 귀속 연말정산 신고자 2,085만 명 통계를 바탕으로 평균 총급여와 내 연봉의 상위 백분위 추정치를 살펴봅니다.',
+    '국세청 2024년 귀속 근로소득 신고자 약 2,108만 명의 공개 자료로 평균 총급여와 연봉 위치를 참고용으로 추정합니다.',
   keywords: [
     '대한민국 연봉 순위',
     '연봉 상위 몇 프로',
@@ -19,8 +19,8 @@ export const metadata: Metadata = {
     canonical: 'https://unclenote.com/guide/salary-percentile-2026',
   },
   openGraph: {
-    title: '연봉 상위 몇 %일까? | 2023년 귀속 국세청 통계',
-    description: '2023년 귀속 근로소득 통계에 기반한 연봉 백분위 참고 계산기',
+    title: '연봉 상위 몇 %일까? | 2024년 귀속 국세청 통계',
+    description: '2024년 귀속 근로소득 자료에 기반한 연봉 백분위 참고 계산기',
     url: 'https://unclenote.com/guide/salary-percentile-2026',
     siteName: '삼촌생각 (Uncle Note)',
     locale: 'ko_KR',
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary',
-    title: '연봉 상위 몇 %일까? | 2023년 귀속 국세청 통계',
-    description: '국세청 2023년 귀속 통계에 기반한 연봉 백분위 참고 계산기',
+    title: '연봉 상위 몇 %일까? | 2024년 귀속 국세청 통계',
+    description: '국세청 2024년 귀속 통계에 기반한 연봉 백분위 참고 계산기',
   },
 };
 
