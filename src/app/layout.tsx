@@ -17,6 +17,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://unclenote.com",
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   openGraph: {
     title: "삼촌생각 (Uncle Note) - 유용한 계산기 & 생활 가이드",
     description: "가장 자주 쓰지만 매번 헷갈리는 금융, 세무 계산과 알짜 정보를 삼촌이 친절하고 정확하게 알려드립니다.",

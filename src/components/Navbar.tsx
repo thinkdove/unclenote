@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Icon } from '@iconify/react';
 
 export default function Navbar() {
@@ -14,11 +15,18 @@ export default function Navbar() {
         <Link 
           href="/" 
           onClick={() => setIsOpen(false)}
-          className="flex items-center gap-2 group shrink-0"
+          className="flex items-center gap-2.5 group shrink-0"
         >
-          <span className="text-xl group-hover:scale-110 transition-transform duration-300 origin-bottom">
-            <Icon icon="solar:lightbulb-bold-duotone" style={{ color: '#c55232' }} />
-          </span>
+          <div className="relative w-7 h-7 rounded-lg overflow-hidden shadow-xs group-hover:scale-105 transition-transform duration-300">
+            <Image
+              src="/images/logo.png"
+              alt="삼촌생각 로고"
+              width={28}
+              height={28}
+              className="object-cover w-full h-full"
+              priority
+            />
+          </div>
           <span className="font-extrabold text-lg tracking-tight text-[#292520] group-hover:text-[#c55232] transition-colors duration-300">
             삼촌생각
           </span>
