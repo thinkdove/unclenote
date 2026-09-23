@@ -3,14 +3,14 @@ import Link from 'next/link';
 import { Icon } from '@iconify/react';
 
 export const metadata: Metadata = {
-  title: '알짜 생활 가이드 전체보기',
-  description: '연봉 실수령액과 퇴직금 계산 등 일상에서 필요한 급여·세무 정보를 이해하기 쉽게 정리한 가이드입니다.',
+  title: '읽을거리',
+  description: '생활 속 궁금한 주제를 읽기 쉽게 정리한 삼촌생각의 정보 글을 모았습니다.',
   alternates: {
     canonical: 'https://unclenote.com/guide',
   },
   openGraph: {
-    title: '생활·경제 가이드 | 삼촌생각',
-    description: '급여·세무와 셀프 인테리어에 관한 계산 방법과 실용 정보를 살펴보세요.',
+    title: '읽을거리 | 삼촌생각',
+    description: '생활 속 궁금한 주제를 읽기 쉽게 정리한 정보 글을 살펴보세요.',
     url: 'https://unclenote.com/guide',
     type: 'website',
   },
@@ -57,13 +57,13 @@ export default function GuideIndexPage() {
       <header className="mb-10 border-b border-zinc-200/80 pb-8 text-center sm:text-left">
         <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-bold tracking-wider text-[#c55232] uppercase mb-3">
           <Icon icon="solar:book-bookmark-bold-duotone" width="20" height="20" />
-          <span>삼촌생각 지식 매거진</span>
+          <span>삼촌생각 읽을거리</span>
         </div>
         <h1 className="editorial-h1 mb-3">
-          알짜 생활·경제 가이드
+          읽을거리
         </h1>
         <p className="editorial-body text-zinc-600 max-w-2xl">
-          가장 자주 쓰지만 매번 헷갈리는 금융, 세무, 셀프 인테리어의 핵심 상식을 공공데이터 팩트 기반으로 삼촌이 친절하고 정확하게 알려드립니다.
+          생활 속 궁금한 주제를 하나씩 살펴봅니다. 지금은 일과 돈에 관한 글이 먼저 올라와 있으며, 앞으로 다양한 분야의 이야기를 더할 예정입니다.
         </p>
       </header>
 
@@ -71,7 +71,7 @@ export default function GuideIndexPage() {
       {featuredGuide && (
         <div className="mb-10">
           <span className="text-xs font-black text-[#c55232] uppercase tracking-wider block mb-3">
-            ⭐ 이번 주 추천 스페셜 아티클
+            먼저 읽어볼 글
           </span>
           <Link
             href={`/guide/${featuredGuide.slug}`}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useId, useState, type CSSProperties } from 'react';
 import Link from 'next/link';
 import { Icon } from '@iconify/react';
 
@@ -87,6 +87,7 @@ export default function SalaryPercentileGuidePage() {
   const [salary, setSalary] = useState(5000);
   const top = estimateTopPercent(salary);
   const rank = salary >= ESTIMATED_BOUNDARIES[0].salary ? '상위 1% 이내' : `상위 약 ${top}%`;
+  const rangeProgress = Math.min(100, Math.max(0, ((salary - 1000) / 19000) * 100));
 
   const articleSchema = {
     '@context': 'https://schema.org',
@@ -146,7 +147,7 @@ export default function SalaryPercentileGuidePage() {
           <input id={inputId} type="number" inputMode="numeric" min="0" max="100000" step="100" value={salary} onChange={(event) => setSalary(Math.max(0, Number(event.target.value) || 0))} className="text-right font-black text-xl text-[#292520]" />
           <span className="input-unit text-base font-bold text-zinc-700">만 원</span>
         </div>
-        <input type="range" aria-label="연간 세전 총급여 조절" min="1000" max="20000" step="100" value={salary} onChange={(event) => setSalary(Number(event.target.value))} className="salary-range w-full h-2.5 rounded-lg appearance-none cursor-pointer accent-[#c55232]" />
+        <input type="range" aria-label="연간 세전 총급여 조절" min="1000" max="20000" step="100" value={salary} onChange={(event) => setSalary(Number(event.target.value))} style={{ '--salary-progress': `${rangeProgress}%` } as CSSProperties} className="salary-range w-full cursor-pointer" />
         <div className="flex justify-between text-xs text-zinc-500 mt-2"><span>1,000만</span><span>1억</span><span>2억</span></div>
         <div className="flex flex-wrap gap-2 mt-5" aria-label="빠른 금액 선택">
           {[3388, 4475, 5000, 10000, 18642].map((value) => (
@@ -200,10 +201,14 @@ export default function SalaryPercentileGuidePage() {
         </section>
       </div>
 
-      <div className="reading-footer-cta mt-12">
-        <h2 className="text-xl font-bold text-[#292520]">세후 월급도 궁금하다면?</h2>
-        <p className="text-sm text-zinc-500 max-w-md mx-auto leading-relaxed">연봉과 비과세 조건을 입력해 월 실수령액 참고값을 계산해 보세요.</p>
-        <Link href="/salary-calculator" className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#c55232] text-white font-bold text-sm rounded-full hover:bg-[#a74126] transition-colors"><Icon icon="solar:calculator-minimalistic-bold" width="18" height="18" />연봉 실수령액 계산하기</Link>
+      <div className="reading-footer-cta salary-guide-cta">
+        <p className="essay-cta-kicker">읽었다면, 이제 내 월급으로</p>
+        <h2>세후 월급은 얼마일까?</h2>
+        <p className="essay-cta-description">연봉과 비과세 금액을 입력하면 예상 월 실수령액을 바로 확인할 수 있습니다.</p>
+        <Link href="/salary-calculator" className="essay-calculator-link">
+          <span>내 실수령액 계산하기</span>
+          <Icon icon="solar:arrow-right-linear" width="20" height="20" aria-hidden="true" />
+        </Link>
       </div>
     </article>
   );

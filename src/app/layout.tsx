@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Icon } from '@iconify/react';
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -8,10 +8,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://unclenote.com"),
   title: {
-    default: "삼촌생각 (Uncle Note) - 유용한 계산기 & 생활 가이드",
+    default: "삼촌생각 (Uncle Note) - 읽을거리와 생활 계산 도구",
     template: "%s | 삼촌생각 (Uncle Note)",
   },
-  description: "가장 자주 쓰지만 매번 헷갈리는 금융, 세무 계산과 알짜 정보를 삼촌이 친절하고 정확하게 알려드립니다.",
+  description: "생활 속 궁금한 주제를 읽기 쉽게 정리한 정보 글과 일상에 유용한 계산 도구를 제공합니다.",
   keywords: ["삼촌생각", "Uncle Note", "연봉 실수령액 계산기", "부가세 계산기", "세무 계산기", "생활 가이드"],
   icons: {
     icon: [
@@ -63,24 +63,31 @@ export default function RootLayout({
           {children}
         </main>
 
-        {/* 하단 푸터 (Warm Minimalist Editorial) */}
-        <footer className="bg-[#f4efe8]/60 py-16 md:py-24 border-t border-zinc-200/70">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
-            <div className="text-center md:text-left">
-              <p className="font-extrabold text-zinc-900 text-xl mb-2 flex items-center justify-center md:justify-start gap-2">
-                <Icon icon="solar:lightbulb-bold-duotone" style={{ color: '#c55232' }} />
-                <span>삼촌생각</span>
-              </p>
-              <p className="text-[15px] text-zinc-600 font-medium">당신의 복잡한 셈을 1초 만에 해결해 드립니다.</p>
+        <footer className="site-footer">
+          <div className="site-footer-inner">
+            <div className="site-footer-main">
+              <div className="site-footer-brand">
+                <Link href="/" className="site-footer-logo" aria-label="삼촌생각 홈">
+                  <Image src="/images/logo.png" alt="" width={32} height={32} />
+                  <span>삼촌생각</span>
+                </Link>
+                <p>읽기 쉬운 정보 글과<br className="hidden sm:block" /> 유용한 생활 도구를 모았습니다.</p>
+              </div>
+              <nav className="site-footer-nav" aria-label="하단 메뉴">
+                <div className="site-footer-nav-group">
+                  <p>둘러보기</p>
+                  <Link href="/guide">읽을거리</Link>
+                  <Link href="/">계산 도구</Link>
+                </div>
+                <div className="site-footer-nav-group">
+                  <p>사이트 안내</p>
+                  <Link href="/about">소개 및 문의</Link>
+                  <Link href="/terms">이용약관</Link>
+                  <Link href="/privacy">개인정보처리방침</Link>
+                </div>
+              </nav>
             </div>
-            <div className="flex flex-wrap justify-center md:justify-end gap-6 text-[15px] font-semibold text-zinc-500">
-              <Link href="/about" className="hover:text-zinc-900 transition-colors duration-300">소개 및 문의</Link>
-              <Link href="/terms" className="hover:text-zinc-900 transition-colors duration-300">이용약관</Link>
-              <Link href="/privacy" className="hover:text-zinc-900 transition-colors duration-300">개인정보처리방침</Link>
-            </div>
-          </div>
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 mt-12 pt-8 border-t border-zinc-200/70 text-center md:text-left text-sm text-zinc-400 font-medium tracking-wide">
-            © 2026 Uncle Note. All rights reserved.
+            <div className="site-footer-bottom">© 2026 삼촌생각 · Uncle Note</div>
           </div>
         </footer>
         <Analytics />

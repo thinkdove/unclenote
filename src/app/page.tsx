@@ -5,8 +5,8 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   alternates: { canonical: 'https://unclenote.com' },
   openGraph: {
-    title: '삼촌생각 | 생활 계산기와 실용 가이드',
-    description: '셀프 인테리어 자재부터 급여·세금까지, 일상에 필요한 계산기와 이해하기 쉬운 가이드를 제공합니다.',
+    title: '삼촌생각 | 읽을거리와 생활 계산 도구',
+    description: '생활 속 궁금한 주제를 정리한 정보 글과 일상에 유용한 계산 도구를 한곳에서 살펴보세요.',
     url: 'https://unclenote.com',
     siteName: '삼촌생각',
     locale: 'ko_KR',
@@ -333,9 +333,9 @@ export default function Home() {
         <div className="flex items-center justify-between mb-8 px-1">
           <div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#292520] tracking-tight">
-              알짜 생활 가이드
+              읽을거리
             </h2>
-            <p className="text-xs text-zinc-400 mt-1">놓치기 쉬운 세무·노무·인테리어 상식을 알기 쉽게 짚어드립니다</p>
+            <p className="text-sm text-zinc-500 mt-1">생활 속 궁금한 주제를 읽기 쉽게 정리했습니다.</p>
           </div>
           <Link 
             href="/guide" 

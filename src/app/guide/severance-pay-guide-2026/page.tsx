@@ -4,14 +4,14 @@ import { Icon } from '@iconify/react';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: '2026년 퇴직금 계산법 총정리: 평균임금 산정부터 세금 절세까지',
+  title: '퇴직금, 얼마를 받을 수 있을까? | 2026년 계산법과 IRP 세금',
   description: '법정 퇴직금 계산 공식, 1일 평균임금 산출법, 퇴직소득세의 연금 수령 시 과세 차이와 미지급 시 대처법을 정리했습니다.',
   keywords: ['2026 퇴직금 계산법', '퇴직금 계산기', '1일 평균임금', '퇴직소득세 계산', 'IRP 퇴직금 절세', '삼촌생각'],
   alternates: {
     canonical: 'https://unclenote.com/guide/severance-pay-guide-2026',
   },
   openGraph: {
-    title: '2026년 퇴직금 계산법 총정리: 평균임금 산정부터 세금 절세까지 | 삼촌생각',
+    title: '퇴직금, 얼마를 받을 수 있을까? | 2026년 계산법과 IRP 세금',
     description: '1일 평균임금 계산식과 IRP 연금 수령 시 적용되는 퇴직소득세 차이를 정리했습니다.',
     url: 'https://unclenote.com/guide/severance-pay-guide-2026',
     type: 'article',
@@ -22,7 +22,7 @@ export default function SeverancePayGuidePage() {
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
-    headline: '2026년 퇴직금 계산법 총정리: 평균임금 계산식부터 퇴직세 절세 팁까지',
+    headline: '퇴직금, 얼마를 받을 수 있을까? 2026년 계산법과 IRP 세금',
     description: metadata.description,
     mainEntityOfPage: 'https://unclenote.com/guide/severance-pay-guide-2026',
     datePublished: '2026-09-22',
@@ -32,7 +32,7 @@ export default function SeverancePayGuidePage() {
   };
 
   return (
-    <article className="reading-article">
+    <article className="reading-article essay-article">
       <Script id="severance-article-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       {/* Breadcrumb & Header */}
       <nav aria-label="현재 위치" className="page-breadcrumb">
@@ -44,66 +44,57 @@ export default function SeverancePayGuidePage() {
       </nav>
 
       <header className="reading-header">
-        <div className="flex items-center gap-2.5 text-xs font-bold text-[#c55232] uppercase tracking-wider mb-4">
-          <span className="px-2.5 py-1 bg-[#c55232]/10 rounded-md">2026 근로기준법 가이드</span>
-          <span className="text-zinc-400 font-normal">2026.09.23 업데이트</span>
-        </div>
+        <p className="essay-kicker">일과 돈 · 퇴직금 가이드</p>
         <h1 className="editorial-h1 mb-5">
-          2026년 퇴직금 계산법 총정리: {' '}
-          평균임금 계산식부터 퇴직세 절세 팁까지
+          퇴직금, 얼마를<br className="hidden sm:block" /> 받을 수 있을까?
         </h1>
         <p className="reading-lead">
-          퇴사를 앞두고 내 통장에 실제로 들어올 퇴직금이 얼마인지 궁금하신가요? 1일 평균임금 계산 방법, 법정 지급 요건, IRP 계좌에서 연금으로 수령할 때의 세금 차이를 정리했습니다.
+          2026년 기준 퇴직금의 지급 요건부터 평균임금 계산법, IRP 계좌로 받을 때 달라지는 세금까지 차례로 살펴봅니다.
         </p>
+        <div className="essay-byline">
+          <span>삼촌생각</span>
+          <span aria-hidden="true">·</span>
+          <time dateTime="2026-09-23">2026. 09. 23.</time>
+          <span aria-hidden="true">·</span>
+          <span>읽는 시간 약 4분</span>
+        </div>
       </header>
 
-      {/* Quick Summary Callout (AEO Optimized) */}
+      <nav className="essay-toc" aria-label="이 글의 목차">
+        <span>이 글의 순서</span>
+        <a href="#eligibility">받을 수 있는 조건</a>
+        <a href="#calculation">계산하는 법</a>
+        <a href="#irp">IRP와 세금</a>
+        <a href="#questions">자주 묻는 질문</a>
+      </nav>
+
       <section className="reading-summary" aria-labelledby="severance-summary-title">
-        <h2 id="severance-summary-title" className="editorial-h3 mb-4 flex items-center gap-2">
-          <Icon icon="solar:star-bold" className="text-[#c55232]" />
-          <span>삼촌이 10초 만에 요약해 주는 퇴직금 핵심</span>
+        <h2 id="severance-summary-title" className="editorial-h3 mb-4">
+          먼저, 핵심만 읽는다면
         </h2>
-        <ul className="space-y-2.5 text-sm text-zinc-700 leading-relaxed">
+        <ul className="essay-summary-list">
           <li className="flex items-start gap-2">
-            <span className="text-[#c55232] font-bold">1.</span>
-            <span><strong>지급 요건:</strong> 주 15시간 이상, 계속근로기간 1년(365일) 이상 근무 시 알바·계약직 상관없이 무조건 발생</span>
+            <span><strong>받을 수 있는 조건</strong> 4주 평균 주 소정근로시간 15시간 이상, 계속근로기간 1년 이상</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-[#c55232] font-bold">2.</span>
-            <span><strong>법정 계산 공식:</strong> <code>1일 평균임금 × 30일 × (재직일수 ÷ 365)</code></span>
+            <span><strong>기본 계산식</strong> 1일 평균임금 × 30일 × (재직일수 ÷ 365)</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-[#c55232] font-bold">3.</span>
-            <span><strong>지급 기한:</strong> 퇴사일로부터 14일 이내 지급 필수 (미지급 시 연 20% 지연이자 발생)</span>
+            <span><strong>지급 기한</strong> 특별한 합의가 없다면 퇴사 후 14일 이내</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-[#c55232] font-bold">4.</span>
-            <span><strong>세금:</strong> IRP로 이전하면 과세가 이연되고, 요건에 맞게 연금으로 수령할 때 세액 차이가 발생</span>
+            <span><strong>IRP와 세금</strong> 이전 시 과세가 이연되고, 이후 수령 방식에 따라 세액이 달라짐</span>
           </li>
         </ul>
-
-        <div className="mt-6 pt-5 border-t border-[#e8d6cb] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <span className="text-xs text-zinc-500 font-medium">복잡한 계산식 없이 바로 금액을 확인하고 싶다면?</span>
-          <Link
-            href="/severance-pay-calculator"
-            className="px-5 py-2.5 bg-[#c55232] text-white text-xs font-bold rounded-full hover:bg-[#a74126] transition-colors flex items-center gap-1.5 shadow-xs"
-          >
-            <span>퇴직금 계산기로 1초 계산하기</span>
-            <Icon icon="solar:arrow-right-linear" />
-          </Link>
-        </div>
       </section>
 
       {/* Main Content Sections */}
       <div className="reading-body">
         
         {/* Section 1 */}
-        <section className="reading-section">
+        <section id="eligibility" className="reading-section">
           <div className="mb-4">
-            <p className="text-xs font-bold tracking-[.18em] text-[#c55232] uppercase">
-              SECTION 01
-            </p>
-            <h2 className="mt-1.5 text-2xl sm:text-3xl font-extrabold tracking-tight text-[#292520]">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#292520]">
               퇴직금 받을 수 있는 자격 조건 2가지
             </h2>
           </div>
@@ -127,12 +118,9 @@ export default function SeverancePayGuidePage() {
         </section>
 
         {/* Section 2 */}
-        <section className="reading-section">
+        <section id="calculation" className="reading-section">
           <div className="mb-4">
-            <p className="text-xs font-bold tracking-[.18em] text-[#c55232] uppercase">
-              SECTION 02
-            </p>
-            <h2 className="mt-1.5 text-2xl sm:text-3xl font-extrabold tracking-tight text-[#292520]">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#292520]">
               퇴직금 계산 공식과 1일 평균임금 구하는 법
             </h2>
           </div>
@@ -157,12 +145,9 @@ export default function SeverancePayGuidePage() {
         </section>
 
         {/* Section 3: Tax Deduction & IRP tips */}
-        <section className="reading-section">
+        <section id="irp" className="reading-section">
           <div className="mb-4">
-            <p className="text-xs font-bold tracking-[.18em] text-[#c55232] uppercase">
-              SECTION 03
-            </p>
-            <h2 className="mt-1.5 text-2xl sm:text-3xl font-extrabold tracking-tight text-[#292520]">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#292520]">
               퇴직소득세: IRP 이전과 연금 수령의 차이
             </h2>
           </div>
@@ -186,12 +171,9 @@ export default function SeverancePayGuidePage() {
         </section>
 
         {/* Section 4: FAQ */}
-        <section className="reading-section">
+        <section id="questions" className="reading-section">
           <div className="mb-4">
-            <p className="text-xs font-bold tracking-[.18em] text-[#c55232] uppercase">
-              SECTION 04
-            </p>
-            <h2 className="mt-1.5 text-2xl sm:text-3xl font-extrabold tracking-tight text-[#292520]">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#292520]">
               자주 묻는 질문 (FAQ)
             </h2>
           </div>
@@ -218,20 +200,18 @@ export default function SeverancePayGuidePage() {
         <p className="editorial-desc">퇴직소득세의 연금 수령 기준은 <a className="text-[#a74126] underline" href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7888&mi=2312" target="_blank" rel="noopener noreferrer">국세청 세율 안내</a>에서 확인할 수 있습니다. 개인별 과세액과 지급 요건은 상황에 따라 달라질 수 있습니다.</p>
       </section>
 
-      {/* Footer CTA Banner */}
       <div className="reading-footer-cta">
-        <h3 className="text-xl font-bold text-[#292520]">
-          내 퇴직금 실수령액, 지금 바로 확인해보세요
-        </h3>
-        <p className="text-sm text-zinc-500 max-w-md mx-auto leading-relaxed">
-          근무 기간과 최근 3개월 임금 등을 입력하면 1일 평균임금, 예상 퇴직금과 세금 참고값을 확인할 수 있습니다.
+        <p className="essay-cta-kicker">읽었다면, 이제 내 금액으로</p>
+        <h2>내 퇴직금은 얼마일까?</h2>
+        <p className="essay-cta-description">
+          입사일과 퇴사일, 최근 3개월 임금을 입력하면 예상 퇴직금과 세후 참고 금액을 바로 확인할 수 있습니다.
         </p>
         <Link
           href="/severance-pay-calculator"
-          className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#c55232] text-white font-bold text-sm rounded-full hover:bg-[#a74126] transition-colors shadow-xs"
+          className="essay-calculator-link"
         >
-          <Icon icon="solar:calculator-minimalistic-bold" width="18" height="18" />
-          <span>퇴직금 계산기 열기</span>
+          <span>내 퇴직금 계산하기</span>
+          <Icon icon="solar:arrow-right-linear" width="20" height="20" aria-hidden="true" />
         </Link>
       </div>
     </article>
