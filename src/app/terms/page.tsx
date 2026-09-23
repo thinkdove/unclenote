@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     siteName: '삼촌노트',
-    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    images: [{ url: '/images/share-samchon-note-v2.png', width: 1672, height: 941, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
     title: '서비스 이용약관 | 삼촌노트',
     description: '삼촌노트의 계산기와 정보성 글 이용 시 알아둘 사항입니다.',
     url: 'https://unclenote.com/terms',

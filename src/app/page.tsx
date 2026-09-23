@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   alternates: { canonical: 'https://unclenote.com' },
   openGraph: {
-    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    images: [{ url: '/images/share-samchon-note-v2.png', width: 1672, height: 941, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
     title: '삼촌노트 | 읽을거리와 생활 계산 도구',
     description: '생활 속 궁금한 주제를 정리한 정보 글과 일상에 유용한 계산 도구를 한곳에서 살펴보세요.',
     url: 'https://unclenote.com',
@@ -20,7 +20,7 @@ export default function Home() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: '삼촌노트',
-    alternateName: 'Uncle Note',
+    alternateName: ['Uncle Note', 'UncleNote'],
     url: 'https://unclenote.com/',
   };
 

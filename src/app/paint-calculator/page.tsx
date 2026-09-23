@@ -125,7 +125,7 @@ export default function PaintCalculatorPage() {
   - 모서리용 수성 페인트 붓 (1.5~2인치) 1개
   - 커버링/마스킹 테이프 약 ${maskingTapeRolls}롤
   - 샌딩용 사포 (220~320방) 1~2장
-계산기 바로가기: https://unclenote.com/paint-calculator`;
+계산기 바로가기: https://UncleNote.com/paint-calculator`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);

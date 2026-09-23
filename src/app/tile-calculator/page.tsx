@@ -294,7 +294,7 @@ export default function TileCalculatorPage() {
 • 절단 손실 대비 여유분: +${Math.max(0, totalBoxesWithLoss - netBoxes)}박스
 • 예상 총 무게: 약 ${estimatedWeightKg}kg (1박스 약 ${currentWeightPerBoxKg}kg)
 • 타일 접착재 참고량: 총 약 ${estimatedAdhesiveBags}포(20kg) / 줄눈재 약 ${estimatedGroutKg.toFixed(1)}kg
-계산기 바로가기: https://unclenote.com/tile-calculator`;
+계산기 바로가기: https://UncleNote.com/tile-calculator`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);

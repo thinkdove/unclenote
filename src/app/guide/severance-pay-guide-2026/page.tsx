@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     siteName: '삼촌노트',
-    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    images: [{ url: '/images/share-samchon-note-v2.png', width: 1672, height: 941, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
     title: '퇴직금, 얼마를 받을 수 있을까? | 2026년 계산법과 IRP 세금',
     description: '1일 평균임금 계산식과 IRP 연금 수령 시 적용되는 퇴직소득세 차이를 정리했습니다.',
     url: 'https://unclenote.com/guide/severance-pay-guide-2026',

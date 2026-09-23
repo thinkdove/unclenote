@@ -80,7 +80,7 @@ export default function WageCalculatorPage() {
 • 공제 항목: ${deductionLabel} (-${deductionAmount.toLocaleString()}원)
 • 실제 통장 입금액(세후): ${monthlyNetPay.toLocaleString()}원
 • 1년 이상 근무 시 퇴직금: ${isHolidayAllowanceEligible ? '✅ 법정 퇴직금 100% 발생 대상' : '❌ 주 15시간 미만으로 퇴직금 미발생'}
-계산기 바로가기: https://unclenote.com/wage-calculator`;
+계산기 바로가기: https://UncleNote.com/wage-calculator`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);

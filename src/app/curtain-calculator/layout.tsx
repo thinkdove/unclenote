@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     canonical: 'https://unclenote.com/curtain-calculator',
   },
   openGraph: {
-    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    images: [{ url: '/images/share-samchon-note-v2.png', width: 1672, height: 941, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
     title: '창문 커튼·블라인드 계산기 - 삼촌노트',
     description: '주름 배수별 필요한 커튼 원단 폭(장) 수 및 레일/봉 세로 길이 1초 자동 계산',
     url: 'https://unclenote.com/curtain-calculator',

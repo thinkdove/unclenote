@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     canonical: 'https://unclenote.com/tile-calculator',
   },
   openGraph: {
-    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    images: [{ url: '/images/share-samchon-note-v2.png', width: 1672, height: 941, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
     title: '화장실·바닥 타일 계산기 - 삼촌노트',
     description: '300각·600각 타일 박스당 수량과 로스율(5%~20%) 자동 계산기',
     url: 'https://unclenote.com/tile-calculator',

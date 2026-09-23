@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s | 삼촌노트 (Uncle Note)",
   },
   description: "생활 속 궁금한 주제를 읽기 쉽게 정리한 정보 글과 일상에 유용한 계산 도구를 제공합니다.",
-  keywords: ["삼촌노트", "Uncle Note", "연봉 실수령액 계산기", "부가세 계산기", "세무 계산기", "생활 가이드"],
+  keywords: ["삼촌노트", "Uncle Note", "UncleNote", "연봉 실수령액 계산기", "부가세 계산기", "세무 계산기", "생활 가이드"],
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },

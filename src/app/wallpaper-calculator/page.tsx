@@ -143,7 +143,7 @@ export default function WallpaperCalculatorPage() {
 • 순수 필요량: ${netRolls}롤 (여유분: +${totalRollsWithLoss - netRolls}롤)
 • 시공 방식: ${currentPreset.seamType}
 • 추천 부자재: 도배풀 약 ${pasteBags}봉지(2kg), 지물본드 약 ${bondTubes}개, 네바리 ${nevariRolls}롤
-계산기 바로가기: https://unclenote.com/wallpaper-calculator`;
+계산기 바로가기: https://UncleNote.com/wallpaper-calculator`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);

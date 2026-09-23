@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     siteName: '삼촌노트',
-    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    images: [{ url: '/images/share-samchon-note-v2.png', width: 1672, height: 941, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
     title: '읽을거리 | 삼촌노트',
     description: '생활 속 궁금한 주제를 읽기 쉽게 정리한 정보 글을 살펴보세요.',
     url: 'https://unclenote.com/guide',

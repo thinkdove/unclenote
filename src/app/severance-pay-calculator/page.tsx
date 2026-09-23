@@ -122,7 +122,7 @@ export default function SeverancePayCalculatorPage() {
 • 세전 퇴직금: ${grossSeverance.toLocaleString()}원
 • 예상 퇴직소득세(지방세 포함): ${estimatedTax.toLocaleString()}원
 • 실제 통장 수령액(세후): ${netSeverance.toLocaleString()}원
-계산기 바로가기: https://unclenote.com/severance-pay-calculator`;
+계산기 바로가기: https://UncleNote.com/severance-pay-calculator`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);

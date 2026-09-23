@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     canonical: 'https://unclenote.com/wallpaper-calculator',
   },
   openGraph: {
-    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    images: [{ url: '/images/share-samchon-note-v2.png', width: 1672, height: 941, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
     title: '도배지(벽지) 소요량 계산기 - 삼촌노트',
     description: '실크·합지 규격별 필요한 벽지 롤(Roll) 수 및 도배 풀·부자재 1초 자동 계산',
     url: 'https://unclenote.com/wallpaper-calculator',

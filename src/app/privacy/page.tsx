@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://unclenote.com/privacy' },
   openGraph: {
     siteName: '삼촌노트',
-    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    images: [{ url: '/images/share-samchon-note-v2.png', width: 1672, height: 941, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
     title: '개인정보처리방침 | 삼촌노트',
     description: '삼촌노트의 문의 이메일, 접속·이용 정보 및 광고 관련 정보 처리 방식입니다.',
     url: 'https://unclenote.com/privacy',

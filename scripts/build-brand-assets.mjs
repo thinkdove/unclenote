@@ -4,7 +4,7 @@ import sharp from 'sharp';
 
 const root = process.cwd();
 const mark = path.join(root, 'public/images/samchon-note-mark.svg');
-const share = path.join(root, 'public/images/share-samchon-note.png');
+const share = path.join(root, 'public/images/share-samchon-note-v2.png');
 const app = path.join(root, 'src/app');
 
 const markSvg = await readFile(mark);
@@ -34,10 +34,7 @@ const ico = Buffer.concat([header, ...pngs]);
 await writeFile(path.join(app, 'favicon.ico'), ico);
 await writeFile(path.join(root, 'public/favicon.ico'), ico);
 
-const preview = await sharp(share)
-  .resize(1200, 630, { fit: 'cover', position: 'centre' })
-  .png({ compressionLevel: 9 })
-  .toBuffer();
+const preview = await readFile(share);
 await writeFile(path.join(app, 'opengraph-image.png'), preview);
 await writeFile(path.join(app, 'twitter-image.png'), preview);
 

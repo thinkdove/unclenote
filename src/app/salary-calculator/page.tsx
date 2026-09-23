@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://unclenote.com/salary-calculator" },
   openGraph: {
     siteName: '삼촌노트',
-    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    images: [{ url: '/images/share-samchon-note-v2.png', width: 1672, height: 941, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
     title: "연봉 실수령액 계산기 | 삼촌노트",
     description: "연봉과 비과세액, 부양가족 수를 입력하고 2026년 예상 월 실수령액을 확인하세요.",
     url: "https://unclenote.com/salary-calculator",

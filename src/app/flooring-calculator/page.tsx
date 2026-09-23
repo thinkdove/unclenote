@@ -122,7 +122,7 @@ export default function FlooringCalculatorPage() {
 • 필수 부자재:
   - 용착제(이음매 접착제): ${seamCount > 0 ? `${solventBottles}개 (이음매 ${totalSeamLengthM.toFixed(1)}m)` : '필요 없음 (1줄로 시공 완료)'}
   ${finishType === 'cut' ? `- 걸레받이 굽도리(25m): 약 ${gubdoriRolls}롤 (둘레 ${roomPerimeterM.toFixed(1)}m)` : ''}
-계산기 바로가기: https://unclenote.com/flooring-calculator`;
+계산기 바로가기: https://UncleNote.com/flooring-calculator`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);

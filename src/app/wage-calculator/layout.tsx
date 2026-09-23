@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://unclenote.com/wage-calculator' },
   openGraph: {
     siteName: '삼촌노트',
-    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    images: [{ url: '/images/share-samchon-note-v2.png', width: 1672, height: 941, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
     title: '최저임금 및 주휴수당 계산기 | 삼촌노트',
     description: '시급과 근무시간에 따른 예상 월급과 주휴수당을 계산합니다.',
     url: 'https://unclenote.com/wage-calculator',

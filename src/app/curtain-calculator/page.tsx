@@ -127,7 +127,7 @@ export default function CurtainCalculatorPage() {
   ${splitType === 'double' ? `→ 좌/우 각각 ${Math.round(curtainFinishedWidthCm / 2)}cm (${widthsPerSide}폭씩 2장)` : `→ 1장 통원단 ${curtainFinishedWidthCm}cm (${totalFabricWidths}폭)`}
 • 주문 세로 길이: ${curtainFinishedHeightCm}cm (바닥 1cm 띄움 황금비율)
 • 추천 레일/봉 규격: ${windowWidthCm}cm용 슬라이딩 레일 (${railJa}자 규격)
-계산기 바로가기: https://unclenote.com/curtain-calculator`;
+계산기 바로가기: https://UncleNote.com/curtain-calculator`;
     } else {
       text = `[삼촌노트 블라인드 견적서]
 • 창문 실측: 가로 ${windowWidthCm}cm × 세로 ${ceilingHeightCm}cm
@@ -137,7 +137,7 @@ export default function CurtainCalculatorPage() {
 • 주문 가로: ${blindOrderWidthCm}cm
 • 주문 세로: ${blindOrderHeightCm}cm
 • 면적: ${blindSqm.toFixed(2)}㎡ (기본 과금 규격: 약 ${blindBillableSqm}헤베)
-계산기 바로가기: https://unclenote.com/curtain-calculator`;
+계산기 바로가기: https://UncleNote.com/curtain-calculator`;
     }
 
     navigator.clipboard.writeText(text);

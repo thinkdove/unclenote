@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     canonical: 'https://unclenote.com/paint-calculator',
   },
   openGraph: {
-    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    images: [{ url: '/images/share-samchon-note-v2.png', width: 1672, height: 941, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
     title: '셀프 페인트 소요량 계산기 - 삼촌노트',
     description: '2회 도장 기준 필요한 페인트 리터(L) 수 및 젯소·부자재 1초 자동 계산',
     url: 'https://unclenote.com/paint-calculator',

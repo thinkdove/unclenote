@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://unclenote.com/vat-calculator" },
   openGraph: {
     siteName: '삼촌노트',
-    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    images: [{ url: '/images/share-samchon-note-v2.png', width: 1672, height: 941, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
     title: "부가세 계산기 | 삼촌노트",
     description: "일반과세자 공급가액과 부가세 포함 금액을 계산합니다.",
     url: "https://unclenote.com/vat-calculator",

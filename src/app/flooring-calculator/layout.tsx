@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     canonical: 'https://unclenote.com/flooring-calculator',
   },
   openGraph: {
-    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
+    images: [{ url: '/images/share-samchon-note-v2.png', width: 1672, height: 941, alt: '삼촌노트 — 읽을거리와 생활 도구' }],
     title: '장판(모노륨) 소요량 계산기 - 삼촌노트',
     description: '1.8m 표준 폭 기준 필요한 장판 폭(줄) 수 및 총 구매 미터(m) 1초 자동 계산',
     url: 'https://unclenote.com/flooring-calculator',
