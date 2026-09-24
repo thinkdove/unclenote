@@ -3,12 +3,12 @@ import path from 'node:path';
 import sharp from 'sharp';
 
 const root = process.cwd();
-const mark = path.join(root, 'public/images/samchon-note-mark.svg');
+const mark = path.join(root, 'public/images/logo.png');
 const share = path.join(root, 'public/images/share-samchon-note-v2.png');
 const app = path.join(root, 'src/app');
 
-const markSvg = await readFile(mark);
-const icon = (size) => sharp(markSvg).resize(size, size).png().toBuffer();
+const markPng = await readFile(mark);
+const icon = (size) => sharp(markPng).resize(size, size).png().toBuffer();
 
 await writeFile(path.join(app, 'icon.png'), await icon(512));
 await writeFile(path.join(app, 'apple-icon.png'), await icon(180));
