@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Icon } from '@iconify/react';
 
 export const metadata: Metadata = {
-  title: '읽을거리',
+  title: '읽을거리 | 삼촌노트',
   description: '생활 속 궁금한 주제를 읽기 쉽게 정리한 삼촌노트의 정보 글을 모았습니다.',
   alternates: {
     canonical: 'https://unclenote.com/guide',
@@ -20,6 +21,15 @@ export const metadata: Metadata = {
 
 const GUIDES = [
   {
+    slug: 'employment-rate-2025',
+    title: '실업률 2.8%의 착시: 취준생이 많아질수록 실업률이 떨어진다?',
+    description: '2025년 고용 통계로 고용률·실업률 산정 방식의 맹점, 16%대 청년 체감실업률(고용보조지표3), 연도별 추이와 연령·지역별 격차를 낱낱이 밝힙니다.',
+    category: '경제·고용 통계',
+    date: '2026.09.25',
+    thumbnail: '/images/employment-rate-cover-youth-2025.jpg',
+    icon: 'solar:chart-2-bold-duotone',
+  },
+  {
     slug: 'one-person-household-2025',
     title: '혼자 사는 사람은 누구이고, 얼마를 쓰며, 얼마나 외로울까?',
     description: '1인 가구의 2019~2024년 증가 추이와 나이·17개 시도·소비지출, 2025년 외로움 응답을 공식 통계로 살펴봅니다.',
@@ -34,7 +44,7 @@ const GUIDES = [
     description: '2025년 이혼 88,130건을 동거 기간과 17개 시도, 남편·아내의 나이, 미성년 자녀 수로 나눠 봅니다.',
     category: '생활·이혼 통계',
     date: '2026.09.24',
-    thumbnail: '/images/share-samchon-note-v2.png',
+    thumbnail: '/images/divorce-duration-cover-2025-v4.png',
     icon: 'solar:chart-2-bold-duotone',
   },
   {
@@ -43,7 +53,7 @@ const GUIDES = [
     description: '국가데이터처와 KOSIS 원표로 초혼 연령대별 인원, 17개 시도 평균, 가장 이른·늦은 공개 구간을 한눈에 비교합니다.',
     category: '생활·결혼 통계',
     date: '2026.09.24',
-    thumbnail: '/images/share-samchon-note-v2.png',
+    thumbnail: '/images/first-marriage-cover-2025-preview.png',
     icon: 'solar:chart-2-bold-duotone',
   },
   {
@@ -71,7 +81,7 @@ const GUIDES = [
     description: '1일 평균임금 계산법, 퇴직금 지급 기한과 IRP 계좌 이전·연금 수령 시 세금 차이를 정리했습니다.',
     category: '노무·세무',
     date: '2026.09.23',
-    thumbnail: '/images/salary-guide-thumbnail.jpg',
+    thumbnail: '/images/severance-guide-cover-preview.png',
     icon: 'solar:wallet-money-bold-duotone',
   },
 ];
@@ -98,7 +108,7 @@ export default function GuideIndexPage() {
 
       {/* Featured Special Story Banner */}
       {featuredGuide && (
-        <div className="mb-10">
+        <div className="mb-12">
           <span className="text-xs font-black text-[#c55232] uppercase tracking-wider block mb-3">
             먼저 읽어볼 글
           </span>
@@ -167,37 +177,49 @@ export default function GuideIndexPage() {
         </div>
       )}
 
-      {/* Regular Guide Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Regular Guide Cards Grid - Card News Style (이미지와 제목 중심) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {regularGuides.map((guide) => (
           <Link
             key={guide.slug}
             href={`/guide/${guide.slug}`}
-            className="group bg-white p-6 sm:p-7 rounded-3xl border border-zinc-200/70 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.06)] hover:border-[#c55232]/40 transition-all duration-300 flex flex-col justify-between"
+            className="group bg-white rounded-[1.6rem] border border-zinc-200/80 overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] hover:border-[#c55232]/50 transition-all duration-300 flex flex-col"
           >
-            <div>
-              <div className="flex items-center justify-between gap-3 mb-4">
-                <span className="px-2.5 py-1 bg-[#c55232]/10 text-[#c55232] text-xs font-bold rounded-md">
+            {/* 1. 상단 큼직한 썸네일 이미지 커버 (카드 뉴스 형태) */}
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100">
+              <Image
+                src={guide.thumbnail}
+                alt={guide.title}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+
+              {/* 이미지 위 플로팅 뱃지 & 날짜 */}
+              <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 px-2.5 py-1 bg-white/95 backdrop-blur-md rounded-full shadow-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#c55232]" />
+                <span className="text-[11px] font-bold text-[#292520] tracking-tight">
                   {guide.category}
-                </span>
-                <span className="text-xs text-zinc-400 font-medium">
-                  {guide.date}
                 </span>
               </div>
 
-              <h2 className="text-lg font-bold text-[#292520] mb-3 group-hover:text-[#c55232] transition-colors leading-snug">
+              <div className="absolute top-3.5 right-3.5 px-2.5 py-1 bg-[#292520]/80 backdrop-blur-md rounded-full text-white/90 text-[11px] font-medium tabular-nums shadow-sm">
+                {guide.date}
+              </div>
+            </div>
+
+            {/* 2. 하단 본문: 설명문 없이 깔끔하고 강력한 제목만 강조 */}
+            <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 bg-white">
+              <h2 className="text-[1.12rem] sm:text-[1.2rem] font-bold text-[#292520] group-hover:text-[#c55232] transition-colors leading-[1.38] break-keep [text-wrap:balance] line-clamp-2 min-h-[3.3rem]">
                 {guide.title}
               </h2>
 
-              <p className="text-sm text-zinc-500 leading-relaxed line-clamp-3 mb-6">
-                {guide.description}
-              </p>
-            </div>
-
-            <div className="pt-4 border-t border-zinc-100 flex items-center justify-between text-xs font-bold text-zinc-500 group-hover:text-[#c55232] transition-colors">
-              <span>가이드 읽기</span>
-              <div className="w-7 h-7 rounded-full bg-black/5 group-hover:bg-[#c55232] group-hover:text-white flex items-center justify-center transition-all">
-                <Icon icon="solar:arrow-right-linear" width="14" height="14" />
+              <div className="mt-4 pt-3.5 border-t border-zinc-100 flex items-center justify-between text-xs font-bold text-zinc-500 group-hover:text-[#c55232] transition-colors">
+                <span>자세히 보기</span>
+                <div className="w-7 h-7 rounded-full bg-zinc-100 group-hover:bg-[#c55232] group-hover:text-white flex items-center justify-center transition-all group-hover:translate-x-0.5">
+                  <Icon icon="solar:arrow-right-linear" width="14" height="14" />
+                </div>
               </div>
             </div>
           </Link>
