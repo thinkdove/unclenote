@@ -9,7 +9,7 @@ const reportSource = 'https://mods.go.kr/board.es?act=view&bid=204&list_no=44410
 
 export const metadata: Metadata = {
   title: '2025년 첫 결혼은 몇 살에 할까? 평균부터 지역·나이 차이까지',
-  description: '2025년 국가데이터처·KOSIS 통계로 남녀 평균 초혼 연령, 연령대별 초혼 인원, 17개 시도별 수치를 직접 비교해 봅니다. 최연소·최고령을 말할 때 주의할 점도 정리했습니다.',
+  description: '2025년 국가데이터처·KOSIS 통계로 평균 초혼 연령, 연령대별 인원, 17개 시도별 수치와 10세 이상 차이 나는 초혼 부부를 비교합니다.',
   alternates: { canonical: url },
   openGraph: {
     type: 'article',
@@ -164,6 +164,21 @@ export default function FirstMarriageAgePage() {
         <SectionTitle number="04" title="초혼 부부의 나이 차이는 어떨까?">두 사람 모두 초혼인 부부만 따로 보면, 남성이 연상인 경우가 가장 많습니다.</SectionTitle>
         <p className="editorial-body mb-6 break-keep">2025년 두 사람 모두 초혼인 부부의 연령 관계는 <strong>남성 연상 63.0%</strong>, <strong>여성 연상 20.2%</strong>, <strong>동갑 16.7%</strong>입니다. 평균 초혼 연령의 남녀 차이인 약 2.2세를 “모든 부부의 평균 나이 차이”로 받아들이면 안 되는 이유입니다. 평균 초혼 연령은 남성과 여성을 각각 집계한 값이고, 여기의 비율은 같은 부부를 묶어 계산한 값입니다.</p>
         <figure className="rounded-[1.7rem] border border-[#e9ded4] bg-white p-5 sm:p-7"><figcaption className="editorial-h3 mb-5">2025년 초혼 부부의 연령 관계</figcaption><div className="flex h-8 overflow-hidden rounded-full" role="img" aria-label="남성 연상 63.0%, 여성 연상 20.2%, 동갑 16.7%"><div className="bg-[#a75b45]" style={{ width: '63%' }} /><div className="bg-[#605b68]" style={{ width: '20.2%' }} /><div className="bg-[#d8cfc5]" style={{ width: '16.8%' }} /></div><div className="mt-5 grid gap-3 sm:grid-cols-3"><div><span className="inline-block h-2.5 w-2.5 rounded-full bg-[#a75b45]" /> <span className="text-sm">남성 연상</span><strong className="ml-2 tabular-nums">63.0%</strong></div><div><span className="inline-block h-2.5 w-2.5 rounded-full bg-[#605b68]" /> <span className="text-sm">여성 연상</span><strong className="ml-2 tabular-nums">20.2%</strong></div><div><span className="inline-block h-2.5 w-2.5 rounded-full bg-[#d8cfc5]" /> <span className="text-sm">동갑</span><strong className="ml-2 tabular-nums">16.7%</strong></div></div><p className="mt-4 text-xs leading-relaxed text-[#756b63]">발표 수치는 반올림으로 합계가 99.9%입니다. 막대의 마지막 칸은 시각적으로 100%를 채우도록 표시했습니다. 자료: <Source href={reportSource}>국가데이터처 「2025년 혼인·이혼 통계」</Source>, <Source href={gapSource}>KOSIS 초혼 부부 연령차 표</Source></p></figure>
+        <div className="editorial-body mt-8 space-y-4 break-keep">
+          <h3 className="editorial-h3">10세 이상 차이 나는 초혼 부부는 얼마나 될까?</h3>
+          <p>공개 통계에서 나이 차이를 가장 크게 묶은 구간은 <strong>‘10세 이상’</strong>입니다. 2025년 두 사람 모두 초혼인 부부 중 남성이 10세 이상 연상인 혼인은 <strong>7,019건</strong>, 여성이 10세 이상 연상인 혼인은 <strong>409건</strong>입니다. 합치면 <strong>7,428건</strong>입니다.</p>
+        </div>
+        <figure className="mt-5 rounded-[1.7rem] border border-[#e9ded4] bg-white p-5 sm:p-7">
+          <figcaption className="editorial-h3 mb-1">2025년, 10세 이상 차이 나는 초혼 부부</figcaption>
+          <p className="editorial-desc mb-6">전국 · 혼인 신고 건수 · 막대는 7,019건을 기준으로 비교</p>
+          <div className="space-y-5">
+            <div><div className="mb-2 flex items-baseline justify-between gap-3 text-sm"><span className="font-semibold">남성 10세 이상 연상</span><strong className="tabular-nums text-[#a74126]">7,019건</strong></div><div className="h-4 overflow-hidden rounded-full bg-[#f0ece7]"><div className="h-full w-full rounded-full bg-[#a75b45]" /></div></div>
+            <div><div className="mb-2 flex items-baseline justify-between gap-3 text-sm"><span className="font-semibold">여성 10세 이상 연상</span><strong className="tabular-nums text-[#605b68]">409건</strong></div><div className="h-4 overflow-hidden rounded-full bg-[#f0ece7]"><div className="h-full rounded-full bg-[#605b68]" style={{ width: `${409 / 7019 * 100}%` }} /></div></div>
+          </div>
+          <div className="mt-6 flex items-baseline justify-between border-t border-[#eee8e1] pt-4"><span className="text-sm font-semibold">두 경우 합계</span><strong className="text-xl font-extrabold tabular-nums">7,428건</strong></div>
+          <p className="mt-4 text-xs leading-relaxed text-[#756b63]">자료: <Source href={gapSource}>KOSIS 「시도/초혼부부의 연령차별 혼인」, 2025년</Source> · 두 사람 모두 초혼인 부부만 포함합니다.</p>
+        </figure>
+        <p className="editorial-body mt-5 break-keep">이 표의 마지막 칸에는 10세 차이와 그보다 큰 차이가 함께 들어갑니다. 따라서 <strong>2025년에 나이 차이가 가장 큰 부부가 정확히 몇 살 차이였는지</strong>는 공개 표로 알 수 없습니다. 재혼이 포함된 전체 혼인 건수와도 구별해야 합니다.</p>
       </section>
 
       <section id="method" className="mt-16 scroll-mt-24">
