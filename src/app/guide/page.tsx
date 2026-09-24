@@ -20,6 +20,15 @@ export const metadata: Metadata = {
 
 const GUIDES = [
   {
+    slug: 'first-marriage-age-2025',
+    title: '첫 결혼 평균 나이 2025: 가장 이른·늦은 초혼은 몇 살일까?',
+    description: '국가데이터처와 KOSIS 원표로 초혼 연령대별 인원, 17개 시도 평균, 가장 이른·늦은 공개 구간을 한눈에 비교합니다.',
+    category: '생활·결혼 통계',
+    date: '2026.09.24',
+    thumbnail: '/images/share-samchon-note-v2.png',
+    icon: 'solar:chart-2-bold-duotone',
+  },
+  {
     slug: 'salary-percentile-2026',
     title: '내 연봉은 상위 몇 %? 국세청 2024년 귀속 통계로 살펴보기',
     description: '국세청 2024년 귀속 근로소득 신고자 약 2,108만 명의 통계로 내 연봉 위치를 참고용으로 추정합니다.',
@@ -65,7 +74,7 @@ export default function GuideIndexPage() {
           읽을거리
         </h1>
         <p className="editorial-body text-zinc-600 max-w-2xl">
-          생활 속 궁금한 주제를 하나씩 살펴봅니다. 지금은 일과 돈에 관한 글이 먼저 올라와 있으며, 앞으로 다양한 분야의 이야기를 더할 예정입니다.
+          생활 속 궁금한 주제를 하나씩 살펴봅니다. 일과 돈, 결혼과 생활 통계까지 믿을 만한 자료를 읽기 쉽게 풀어냅니다.
         </p>
       </header>
 
