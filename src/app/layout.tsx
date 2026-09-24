@@ -15,11 +15,11 @@ export const metadata: Metadata = {
   keywords: ["삼촌노트", "Uncle Note", "UncleNote", "연봉 실수령액 계산기", "부가세 계산기", "세무 계산기", "생활 가이드"],
   icons: {
     icon: [
-      { url: "/favicon.ico?v=uncle-face", sizes: "any" },
-      { url: "/icon.png?v=uncle-face", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.ico?v=share-avatar", sizes: "any" },
+      { url: "/icon.png?v=share-avatar", sizes: "512x512", type: "image/png" },
     ],
     apple: [
-      { url: "/apple-icon.png?v=uncle-face", sizes: "180x180", type: "image/png" },
+      { url: "/apple-icon.png?v=share-avatar", sizes: "180x180", type: "image/png" },
     ],
   },
   robots: {
@@ -68,7 +68,7 @@ export default function RootLayout({
             <div className="site-footer-main">
               <div className="site-footer-brand">
                 <Link href="/" className="site-footer-logo" aria-label="삼촌노트 홈">
-                  <Image src="/images/logo.png" alt="" width={32} height={32} />
+                  <Image src="/images/brand-avatar.png" alt="" width={32} height={32} />
                   <span>삼촌노트</span>
                 </Link>
                 <p>읽기 쉬운 정보 글과<br className="hidden sm:block" /> 유용한 생활 도구를 모았습니다.</p>
