@@ -8,13 +8,13 @@ const gapSource = 'https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1B83
 const reportSource = 'https://mods.go.kr/board.es?act=view&bid=204&list_no=444103&mid=a10301020300';
 
 export const metadata: Metadata = {
-  title: '첫 결혼 평균 나이 2025: 가장 이른·늦은 초혼은 몇 살일까?',
+  title: '2025년 첫 결혼은 몇 살에 할까? 평균부터 지역·나이 차이까지',
   description: '2025년 국가데이터처·KOSIS 통계로 남녀 평균 초혼 연령, 연령대별 초혼 인원, 17개 시도별 수치를 직접 비교해 봅니다. 최연소·최고령을 말할 때 주의할 점도 정리했습니다.',
   alternates: { canonical: url },
   openGraph: {
     type: 'article',
     siteName: '삼촌노트',
-    title: '첫 결혼 평균 나이 2025: 가장 이른·늦은 초혼은 몇 살일까?',
+    title: '2025년 첫 결혼은 몇 살에 할까? 평균부터 지역·나이 차이까지',
     description: '평균은 33.9세와 31.6세. 그런데 가장 어린 초혼과 가장 늦은 초혼은 통계에서 어디까지 알 수 있을까요?',
     url,
     images: [{ url: '/images/share-samchon-note-v2.png', width: 1672, height: 941, alt: '삼촌노트 읽을거리' }],
@@ -95,7 +95,7 @@ export default function FirstMarriageAgePage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
-    headline: '첫 결혼 평균 나이 2025: 가장 이른·늦은 초혼은 몇 살일까?',
+    headline: '2025년 첫 결혼은 몇 살에 할까? 평균부터 지역·나이 차이까지',
     description: '2025년 국가데이터처·KOSIS 혼인 통계로 초혼 평균, 연령 분포, 시도별 차이를 읽습니다.',
     datePublished: '2026-09-24',
     dateModified: '2026-09-24',
@@ -112,7 +112,7 @@ export default function FirstMarriageAgePage() {
 
       <header className="border-b border-[#e8ded4] pb-9">
         <div className="mb-5 flex flex-wrap items-center gap-2 text-xs font-bold tracking-wide"><span className="rounded-full bg-[#f7e8df] px-3 py-1.5 text-[#a74126]">생활 통계 · 결혼</span><span className="text-zinc-500">2026.09.24 · 2025년 자료</span></div>
-        <h1 className="editorial-h1 max-w-[770px] break-keep text-balance">첫 결혼 평균 나이 2025: <span className="text-[#ad4c2f]">가장 이른·늦은 초혼</span>은 몇 살일까?</h1>
+        <h1 className="editorial-h1 max-w-[770px] break-keep text-balance">2025년 첫 결혼은 몇 살에 할까? <span className="text-[#ad4c2f]">평균부터 지역·나이 차이까지</span></h1>
         <p className="editorial-body mt-6 max-w-[720px] break-keep text-[#5c544d]">“요즘은 다들 몇 살에 결혼해?”라는 질문은 간단하지만 답은 하나가 아닙니다. 평균 나이, 가장 많이 결혼하는 나이, 가장 어린·많은 나이는 서로 다른 숫자입니다. 2025년 국가데이터처 혼인 통계와 국가통계포털(KOSIS) 원표를 본문 안에서 함께 펼쳐 보겠습니다.</p>
       </header>
 

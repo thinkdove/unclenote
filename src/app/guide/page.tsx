@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 const GUIDES = [
   {
     slug: 'first-marriage-age-2025',
-    title: '첫 결혼 평균 나이 2025: 가장 이른·늦은 초혼은 몇 살일까?',
+    title: '2025년 첫 결혼은 몇 살에 할까? 평균부터 지역·나이 차이까지',
     description: '국가데이터처와 KOSIS 원표로 초혼 연령대별 인원, 17개 시도 평균, 가장 이른·늦은 공개 구간을 한눈에 비교합니다.',
     category: '생활·결혼 통계',
     date: '2026.09.24',
