@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import MotionFigure from '../one-person-household-2025/motion-figure';
+import CountUpNumber from '@/components/data-motion/count-up-number';
 
 const url = 'https://unclenote.com/guide/first-marriage-age-2025';
 const regionSource = 'https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1B83A05';
@@ -80,11 +82,11 @@ function AgeRow({ label, men, women }: { label: string; men: number; women: numb
       <span className="text-sm font-semibold text-[#403a35]">{label}</span>
       <div className="space-y-1.5">
         <div className="grid grid-cols-[minmax(0,1fr)_4.5rem] items-center gap-2">
-          <div className="h-2.5 rounded-full bg-[#f0ece7]"><div className="h-2.5 rounded-full bg-[#a75b45]" style={{ width: `${men / 96898 * 100}%` }} /></div>
+          <div className="h-2.5 rounded-full bg-[#f0ece7]"><div className="motion-bar h-2.5 rounded-full bg-[#a75b45]" style={{ width: `${men / 96898 * 100}%` }} /></div>
           <span className="text-right text-xs tabular-nums text-[#6b625b] sm:text-sm">{format(men)}</span>
         </div>
         <div className="grid grid-cols-[minmax(0,1fr)_4.5rem] items-center gap-2">
-          <div className="h-2.5 rounded-full bg-[#f0ece7]"><div className="h-2.5 rounded-full bg-[#605b68]" style={{ width: `${women / 96898 * 100}%` }} /></div>
+          <div className="h-2.5 rounded-full bg-[#f0ece7]"><div className="motion-bar h-2.5 rounded-full bg-[#605b68]" style={{ width: `${women / 96898 * 100}%` }} /></div>
           <span className="text-right text-xs tabular-nums text-[#6b625b] sm:text-sm">{format(women)}</span>
         </div>
       </div>
@@ -134,8 +136,8 @@ export default function FirstMarriageAgePage() {
       </header>
 
       <div className="mt-8 grid gap-3 sm:grid-cols-3">
-        <div className="rounded-2xl border border-[#e9ded4] bg-white p-5"><span className="text-sm font-semibold text-[#6b625b]">남성 평균 초혼 연령</span><div className="mt-2 text-3xl font-extrabold tabular-nums text-[#a74126]">33.9<span className="ml-1 text-base">세</span></div></div>
-        <div className="rounded-2xl border border-[#e9ded4] bg-white p-5"><span className="text-sm font-semibold text-[#6b625b]">여성 평균 초혼 연령</span><div className="mt-2 text-3xl font-extrabold tabular-nums text-[#605b68]">31.6<span className="ml-1 text-base">세</span></div></div>
+        <div className="rounded-2xl border border-[#e9ded4] bg-white p-5"><span className="text-sm font-semibold text-[#6b625b]">남성 평균 초혼 연령</span><div className="mt-2 text-3xl font-extrabold tabular-nums text-[#a74126]"><CountUpNumber value={33.9} decimals={1} /><span className="ml-1 text-base">세</span></div></div>
+        <div className="rounded-2xl border border-[#e9ded4] bg-white p-5"><span className="text-sm font-semibold text-[#6b625b]">여성 평균 초혼 연령</span><div className="mt-2 text-3xl font-extrabold tabular-nums text-[#605b68]"><CountUpNumber value={31.6} decimals={1} /><span className="ml-1 text-base">세</span></div></div>
         <div className="rounded-2xl border border-[#e9ded4] bg-white p-5"><span className="text-sm font-semibold text-[#6b625b]">가장 많은 초혼 연령대</span><div className="mt-2 text-2xl font-extrabold tabular-nums">30~34세</div><p className="mt-1 text-xs text-[#736a62]">남녀 각각의 초혼 인원 기준</p></div>
       </div>
 
@@ -147,12 +149,12 @@ export default function FirstMarriageAgePage() {
       <section id="age-distribution" className="mt-16 scroll-mt-24">
         <SectionTitle number="01" title="가장 많이 첫 결혼하는 때는 30대 초반">평균 하나보다 연령대별 인원을 나란히 보면 실제 분포가 보입니다.</SectionTitle>
         <p className="editorial-body mb-6 break-keep">2025년 초혼자 중 <strong>30~34세</strong>가 남성 <strong>96,898명</strong>, 여성 <strong>91,322명</strong>으로 각각 가장 많았습니다. 그다음은 남성은 35~39세(43,987명), 여성은 25~29세(67,671명)입니다. 한 부부 안에서도 한쪽이 초혼이고 다른 쪽은 재혼일 수 있으므로, 아래 남녀 인원을 더해 ‘초혼 부부 수’로 읽으면 안 됩니다.</p>
-        <figure className="rounded-[1.7rem] border border-[#e9ded4] bg-white p-5 sm:p-7">
+        <MotionFigure className="rounded-[1.7rem] border border-[#e9ded4] bg-white p-5 sm:p-7">
           <figcaption className="mb-4 border-b border-[#eee8e1] pb-4"><h3 className="editorial-h3">2025년 초혼 연령대별 인원</h3><p className="editorial-desc mt-1">전국 · 명 · 막대는 96,898명을 100%로 표시</p><div className="mt-3 flex gap-5 text-sm"><span className="flex items-center gap-2"><i className="h-2.5 w-2.5 rounded-full bg-[#a75b45]" />남성</span><span className="flex items-center gap-2"><i className="h-2.5 w-2.5 rounded-full bg-[#605b68]" />여성</span></div></figcaption>
           <div>{ageGroups.map((group) => <AgeRow key={group.label} {...group} />)}</div>
           <p className="mt-4 text-xs leading-relaxed text-[#756b63]">막대의 기준은 남녀 공통입니다. 15세 미만 여성 1명은 원표의 값 그대로 표기했으며, 이 표만으로 실제 혼인일이나 개인의 정확한 나이를 알 수 없습니다. 연령 미상은 남녀 모두 0명이라 그래프에서 제외했습니다.</p>
           <p className="mt-2 text-xs text-[#756b63]">자료: <Source href={ageSource}>KOSIS 「시도/초혼연령별 혼인」, 2025년</Source></p>
-        </figure>
+        </MotionFigure>
       </section>
 
       <section id="youngest-oldest" className="mt-16 scroll-mt-24">
@@ -167,34 +169,34 @@ export default function FirstMarriageAgePage() {
       <section id="regions" className="mt-16 scroll-mt-24">
         <SectionTitle number="03" title="서울이 가장 늦다? 17개 시도를 모두 놓고 보면">지역을 비교할 때는 ‘서울 1위’라는 문장 옆에 나머지 수치도 있어야 합니다.</SectionTitle>
         <p className="editorial-body mb-6 break-keep">2025년 서울의 평균 초혼 연령은 남성 <strong>34.18세</strong>, 여성 <strong>32.40세</strong>로 17개 시도 중 남녀 모두 가장 높았습니다. 소수 첫째 자리로는 34.2세와 32.4세입니다. 전국 33.85세·31.62세와 비교하면 남성은 0.33세, 여성은 0.78세 높습니다. 다만 이 차이만으로 집값이나 직장 문화가 원인이라고 단정할 수는 없습니다.</p>
-        <figure className="overflow-hidden rounded-[1.7rem] border border-[#e9ded4] bg-white">
+        <MotionFigure className="overflow-hidden rounded-[1.7rem] border border-[#e9ded4] bg-white">
           <figcaption className="border-b border-[#eee8e1] p-5 sm:p-7"><h3 className="editorial-h3">2025년 시도별 평균 초혼 연령</h3><p className="editorial-desc mt-1">단위: 세 · 원표의 소수 둘째 자리 · 진한 배경은 해당 열에서 높은 값</p></figcaption>
           <div className="grid grid-cols-[minmax(4.5rem,1fr)_minmax(6rem,1fr)_minmax(6rem,1fr)] bg-[#f8f4ef] px-4 py-3 text-sm font-bold sm:px-7"><span>지역</span><span className="text-right">남성</span><span className="text-right">여성</span></div>
-          <div className="grid grid-cols-[minmax(4.5rem,1fr)_minmax(6rem,1fr)_minmax(6rem,1fr)] border-y border-[#e8ded4] bg-[#fff7f1] px-4 py-3 text-sm font-bold tabular-nums sm:px-7"><span>전국</span><span className="text-right">33.85</span><span className="text-right">31.62</span></div>
-          <div className="divide-y divide-[#f0ece8]">{regions.map((region) => <div key={region.name} className="grid grid-cols-[minmax(4.5rem,1fr)_minmax(6rem,1fr)_minmax(6rem,1fr)] items-center px-4 py-2.5 text-sm sm:px-7"><span className="font-medium">{region.name}</span><span className={`justify-self-end rounded-md px-2 py-1 text-right tabular-nums ${region.men >= 34 ? 'bg-[#f3d9cb] font-bold text-[#783a28]' : region.men <= 33.35 ? 'bg-[#f4f0ed]' : 'bg-[#faede5]'}`}>{region.men.toFixed(2)}</span><span className={`justify-self-end rounded-md px-2 py-1 text-right tabular-nums ${region.women >= 32 ? 'bg-[#dcd9e6] font-bold text-[#403a51]' : region.women <= 31.07 ? 'bg-[#f4f0ed]' : 'bg-[#eeecf3]'}`}>{region.women.toFixed(2)}</span></div>)}</div>
+          <div className="grid grid-cols-[minmax(4.5rem,1fr)_minmax(6rem,1fr)_minmax(6rem,1fr)] border-y border-[#e8ded4] bg-[#fff7f1] px-4 py-3 text-sm font-bold tabular-nums sm:px-7"><span>전국</span><span className="text-right"><CountUpNumber value={33.85} decimals={2} /></span><span className="text-right"><CountUpNumber value={31.62} decimals={2} /></span></div>
+          <div className="divide-y divide-[#f0ece8]">{regions.map((region) => <div key={region.name} className="grid grid-cols-[minmax(4.5rem,1fr)_minmax(6rem,1fr)_minmax(6rem,1fr)] items-center px-4 py-2.5 text-sm sm:px-7"><span className="font-medium">{region.name}</span><span className={`justify-self-end rounded-md px-2 py-1 text-right tabular-nums ${region.men >= 34 ? 'bg-[#f3d9cb] font-bold text-[#783a28]' : region.men <= 33.35 ? 'bg-[#f4f0ed]' : 'bg-[#faede5]'}`}><CountUpNumber value={region.men} decimals={2} /></span><span className={`justify-self-end rounded-md px-2 py-1 text-right tabular-nums ${region.women >= 32 ? 'bg-[#dcd9e6] font-bold text-[#403a51]' : region.women <= 31.07 ? 'bg-[#f4f0ed]' : 'bg-[#eeecf3]'}`}><CountUpNumber value={region.women} decimals={2} /></span></div>)}</div>
           <div className="border-t border-[#eee8e1] px-5 py-4 text-xs leading-relaxed text-[#756b63] sm:px-7">자료: <Source href={regionSource}>KOSIS 「시도별 평균초혼연령」, 2025년</Source> · 지역은 행정구역 순서. 표의 ‘국외’ 항목은 17개 시도 비교에서 제외했습니다.</div>
-        </figure>
+        </MotionFigure>
         <p className="editorial-body mt-5 break-keep">남성은 서울 다음으로 세종(34.13세), 제주(34.03세), 부산(34.00세) 순입니다. 여성은 서울 다음이 세종(32.01세), 부산(31.99세)입니다. 가장 낮은 곳은 남성 대전(33.18세), 여성 충북(30.99세)으로, 남녀의 지역 순위도 완전히 같지는 않습니다. 이 표는 각 지역 초혼자의 평균이지, 그 지역에 사는 모든 미혼자의 결혼 시기를 예측하는 수치는 아닙니다.</p>
       </section>
 
       <section id="age-gap" className="mt-16 scroll-mt-24">
         <SectionTitle number="04" title="초혼 부부의 나이 차이는 어떨까?">두 사람 모두 초혼인 부부만 따로 보면, 남성이 연상인 경우가 가장 많습니다.</SectionTitle>
         <p className="editorial-body mb-6 break-keep">2025년 두 사람 모두 초혼인 부부의 연령 관계는 <strong>남성 연상 63.0%</strong>, <strong>여성 연상 20.2%</strong>, <strong>동갑 16.7%</strong>입니다. 평균 초혼 연령의 남녀 차이인 약 2.2세를 “모든 부부의 평균 나이 차이”로 받아들이면 안 되는 이유입니다. 평균 초혼 연령은 남성과 여성을 각각 집계한 값이고, 여기의 비율은 같은 부부를 묶어 계산한 값입니다.</p>
-        <figure className="rounded-[1.7rem] border border-[#e9ded4] bg-white p-5 sm:p-7"><figcaption className="editorial-h3 mb-5">2025년 초혼 부부의 연령 관계</figcaption><div className="flex h-8 overflow-hidden rounded-full" role="img" aria-label="남성 연상 63.0%, 여성 연상 20.2%, 동갑 16.7%"><div className="bg-[#a75b45]" style={{ width: '63%' }} /><div className="bg-[#605b68]" style={{ width: '20.2%' }} /><div className="bg-[#d8cfc5]" style={{ width: '16.8%' }} /></div><div className="mt-5 grid gap-3 sm:grid-cols-3"><div><span className="inline-block h-2.5 w-2.5 rounded-full bg-[#a75b45]" /> <span className="text-sm">남성 연상</span><strong className="ml-2 tabular-nums">63.0%</strong></div><div><span className="inline-block h-2.5 w-2.5 rounded-full bg-[#605b68]" /> <span className="text-sm">여성 연상</span><strong className="ml-2 tabular-nums">20.2%</strong></div><div><span className="inline-block h-2.5 w-2.5 rounded-full bg-[#d8cfc5]" /> <span className="text-sm">동갑</span><strong className="ml-2 tabular-nums">16.7%</strong></div></div><p className="mt-4 text-xs leading-relaxed text-[#756b63]">발표 수치는 반올림으로 합계가 99.9%입니다. 막대의 마지막 칸은 시각적으로 100%를 채우도록 표시했습니다. 자료: <Source href={reportSource}>국가데이터처 「2025년 혼인·이혼 통계」</Source>, <Source href={gapSource}>KOSIS 초혼 부부 연령차 표</Source></p></figure>
+        <MotionFigure className="rounded-[1.7rem] border border-[#e9ded4] bg-white p-5 sm:p-7"><figcaption className="editorial-h3 mb-5">2025년 초혼 부부의 연령 관계</figcaption><div className="motion-bar flex h-8 overflow-hidden rounded-full" role="img" aria-label="남성 연상 63.0%, 여성 연상 20.2%, 동갑 16.7%"><div className="bg-[#a75b45]" style={{ width: '63%' }} /><div className="bg-[#605b68]" style={{ width: '20.2%' }} /><div className="bg-[#d8cfc5]" style={{ width: '16.8%' }} /></div><div className="mt-5 grid gap-3 sm:grid-cols-3"><div><span className="inline-block h-2.5 w-2.5 rounded-full bg-[#a75b45]" /> <span className="text-sm">남성 연상</span><strong className="ml-2 tabular-nums">63.0%</strong></div><div><span className="inline-block h-2.5 w-2.5 rounded-full bg-[#605b68]" /> <span className="text-sm">여성 연상</span><strong className="ml-2 tabular-nums">20.2%</strong></div><div><span className="inline-block h-2.5 w-2.5 rounded-full bg-[#d8cfc5]" /> <span className="text-sm">동갑</span><strong className="ml-2 tabular-nums">16.7%</strong></div></div><p className="mt-4 text-xs leading-relaxed text-[#756b63]">발표 수치는 반올림으로 합계가 99.9%입니다. 막대의 마지막 칸은 시각적으로 100%를 채우도록 표시했습니다. 자료: <Source href={reportSource}>국가데이터처 「2025년 혼인·이혼 통계」</Source>, <Source href={gapSource}>KOSIS 초혼 부부 연령차 표</Source></p></MotionFigure>
         <div className="editorial-body mt-8 space-y-4 break-keep">
           <h3 className="editorial-h3">10세 이상 차이 나는 초혼 부부는 얼마나 될까?</h3>
           <p>공개 통계에서 나이 차이를 가장 크게 묶은 구간은 <strong>‘10세 이상’</strong>입니다. 2025년 두 사람 모두 초혼인 부부 중 남성이 10세 이상 연상인 혼인은 <strong>7,019건</strong>, 여성이 10세 이상 연상인 혼인은 <strong>409건</strong>입니다. 합치면 <strong>7,428건</strong>입니다.</p>
         </div>
-        <figure className="mt-5 rounded-[1.7rem] border border-[#e9ded4] bg-white p-5 sm:p-7">
+        <MotionFigure className="mt-5 rounded-[1.7rem] border border-[#e9ded4] bg-white p-5 sm:p-7">
           <figcaption className="editorial-h3 mb-1">2025년, 10세 이상 차이 나는 초혼 부부</figcaption>
           <p className="editorial-desc mb-6">전국 · 혼인 신고 건수 · 막대는 7,019건을 기준으로 비교</p>
           <div className="space-y-5">
-            <div><div className="mb-2 flex items-baseline justify-between gap-3 text-sm"><span className="font-semibold">남성 10세 이상 연상</span><strong className="tabular-nums text-[#a74126]">7,019건</strong></div><div className="h-4 overflow-hidden rounded-full bg-[#f0ece7]"><div className="h-full w-full rounded-full bg-[#a75b45]" /></div></div>
-            <div><div className="mb-2 flex items-baseline justify-between gap-3 text-sm"><span className="font-semibold">여성 10세 이상 연상</span><strong className="tabular-nums text-[#605b68]">409건</strong></div><div className="h-4 overflow-hidden rounded-full bg-[#f0ece7]"><div className="h-full rounded-full bg-[#605b68]" style={{ width: `${409 / 7019 * 100}%` }} /></div></div>
+            <div><div className="mb-2 flex items-baseline justify-between gap-3 text-sm"><span className="font-semibold">남성 10세 이상 연상</span><strong className="tabular-nums text-[#a74126]">7,019건</strong></div><div className="h-4 overflow-hidden rounded-full bg-[#f0ece7]"><div className="motion-bar h-full w-full rounded-full bg-[#a75b45]" /></div></div>
+            <div><div className="mb-2 flex items-baseline justify-between gap-3 text-sm"><span className="font-semibold">여성 10세 이상 연상</span><strong className="tabular-nums text-[#605b68]">409건</strong></div><div className="h-4 overflow-hidden rounded-full bg-[#f0ece7]"><div className="motion-bar h-full rounded-full bg-[#605b68]" style={{ width: `${409 / 7019 * 100}%` }} /></div></div>
           </div>
           <div className="mt-6 flex items-baseline justify-between border-t border-[#eee8e1] pt-4"><span className="text-sm font-semibold">두 경우 합계</span><strong className="text-xl font-extrabold tabular-nums">7,428건</strong></div>
           <p className="mt-4 text-xs leading-relaxed text-[#756b63]">자료: <Source href={gapSource}>KOSIS 「시도/초혼부부의 연령차별 혼인」, 2025년</Source> · 두 사람 모두 초혼인 부부만 포함합니다.</p>
-        </figure>
+        </MotionFigure>
         <p className="editorial-body mt-5 break-keep">이 표의 마지막 칸에는 10세 차이와 그보다 큰 차이가 함께 들어갑니다. 따라서 <strong>2025년에 나이 차이가 가장 큰 부부가 정확히 몇 살 차이였는지</strong>는 공개 표로 알 수 없습니다. 재혼이 포함된 전체 혼인 건수와도 구별해야 합니다.</p>
       </section>
 

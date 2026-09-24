@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import { Icon } from "@iconify/react";
+import CountUpNumber from '@/components/data-motion/count-up-number';
 
 const salaryRows = [
   { annual: "3,000만", gross: "250.0만", insurance: "22.3만", tax: "3.0만", net: "224.6만", highlight: false },
@@ -140,12 +141,12 @@ export default function SalaryGuidePage() {
       {/* 2. Key Stats Strip */}
       <section className="mb-24 grid gap-6 border-y border-zinc-200/80 py-8 sm:grid-cols-3">
         {[
-          { number: "4.75%", label: "국민연금 근로자 부담", detail: "2026년 7월 기준 상한 659만 원" },
-          { number: "약 4.0674%", label: "건강·장기요양 합산", detail: "건보 3.595% + 장기요양 약 0.4724%" },
-          { number: "20만 원", label: "월 식대 비과세 한도", detail: "연간 240만 원 과세 제외 혜택" },
+          { value: 4.75, decimals: 2, prefix: "", suffix: "%", label: "국민연금 근로자 부담", detail: "2026년 7월 기준 상한 659만 원" },
+          { value: 4.0674, decimals: 4, prefix: "약 ", suffix: "%", label: "건강·장기요양 합산", detail: "건보 3.595% + 장기요양 약 0.4724%" },
+          { value: 20, decimals: 0, prefix: "", suffix: "만 원", label: "월 식대 비과세 한도", detail: "연간 240만 원 과세 제외 혜택" },
         ].map((item, idx) => (
           <div key={idx} className="border-zinc-200/80 px-1 sm:border-r sm:px-7 sm:last:border-0">
-            <p className="text-3xl sm:text-4xl font-extrabold tracking-[-.05em] text-zinc-950">{item.number}</p>
+            <p className="text-3xl sm:text-4xl font-extrabold tracking-[-.05em] text-zinc-950"><CountUpNumber value={item.value} decimals={item.decimals} prefix={item.prefix} suffix={item.suffix} /></p>
             <p className="mt-2 text-sm font-bold text-zinc-800">{item.label}</p>
             <p className="mt-1 text-xs text-zinc-500">{item.detail}</p>
           </div>
@@ -186,17 +187,17 @@ export default function SalaryGuidePage() {
             
             <p className="mt-8 text-sm text-[#d8d0c7]">예상 월 실수령액</p>
             <p className="mt-1 text-5xl font-extrabold tracking-[-.07em] text-white">
-              358.0<span className="ml-1.5 text-xl font-normal text-[#d8d0c7]">만 원</span>
+              <CountUpNumber value={358} decimals={1} /><span className="ml-1.5 text-xl font-normal text-[#d8d0c7]">만 원</span>
             </p>
             
             <div className="mt-8 grid grid-cols-2 border-t border-white/10 pt-5 text-sm">
               <div>
                 <p className="text-[#b9aea4] text-xs font-medium">4대 보험 합계</p>
-                <p className="mt-1 font-bold text-white">약 38.5만 원</p>
+                <p className="mt-1 font-bold text-white"><CountUpNumber value={38.5} decimals={1} prefix="약 " suffix="만 원" /></p>
               </div>
               <div className="border-l border-white/10 pl-5">
                 <p className="text-[#b9aea4] text-xs font-medium">소득세·지방세</p>
-                <p className="mt-1 font-bold text-white">약 20.1만 원</p>
+                <p className="mt-1 font-bold text-white"><CountUpNumber value={20.1} decimals={1} prefix="약 " suffix="만 원" /></p>
               </div>
             </div>
           </div>
@@ -232,11 +233,11 @@ export default function SalaryGuidePage() {
               {salaryRows.map((row) => (
                 <tr key={row.annual} className={row.highlight ? "bg-[#fdf5f1]" : "hover:bg-zinc-50/50 transition-colors"}>
                   <td className="px-6 py-5 font-extrabold text-zinc-900">{row.annual} 원</td>
-                  <td className="px-5 py-5 text-zinc-600">{row.gross}</td>
-                  <td className="px-5 py-5 text-zinc-600">{row.insurance}</td>
-                  <td className="px-5 py-5 text-zinc-600">{row.tax}</td>
+                  <td className="px-5 py-5 text-zinc-600"><CountUpNumber value={Number.parseFloat(row.gross)} decimals={1} suffix="만" /></td>
+                  <td className="px-5 py-5 text-zinc-600"><CountUpNumber value={Number.parseFloat(row.insurance)} decimals={1} suffix="만" /></td>
+                  <td className="px-5 py-5 text-zinc-600"><CountUpNumber value={Number.parseFloat(row.tax)} decimals={1} suffix="만" /></td>
                   <td className="px-6 py-5 text-right text-lg font-extrabold tracking-tight text-[#a74126]">
-                    {row.net} 원
+                    <CountUpNumber value={Number.parseFloat(row.net)} decimals={1} suffix="만 원" />
                   </td>
                 </tr>
               ))}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useState, type CSSProperties } from 'react';
+import { useEffect, useId, useRef, useState, type CSSProperties } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Icon } from '@iconify/react';
@@ -83,9 +83,51 @@ const faqs = [
   },
 ];
 
+function useCountUpOnView<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  const [progress, setProgress] = useState(1);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let frame = 0;
+    let inView = false;
+    setProgress(0);
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !inView) {
+        inView = true;
+        cancelAnimationFrame(frame);
+        setProgress(0);
+        const start = performance.now();
+        const tick = (now: number) => {
+          const next = Math.min((now - start) / 2200, 1);
+          setProgress(next);
+          if (next < 1) frame = requestAnimationFrame(tick);
+        };
+        frame = requestAnimationFrame(tick);
+      } else if (!entry.isIntersecting && inView) {
+        inView = false;
+        cancelAnimationFrame(frame);
+        setProgress(0);
+      }
+    }, { threshold: 0.2 });
+
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return { ref, progress };
+}
+
 export default function SalaryPercentileGuidePage() {
   const inputId = useId();
   const [salary, setSalary] = useState(5000);
+  const { ref: summaryRef, progress: summaryProgress } = useCountUpOnView<HTMLElement>();
+  const { ref: exampleTableRef, progress: exampleTableProgress } = useCountUpOnView<HTMLDivElement>();
   const top = estimateTopPercent(salary);
   const rank = salary >= ESTIMATED_BOUNDARIES[0].salary ? '상위 1% 이내' : `상위 약 ${top}%`;
   const rangeProgress = Math.min(100, Math.max(0, ((salary - 1000) / 19000) * 100));
@@ -128,20 +170,20 @@ export default function SalaryPercentileGuidePage() {
         <p className="editorial-lead mt-7">국세청 근로소득 신고자 약 2,108만 명의 공개 자료로 내 세전 총급여가 어느 위치인지 살펴보세요. 표시되는 백분위와 연봉 경계는 정확한 개인 순위가 아닌 <strong>참고용 추정치</strong>입니다.</p>
       </header>
 
-      <section className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10" aria-label="통계 요약">
+      <section ref={summaryRef} className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10" aria-label="통계 요약">
         <div className="rounded-2xl border border-[#e8e1d8] bg-white p-5">
           <p className="text-sm text-zinc-500">신고 인원</p>
-          <p className="text-2xl font-extrabold text-[#292520] mt-1">약 2,108만 명</p>
-          <p className="text-xs text-zinc-500 mt-2">정확히 {WORKERS.toLocaleString()}명</p>
+          <p className="text-2xl font-extrabold text-[#292520] mt-1 tabular-nums"><span className="sr-only">약 2,108만 명</span><span aria-hidden="true">약 {Math.round(2108 * summaryProgress).toLocaleString()}만 명</span></p>
+          <p className="text-xs text-zinc-500 mt-2 tabular-nums"><span className="sr-only">정확히 {WORKERS.toLocaleString()}명</span><span aria-hidden="true">정확히 {Math.round(WORKERS * summaryProgress).toLocaleString()}명</span></p>
         </div>
         <div className="rounded-2xl border border-[#e8e1d8] bg-white p-5">
           <p className="text-sm text-zinc-500">평균 총급여</p>
-          <p className="text-2xl font-extrabold text-[#292520] mt-1">약 {AVERAGE.toLocaleString()}만 원</p>
+          <p className="text-2xl font-extrabold text-[#292520] mt-1 tabular-nums"><span className="sr-only">약 {AVERAGE.toLocaleString()}만 원</span><span aria-hidden="true">약 {Math.round(AVERAGE * summaryProgress).toLocaleString()}만 원</span></p>
           <p className="text-xs text-zinc-500 mt-2">총급여 합계 ÷ 신고 인원</p>
         </div>
         <div className="rounded-2xl border border-[#e8e1d8] bg-white p-5">
           <p className="text-sm text-zinc-500">50% 경계 추정</p>
-          <p className="text-2xl font-extrabold text-[#c55232] mt-1">약 {MEDIAN_ESTIMATE.toLocaleString()}만 원</p>
+          <p className="text-2xl font-extrabold text-[#c55232] mt-1 tabular-nums"><span className="sr-only">약 {MEDIAN_ESTIMATE.toLocaleString()}만 원</span><span aria-hidden="true">약 {Math.round(MEDIAN_ESTIMATE * summaryProgress).toLocaleString()}만 원</span></p>
           <p className="text-xs text-zinc-500 mt-2">공식 중위값이 아닌 추정</p>
         </div>
       </section>
@@ -182,11 +224,11 @@ export default function SalaryPercentileGuidePage() {
         <section className="reading-section">
           <h2 className="editorial-h2 mb-3">상위 구간별 연봉은 어느 정도일까?</h2>
           <p className="editorial-body mb-5">아래 금액은 2024년 귀속 자료의 <strong>인접 구간별 평균 총급여</strong> 사이를 중간값으로 잡은 참고 경계입니다. 실제 경계는 원본 자료만으로 알 수 없습니다.</p>
-          <div className="overflow-x-auto rounded-2xl border border-[#e8e1d8]">
+          <div ref={exampleTableRef} className="overflow-x-auto rounded-2xl border border-[#e8e1d8]">
             <table className="w-full text-left text-sm min-w-[430px]">
               <thead className="bg-[#292520] text-white"><tr><th scope="col" className="p-3">예상 위치</th><th scope="col" className="p-3">경계 추정 연봉(세전 총급여)</th></tr></thead>
               <tbody className="divide-y divide-[#e8e1d8] bg-white">
-                {examples.map((row) => <tr key={row.label}><th scope="row" className="p-3 font-semibold">{row.label}</th><td className="p-3">약 {row.salary.toLocaleString()}만 원</td></tr>)}
+                {examples.map((row) => <tr key={row.label}><th scope="row" className="p-3 font-semibold">{row.label}</th><td className="p-3 tabular-nums"><span className="sr-only">약 {row.salary.toLocaleString()}만 원</span><span aria-hidden="true">약 {Math.round(row.salary * exampleTableProgress).toLocaleString()}만 원</span></td></tr>)}
               </tbody>
             </table>
           </div>
