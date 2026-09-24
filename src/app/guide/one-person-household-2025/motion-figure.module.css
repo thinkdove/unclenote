@@ -1,0 +1,18 @@
+.figure :global(.motion-bar) {
+  transform-origin: left center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .figure[data-motion-ready='true'][data-motion-visible='false'] :global(.motion-bar) {
+    transform: scaleX(0);
+  }
+
+  .figure[data-motion-visible='true'] :global(.motion-bar) {
+    animation: fill 2200ms cubic-bezier(.45, 0, .55, 1) both;
+  }
+}
+
+@keyframes fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}

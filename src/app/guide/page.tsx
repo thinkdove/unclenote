@@ -20,6 +20,15 @@ export const metadata: Metadata = {
 
 const GUIDES = [
   {
+    slug: 'one-person-household-2025',
+    title: '혼자 사는 사람은 누구이고, 얼마를 쓰며, 얼마나 외로울까?',
+    description: '1인 가구의 2019~2024년 증가 추이와 나이·17개 시도·소비지출, 2025년 외로움 응답을 공식 통계로 살펴봅니다.',
+    category: '생활·1인 가구 통계',
+    date: '2026.09.25',
+    thumbnail: '/images/one-person-household-cover-2025.png',
+    icon: 'solar:chart-2-bold-duotone',
+  },
+  {
     slug: 'divorce-duration-2025',
     title: '2025년 이혼, 결혼 몇 년 만에 많았을까? 지속 기간·지역·나이로 보기',
     description: '2025년 이혼 88,130건을 동거 기간과 17개 시도, 남편·아내의 나이, 미성년 자녀 수로 나눠 봅니다.',
