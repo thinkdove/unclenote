@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Icon } from '@iconify/react';
 import Script from 'next/script';
 
@@ -45,14 +46,20 @@ export default function SeverancePayGuidePage() {
         <span className="text-[#c55232]">노무·세무 가이드</span>
       </nav>
 
-      <header className="reading-header">
-        <p className="essay-kicker">일과 돈 · 퇴직금 가이드</p>
-        <h1 className="editorial-h1 mb-5">
-          퇴직금, 얼마를<br className="hidden sm:block" /> 받을 수 있을까?
-        </h1>
-        <p className="reading-lead">
-          2026년 기준 퇴직금의 지급 요건부터 평균임금 계산법, IRP 계좌로 받을 때 달라지는 세금까지 차례로 살펴봅니다.
-        </p>
+      <header className="mb-8">
+        <div className="relative overflow-hidden rounded-[1.7rem] bg-[#292520] px-6 py-8 text-white sm:px-9 sm:py-10">
+          <div className="pointer-events-none absolute bottom-8 right-5 top-24 hidden w-[43%] overflow-hidden rounded-2xl md:block" aria-hidden="true">
+            <Image src="/images/severance-guide-cover-preview.png" alt="" fill sizes="300px" className="object-cover object-[55%_center]" priority />
+          </div>
+          <div className="relative z-10 border-b border-white/20 pb-5 text-xs font-bold tracking-wide text-[#f0a791]">일과 돈 · 퇴직금 가이드</div>
+          <div className="relative z-10 py-10 md:max-w-[57%]">
+            <p className="mb-4 text-xs font-bold tracking-[0.2em] text-[#f0a791]">SEVERANCE GUIDE</p>
+            <h1 className="break-keep text-balance text-[2rem] font-extrabold leading-[1.25] tracking-tight text-white sm:text-[2.65rem]">퇴직금,<br /><span className="text-[#f0a791]">얼마를</span><br />받을 수 있을까?</h1>
+            <p className="mt-5 break-keep text-sm leading-relaxed text-[#e9ddd2] sm:text-base">지급 요건부터 평균임금 계산과 IRP 세금까지</p>
+          </div>
+          <p className="relative z-10 border-t border-white/20 pt-5 text-xs text-[#d3c6bb]">2026년 기준 · 삼촌노트 퇴직금 가이드</p>
+        </div>
+        <p className="reading-lead mt-7">2026년 기준 퇴직금의 지급 요건부터 평균임금 계산법, IRP 계좌로 받을 때 달라지는 세금까지 차례로 살펴봅니다.</p>
         <div className="essay-byline">
           <span>삼촌노트</span>
           <span aria-hidden="true">·</span>

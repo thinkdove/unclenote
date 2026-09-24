@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const url = 'https://unclenote.com/guide/first-marriage-age-2025';
@@ -110,10 +111,26 @@ export default function FirstMarriageAgePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
       <nav aria-label="위치" className="mb-7 text-sm text-zinc-500"><Link href="/guide" className="hover:text-[#c55232]">읽을거리</Link><span className="px-2">/</span>생활 통계</nav>
 
-      <header className="border-b border-[#e8ded4] pb-9">
-        <div className="mb-5 flex flex-wrap items-center gap-2 text-xs font-bold tracking-wide"><span className="rounded-full bg-[#f7e8df] px-3 py-1.5 text-[#a74126]">생활 통계 · 결혼</span><span className="text-zinc-500">2026.09.24 · 2025년 자료</span></div>
-        <h1 className="editorial-h1 max-w-[770px] break-keep text-balance">2025년 첫 결혼은 몇 살에 할까? <span className="text-[#ad4c2f]">평균부터 지역·나이 차이까지</span></h1>
-        <p className="editorial-body mt-6 max-w-[720px] break-keep text-[#5c544d]">“요즘은 다들 몇 살에 결혼해?”라는 질문은 간단하지만 답은 하나가 아닙니다. 평균 나이, 가장 많이 결혼하는 나이, 가장 어린·많은 나이는 서로 다른 숫자입니다. 2025년 국가데이터처 혼인 통계와 국가통계포털(KOSIS) 원표를 본문 안에서 함께 펼쳐 보겠습니다.</p>
+      <header>
+        <div className="relative overflow-hidden rounded-[1.7rem] bg-[#292520] px-6 py-8 text-white sm:px-10 sm:py-11">
+          <div className="pointer-events-none absolute bottom-[5.5rem] right-6 top-[7.5rem] hidden w-[43%] overflow-hidden rounded-2xl [mask-image:linear-gradient(to_right,transparent,black_18%)] md:block" aria-hidden="true">
+            <Image src="/images/first-marriage-cover-2025-preview.png" alt="" fill sizes="360px" className="object-cover object-[center_35%]" priority />
+          </div>
+          <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 border-b border-white/20 pb-5 text-xs font-bold tracking-wide">
+            <span className="rounded-full border border-[#e7ae9a]/45 px-3 py-1.5 text-[#f2b9a5]">삼촌노트 생활 통계</span>
+            <span className="text-[#d3c6bb]">2025년 결혼 통계 · 2026.09.24</span>
+          </div>
+          <div className="relative z-10 py-10 sm:py-14 md:max-w-[62%]">
+            <p className="mb-4 text-xs font-bold tracking-[0.23em] text-[#f0a791]">DATA STORY / 01</p>
+            <h1 className="break-keep text-balance text-[2rem] font-extrabold leading-[1.25] tracking-tight text-white sm:text-[3.25rem]">2025년 첫 결혼은<br /><span className="text-[#f0a791]">몇 살에</span><br />할까?</h1>
+            <p className="mt-5 break-keep text-base font-medium leading-relaxed text-[#e9ddd2] sm:text-lg">평균부터 지역·나이 차이까지</p>
+          </div>
+          <div className="relative z-10 grid gap-3 border-t border-white/20 pt-5 text-sm sm:grid-cols-[1fr_auto] sm:items-end">
+            <p className="max-w-[480px] break-keep leading-relaxed text-[#d3c6bb]">남성 평균 33.9세, 여성 평균 31.6세. 숫자 뒤의 분포도 함께 봅니다.</p>
+            <span className="font-bold tabular-nums text-[#f0a791]">자료: KOSIS · 국가데이터처</span>
+          </div>
+        </div>
+        <p className="editorial-body mt-7 max-w-[720px] break-keep text-[#5c544d]">“요즘은 다들 몇 살에 결혼해?”라는 질문은 간단하지만 답은 하나가 아닙니다. 평균 나이, 가장 많이 결혼하는 나이, 가장 어린·많은 나이는 서로 다른 숫자입니다. 2025년 국가데이터처 혼인 통계와 국가통계포털(KOSIS) 원표를 본문 안에서 함께 펼쳐 보겠습니다.</p>
       </header>
 
       <div className="mt-8 grid gap-3 sm:grid-cols-3">

@@ -2,6 +2,7 @@
 
 import { useId, useState, type CSSProperties } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Icon } from '@iconify/react';
 
 // 국세청 「근로소득 백분위(천분위) 자료」 2024년 귀속·2025년 신고분.
@@ -111,11 +112,20 @@ export default function SalaryPercentileGuidePage() {
         <Link href="/guide" className="hover:text-[#c55232]">생활 가이드</Link> <span aria-hidden="true">/</span> 연봉 통계
       </nav>
 
-      <header className="reading-hero mb-8">
-        <p className="editorial-eyebrow mb-3">2024년 귀속 국세청 통계 · 2025년 신고분</p>
-        <h1 className="editorial-h1 mb-4">내 연봉은 상위 몇 %일까?</h1>
-        <p className="editorial-lead">국세청 근로소득 신고자 약 2,108만 명의 공개 자료로 내 세전 총급여가 어느 위치인지 살펴보세요. 표시되는 백분위와 연봉 경계는 정확한 개인 순위가 아닌 <strong>참고용 추정치</strong>입니다.</p>
-        <p className="mt-4 text-xs text-zinc-500">자료 기준: 2024년 귀속 · 글 수정: 2026.09.23</p>
+      <header className="mb-8">
+        <div className="relative overflow-hidden rounded-[1.7rem] bg-[#292520] px-6 py-8 text-white sm:px-9 sm:py-10">
+          <div className="pointer-events-none absolute bottom-8 right-5 top-24 hidden w-[43%] overflow-hidden rounded-2xl md:block" aria-hidden="true">
+            <Image src="/images/salary-percentile-cover-preview.png" alt="" fill sizes="320px" className="object-cover object-[58%_center]" priority />
+          </div>
+          <div className="relative z-10 border-b border-white/20 pb-5 text-xs font-bold tracking-wide text-[#f0a791]">2024년 귀속 국세청 통계 · 2025년 신고분</div>
+          <div className="relative z-10 py-10 md:max-w-[57%]">
+            <p className="mb-4 text-xs font-bold tracking-[0.2em] text-[#f0a791]">SALARY DATA</p>
+            <h1 className="break-keep text-balance text-[2rem] font-extrabold leading-[1.25] tracking-tight text-white sm:text-[2.65rem]">내 연봉은<br /><span className="text-[#f0a791]">상위 몇 %</span>일까?</h1>
+            <p className="mt-5 break-keep text-sm leading-relaxed text-[#e9ddd2] sm:text-base">약 2,108만 명의 신고 통계로 내 위치를 가늠해 봅니다.</p>
+          </div>
+          <p className="relative z-10 border-t border-white/20 pt-5 text-xs text-[#d3c6bb]">자료 기준: 2024년 귀속 · 글 수정: 2026.09.23</p>
+        </div>
+        <p className="editorial-lead mt-7">국세청 근로소득 신고자 약 2,108만 명의 공개 자료로 내 세전 총급여가 어느 위치인지 살펴보세요. 표시되는 백분위와 연봉 경계는 정확한 개인 순위가 아닌 <strong>참고용 추정치</strong>입니다.</p>
       </header>
 
       <section className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10" aria-label="통계 요약">
