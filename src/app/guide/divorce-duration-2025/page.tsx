@@ -142,7 +142,7 @@ export default function DivorceDurationPage() {
         <div className="relative overflow-hidden rounded-[1.7rem] bg-[#292520] px-6 py-8 text-white sm:px-10 sm:py-11">
           <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full border-[42px] border-[#a75b45]/15 sm:h-80 sm:w-80" />
           <div className="pointer-events-none absolute bottom-[5.5rem] right-6 top-[7.5rem] hidden w-[43%] overflow-hidden rounded-2xl [mask-image:linear-gradient(to_right,transparent,black_18%)] md:block" aria-hidden="true">
-            <Image src="/images/divorce-duration-cover-2025-v2.png" alt="" fill sizes="360px" className="object-contain object-center" priority />
+            <Image src="/images/divorce-duration-cover-2025-v4.png" alt="" fill sizes="360px" className="object-contain object-center" priority />
           </div>
           <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 border-b border-white/20 pb-5 text-xs font-bold tracking-wide">
             <span className="rounded-full border border-[#e7ae9a]/45 px-3 py-1.5 text-[#f2b9a5]">삼촌노트 생활 통계</span>
