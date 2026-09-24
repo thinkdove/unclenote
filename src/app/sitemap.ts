@@ -65,6 +65,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/guide/divorce-duration-2025`,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/guide/salary-percentile-2026`,
       changeFrequency: 'weekly',
       priority: 0.95,

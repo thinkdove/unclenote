@@ -20,6 +20,15 @@ export const metadata: Metadata = {
 
 const GUIDES = [
   {
+    slug: 'divorce-duration-2025',
+    title: '2025년 이혼, 결혼 몇 년 만에 많았을까? 지속 기간·지역·나이로 보기',
+    description: '2025년 이혼 88,130건을 동거 기간과 17개 시도, 남편·아내의 나이, 미성년 자녀 수로 나눠 봅니다.',
+    category: '생활·이혼 통계',
+    date: '2026.09.24',
+    thumbnail: '/images/share-samchon-note-v2.png',
+    icon: 'solar:chart-2-bold-duotone',
+  },
+  {
     slug: 'first-marriage-age-2025',
     title: '2025년 첫 결혼은 몇 살에 할까? 평균부터 지역·나이 차이까지',
     description: '국가데이터처와 KOSIS 원표로 초혼 연령대별 인원, 17개 시도 평균, 가장 이른·늦은 공개 구간을 한눈에 비교합니다.',
