@@ -71,7 +71,7 @@ export default function Navbar() {
     <div className="site-nav-shell">
       <header className="site-nav-header">
         <Link href="/" onClick={closeMenus} className="site-nav-logo" aria-label="삼촌노트 홈">
-          <Image src="/images/brand-avatar-bulb-transparent.png" alt="" width={28} height={28} priority />
+          <Image src="/images/brand-avatar-bulb-natural.png" alt="" width={28} height={28} priority />
           <span>삼촌노트</span>
         </Link>
 
