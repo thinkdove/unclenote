@@ -3,7 +3,7 @@ import path from 'node:path';
 import sharp from 'sharp';
 
 const root = process.cwd();
-const mark = path.join(root, 'public/images/brand-avatar-bulb-natural.png');
+const mark = path.join(root, 'public/images/brand-avatar-square-original-bulb.png');
 const share = path.join(root, 'public/images/share-samchon-note-v2.png');
 const app = path.join(root, 'src/app');
 
