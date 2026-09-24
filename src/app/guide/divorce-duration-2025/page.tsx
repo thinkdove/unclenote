@@ -137,10 +137,24 @@ export default function DivorceDurationPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
       <nav aria-label="위치" className="mb-7 text-sm text-zinc-500"><Link href="/guide" className="hover:text-[#c55232]">읽을거리</Link><span className="px-2">/</span>생활 통계</nav>
 
-      <header className="border-b border-[#e8ded4] pb-9">
-        <div className="mb-5 flex flex-wrap items-center gap-2 text-xs font-bold tracking-wide"><span className="rounded-full bg-[#f7e8df] px-3 py-1.5 text-[#a74126]">생활 통계 · 이혼</span><span className="text-zinc-500">2026.09.24 · 2025년 자료</span></div>
-        <h1 className="editorial-h1 max-w-[770px] break-keep text-balance">2025년 이혼, 결혼 몇 년 만에 많았을까? <span className="text-[#ad4c2f]">지속 기간·지역·나이로 보기</span></h1>
-        <p className="editorial-body mt-6 max-w-[720px] break-keep text-[#5c544d]">“몇 년쯤 함께 살다가 이혼하는 부부가 가장 많을까?” 2025년 이혼 통계의 답은 예상보다 복잡합니다. 30년 이상이 가장 큰 구간이지만, 그 구간은 끝이 열려 있습니다. 지속 기간과 지역, 이혼 당시 나이를 공식 원표의 숫자와 함께 펼쳐 보겠습니다.</p>
+      <header>
+        <div className="relative overflow-hidden rounded-[1.7rem] bg-[#292520] px-6 py-8 text-white sm:px-10 sm:py-11">
+          <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full border-[42px] border-[#a75b45]/15 sm:h-80 sm:w-80" />
+          <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 border-b border-white/20 pb-5 text-xs font-bold tracking-wide">
+            <span className="rounded-full border border-[#e7ae9a]/45 px-3 py-1.5 text-[#f2b9a5]">삼촌노트 생활 통계</span>
+            <span className="text-[#d3c6bb]">2025년 이혼 통계 · 2026.09.24</span>
+          </div>
+          <div className="relative z-10 py-10 sm:py-14">
+            <p className="mb-4 text-xs font-bold tracking-[0.23em] text-[#f0a791]">DATA STORY / 02</p>
+            <h1 className="max-w-[720px] break-keep text-balance text-[2rem] font-extrabold leading-[1.25] tracking-tight text-white sm:text-[3.25rem]">2025년 이혼,<br /><span className="text-[#f0a791]">결혼 몇 년 만에</span><br />많았을까?</h1>
+            <p className="mt-5 break-keep text-base font-medium leading-relaxed text-[#e9ddd2] sm:text-lg">지속 기간·지역·나이로 읽는 88,130건의 기록</p>
+          </div>
+          <div className="relative z-10 grid gap-3 border-t border-white/20 pt-5 text-sm sm:grid-cols-[1fr_auto] sm:items-end">
+            <p className="max-w-[480px] break-keep leading-relaxed text-[#d3c6bb]">30년 이상이 가장 큰 공개 구간. 첫 10년을 한 해씩 보면 5년 구간이 가장 큽니다.</p>
+            <span className="font-bold tabular-nums text-[#f0a791]">자료: KOSIS · 국가데이터처</span>
+          </div>
+        </div>
+        <p className="editorial-body mt-7 max-w-[720px] break-keep text-[#5c544d]">“몇 년쯤 함께 살다가 이혼하는 부부가 가장 많을까?” 2025년 이혼 통계의 답은 예상보다 복잡합니다. 30년 이상이 가장 큰 구간이지만, 그 구간은 끝이 열려 있습니다. 지속 기간과 지역, 이혼 당시 나이를 공식 원표의 숫자와 함께 펼쳐 보겠습니다.</p>
       </header>
 
       <div className="mt-8 grid gap-3 sm:grid-cols-3">
