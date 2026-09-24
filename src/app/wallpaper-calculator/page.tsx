@@ -72,7 +72,7 @@ export default function WallpaperCalculatorPage() {
 
   // 아파트 평수 모드용
   const [aptPyung, setAptPyung] = useState<number>(32); // 분양 32평
-  const [aptMultiplier, setAptMultiplier] = useState<number>(2.5); // 도배 계수 (보통 2.5~2.8배)
+  const aptMultiplier = 2.5; // 도배 계수 (보통 2.5~2.8배)
 
   // 직접 면적 모드용
   const [directPyung, setDirectPyung] = useState<number>(15);
@@ -108,7 +108,6 @@ export default function WallpaperCalculatorPage() {
 
   // 로스율 적용 총 면적
   const totalSqmWithLoss = netSqm * (1 + lossRate / 100);
-  const totalPyungWithLoss = totalSqmWithLoss / 3.3058;
 
   // 필요한 롤(Roll) 수 계산 (올림)
   const netRolls = Math.ceil(netSqm / currentPreset.sqmPerRoll);
@@ -116,11 +115,11 @@ export default function WallpaperCalculatorPage() {
 
   // 추천 부자재 수량 (삼촌 팁)
   // 도배용 풀: 약 3~4롤당 1봉지(2kg)
-  const pasteBags = Math.max(1, Math.ceil(totalRollsWithLoss / 3));
+  const pasteBags = Math.ceil(totalRollsWithLoss / 3);
   // 친환경 지물본드 (접착력 보강): 약 5롤당 1개
-  const bondTubes = Math.max(1, Math.ceil(totalRollsWithLoss / 5));
+  const bondTubes = Math.ceil(totalRollsWithLoss / 5);
   // 이음새 초배지(네바리): 1~2롤
-  const nevariRolls = Math.max(1, Math.ceil(totalRollsWithLoss / 6));
+  const nevariRolls = Math.ceil(totalRollsWithLoss / 6);
 
   const handleCopy = () => {
     let specSummary = '';

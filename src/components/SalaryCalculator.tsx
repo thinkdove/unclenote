@@ -7,7 +7,7 @@ export default function SalaryCalculator() {
   const [annualSalary, setAnnualSalary] = useState<string>("50,000,000"); // 기본 5천만 원
   const [nonTaxableMonthly, setNonTaxableMonthly] = useState<string>("200,000"); // 식대 등 기본 20만 원
   const [dependents, setDependents] = useState<number>(1); // 본인 포함 부양가족 수 (기본 1)
-  const [childrenCount, setChildrenCount] = useState<number>(0); // 20세 이하 자녀 수
+  const [childrenCount, setChildrenCount] = useState<number>(0); // 8세 이상 20세 이하 공제대상 자녀 수
   const [severancePay, setSeverancePay] = useState<"exclude" | "include">("exclude"); // 퇴직금 별도 / 포함
 
   const [result, setResult] = useState<{
@@ -56,13 +56,13 @@ export default function SalaryCalculator() {
     // 퇴직금 포함인 경우 13으로 분할, 별도인 경우 12로 분할
     const divider = severancePay === "include" ? 13 : 12;
     const monthlyGross = rawSalary / divider;
-    const monthlyNonTax = parseFloat(nonTaxableMonthly.replace(/,/g, "")) || 0;
+    const monthlyNonTax = Math.min(monthlyGross, parseFloat(nonTaxableMonthly.replace(/,/g, "")) || 0);
     
     // 과세 대상 월 급여
     const taxableMonthly = Math.max(0, monthlyGross - monthlyNonTax);
 
     // 2026년 7월부터 국민연금 기준소득월액 41만~659만 원, 근로자 부담 4.75%.
-    const pensionBase = Math.min(Math.max(taxableMonthly, 410000), 6590000);
+    const pensionBase = taxableMonthly > 0 ? Math.min(Math.max(taxableMonthly, 410000), 6590000) : 0;
     const pension = Math.floor((pensionBase * 0.0475) / 10) * 10;
 
     // 2026년 건강보험료율 7.19%, 근로자 50% 부담.
@@ -121,8 +121,12 @@ export default function SalaryCalculator() {
       calculatedTax = 15360000 + (taxBase - 88000000) * 0.35;
     } else if (taxBase <= 300000000) {
       calculatedTax = 37060000 + (taxBase - 150000000) * 0.38;
-    } else {
+    } else if (taxBase <= 500000000) {
       calculatedTax = 94060000 + (taxBase - 300000000) * 0.40;
+    } else if (taxBase <= 1000000000) {
+      calculatedTax = 174060000 + (taxBase - 500000000) * 0.42;
+    } else {
+      calculatedTax = 384060000 + (taxBase - 1000000000) * 0.45;
     }
 
     // 근로소득세액공제
@@ -138,11 +142,11 @@ export default function SalaryCalculator() {
     else if (taxableAnnual > 55000000) creditLimit = 660000;
     taxCredit = Math.min(taxCredit, creditLimit);
 
-    // 자녀세액공제 (1명 15만, 2명 35만, 3명 이상은 추가당 30만)
+    // 2025년 이후 자녀세액공제 (첫째 25만, 둘째 30만, 셋째부터 각 40만).
     let childCredit = 0;
-    if (childrenCount === 1) childCredit = 150000;
-    else if (childrenCount === 2) childCredit = 350000;
-    else if (childrenCount > 2) childCredit = 350000 + (childrenCount - 2) * 300000;
+    if (childrenCount === 1) childCredit = 250000;
+    else if (childrenCount === 2) childCredit = 550000;
+    else if (childrenCount > 2) childCredit = 550000 + (childrenCount - 2) * 400000;
 
     // 최종 연간 소득세 -> 월 소득세
     const annualIncomeTax = Math.max(0, calculatedTax - taxCredit - childCredit);
@@ -306,11 +310,11 @@ export default function SalaryCalculator() {
 
           </div>
 
-          {/* 20세 이하 자녀 수 (부양가족 2명 이상일 때 노출) */}
+          {/* 공제대상 자녀 수 (부양가족 2명 이상일 때 노출) */}
           {dependents > 1 && (
             <div className="flex flex-col gap-2 p-3.5 bg-[#fff4ee]/40 rounded-2xl border border-[#f1d8cc]/60 animate-in fade-in duration-300">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-zinc-800">20세 이하 자녀 수</span>
+                <span className="text-xs font-bold text-zinc-800">8~20세 공제대상 자녀 수</span>
                 <div className="flex items-center gap-3">
                   <button
                     type="button"

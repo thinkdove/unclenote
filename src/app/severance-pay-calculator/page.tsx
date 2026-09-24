@@ -26,10 +26,19 @@ export default function SeverancePayCalculatorPage() {
   const end = new Date(`${endDate}T00:00:00Z`);
   const datesValid = Number.isFinite(start.getTime()) && Number.isFinite(end.getTime()) && end > start;
   const totalDays = datesValid ? Math.round((end.getTime() - start.getTime()) / 86400000) : 0;
-  const years = Math.floor(totalDays / 365);
-  const remainingDays = totalDays % 365;
-  const months = Math.floor(remainingDays / 30);
-  const serviceYears = Math.max(1, Math.ceil(totalDays / 365));
+  const anniversaryAt = (elapsedYears: number) => {
+    const year = start.getUTCFullYear() + elapsedYears;
+    const month = start.getUTCMonth();
+    const day = Math.min(start.getUTCDate(), new Date(Date.UTC(year, month + 1, 0)).getUTCDate());
+    return new Date(Date.UTC(year, month, day));
+  };
+  const firstAnniversary = anniversaryAt(1);
+  const candidateYears = datesValid ? end.getUTCFullYear() - start.getUTCFullYear() : 0;
+  const years = datesValid ? Math.max(0, candidateYears - (end < anniversaryAt(candidateYears) ? 1 : 0)) : 0;
+  const anniversary = anniversaryAt(years);
+  const remainingDays = datesValid ? Math.max(0, Math.round((end.getTime() - anniversary.getTime()) / 86400000)) : 0;
+  const months = datesValid ? Math.max(0, (end.getUTCFullYear() - anniversary.getUTCFullYear()) * 12 + end.getUTCMonth() - anniversary.getUTCMonth() - (end.getUTCDate() < anniversary.getUTCDate() ? 1 : 0)) : 0;
+  const serviceYears = Math.max(1, years + (remainingDays > 0 ? 1 : 0));
 
   // 퇴직 전 역산한 실제 3개월의 달력 일수 (월말은 해당 월 마지막 날로 맞춤).
   const periodStart = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth() - 3, 1));
@@ -44,10 +53,10 @@ export default function SeverancePayCalculatorPage() {
     (Number(annualLeavePay || 0) * 3) / 12;
 
   // 1일 평균임금
-  const dailyAverageWage = last3MonthsDays > 0 ? Math.round(total3MonthsWages / last3MonthsDays) : 0;
+  const dailyAverageWage = last3MonthsDays > 0 ? total3MonthsWages / last3MonthsDays : 0;
 
   // 세전 퇴직금 = 1일 평균임금 * 30일 * (총 재직일수 / 365)
-  const isEligible = totalDays >= 365;
+  const isEligible = datesValid && end >= firstAnniversary;
   const grossSeverance = isEligible
     ? Math.round(dailyAverageWage * 30 * (totalDays / 365))
     : 0;
@@ -100,8 +109,14 @@ export default function SeverancePayCalculatorPage() {
       convertedTax = 6240000 + (taxBase - 50000000) * 0.24;
     } else if (taxBase <= 150000000) {
       convertedTax = 15360000 + (taxBase - 88000000) * 0.35;
-    } else {
+    } else if (taxBase <= 300000000) {
       convertedTax = 37060000 + (taxBase - 150000000) * 0.38;
+    } else if (taxBase <= 500000000) {
+      convertedTax = 94060000 + (taxBase - 300000000) * 0.40;
+    } else if (taxBase <= 1000000000) {
+      convertedTax = 174060000 + (taxBase - 500000000) * 0.42;
+    } else {
+      convertedTax = 384060000 + (taxBase - 1000000000) * 0.45;
     }
 
     // 6. 산출세액 = (환산산출세액 / 12) * 근속연수
@@ -118,10 +133,10 @@ export default function SeverancePayCalculatorPage() {
   const handleCopy = () => {
     const text = `[삼촌노트 퇴직금 계산 결과]
 • 재직기간: ${startDate} ~ ${endDate} (${totalDays}일 / 약 ${years}년 ${months}개월)
-• 1일 평균임금: ${dailyAverageWage.toLocaleString()}원
+• 1일 평균임금: ${Math.round(dailyAverageWage).toLocaleString()}원
 • 세전 퇴직금: ${grossSeverance.toLocaleString()}원
 • 예상 퇴직소득세(지방세 포함): ${estimatedTax.toLocaleString()}원
-• 실제 통장 수령액(세후): ${netSeverance.toLocaleString()}원
+• 예상 세후 수령액: ${netSeverance.toLocaleString()}원
 계산기 바로가기: https://UncleNote.com/severance-pay-calculator`;
 
     navigator.clipboard.writeText(text);
@@ -199,7 +214,7 @@ export default function SeverancePayCalculatorPage() {
           )}
           {datesValid && !isEligible && (
             <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 leading-relaxed">
-              ⚠️ 근로기준법상 계속근로기간이 <strong>1년(365일) 미만</strong>인 경우 법정 퇴직금 지급 대상이 아닙니다.
+              ⚠️ 계속근로기간이 입사일로부터 <strong>만 1년 미만</strong>인 경우 법정 퇴직금 지급 대상이 아닙니다. 주당 소정근로시간도 4주 평균 15시간 이상이어야 합니다.
             </div>
           )}
 
@@ -320,7 +335,7 @@ export default function SeverancePayCalculatorPage() {
               <div className="flex justify-between items-center text-zinc-600">
                 <span>1일 평균임금</span>
                 <span className="font-semibold text-zinc-800">
-                  {dailyAverageWage.toLocaleString()}원
+                  {Math.round(dailyAverageWage).toLocaleString()}원
                 </span>
               </div>
               <div className="flex justify-between items-center text-zinc-600">

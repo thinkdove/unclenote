@@ -94,9 +94,10 @@ export default function CurtainCalculatorPage() {
   // 완성 가로 폭 = 창문 가로 * 주름 배수
   const curtainFinishedWidthCm = Math.round(windowWidthCm * currentPleat.multiplier);
   // 필요한 원단 폭 수 = 완성 가로 폭 / 140cm (올림)
-  const totalFabricWidths = Math.ceil(curtainFinishedWidthCm / FABRIC_WIDTH_CM);
-  // 양개형일 경우 좌/우 각 폭 수
-  const widthsPerSide = splitType === 'double' ? Math.ceil(totalFabricWidths / 2) : totalFabricWidths;
+  const minimumFabricWidths = Math.ceil(curtainFinishedWidthCm / FABRIC_WIDTH_CM);
+  // 양개형은 좌우를 같은 폭 수로 제작하므로 홀수 폭을 짝수로 올린다.
+  const widthsPerSide = splitType === 'double' ? Math.ceil(minimumFabricWidths / 2) : minimumFabricWidths;
+  const totalFabricWidths = splitType === 'double' ? widthsPerSide * 2 : minimumFabricWidths;
 
   // 커튼 세로(높이) 제작 치수 = 천장 높이 - 부속 공제
   const curtainFinishedHeightCm = Math.max(100, ceilingHeightCm - currentHardware.deductionCm);
@@ -105,7 +106,7 @@ export default function CurtainCalculatorPage() {
   const railJa = Math.ceil(windowWidthCm / 30);
 
   // 2. 블라인드 계산
-  // 바깥 덮기 시 좌우 +10cm (한쪽 5cm), 세로 +15cm (아래 여유)
+  // 바깥 덮기 시 좌우 +10cm (한쪽 5cm), 세로 +10cm.
   const blindOrderWidthCm = blindInstallType === 'outside' ? windowWidthCm + 10 : windowWidthCm - 1;
   const blindOrderHeightCm = blindInstallType === 'outside' ? ceilingHeightCm + 10 : ceilingHeightCm;
   // 헤베(㎡) 계산 = 가로(m) * 세로(m)

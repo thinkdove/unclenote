@@ -69,13 +69,14 @@ export default function FlooringCalculatorPage() {
   const marginLengthM = finishType === 'fold' ? 0.2 : 0.1;
 
   // 방향 1: 가로 폭을 1.8m로 나눌 때 (길이 방향: 세로)
-  const lanesDir1 = Math.ceil(widthM / ROLL_WIDTH);
-  const laneLengthDir1 = lengthM + marginLengthM;
+  const hasFloorArea = widthM > 0 && lengthM > 0;
+  const lanesDir1 = hasFloorArea ? Math.ceil(widthM / ROLL_WIDTH) : 0;
+  const laneLengthDir1 = hasFloorArea ? lengthM + marginLengthM : 0;
   const totalLengthDir1 = lanesDir1 * laneLengthDir1;
 
   // 방향 2: 세로 길이를 1.8m로 나눌 때 (길이 방향: 가로)
-  const lanesDir2 = Math.ceil(lengthM / ROLL_WIDTH);
-  const laneLengthDir2 = widthM + marginLengthM;
+  const lanesDir2 = hasFloorArea ? Math.ceil(lengthM / ROLL_WIDTH) : 0;
+  const laneLengthDir2 = hasFloorArea ? widthM + marginLengthM : 0;
   const totalLengthDir2 = lanesDir2 * laneLengthDir2;
 
   // 더 자재 소모가 적은(로스가 적은) 추천 방향 자동 판별
@@ -99,14 +100,14 @@ export default function FlooringCalculatorPage() {
 
   // 부자재 계산
   // 이음매 접착제(용착제): 2줄 이상일 때 이음매(줄수 - 1)개 발생. 1병으로 약 20m 시공 가능
-  const seamCount = recommendedLanes - 1;
+  const seamCount = Math.max(0, recommendedLanes - 1);
   const totalSeamLengthM = seamCount * (isDir1Better ? lengthM : widthM);
   const solventBottles = seamCount > 0 ? Math.max(1, Math.ceil(totalSeamLengthM / 20)) : 0;
 
   // 걸레받이 굽도리(스티커): 방 둘레 = 2 * (가로 + 세로)
   const roomPerimeterM = 2 * (widthM + lengthM);
   // 굽도리 1롤 = 보통 25m
-  const gubdoriRolls = finishType === 'cut' ? Math.ceil(roomPerimeterM / 25) : 0;
+  const gubdoriRolls = finishType === 'cut' && hasFloorArea ? Math.ceil(roomPerimeterM / 25) : 0;
 
   const currentThickness = THICKNESS_PRESETS.find((t) => t.id === selectedThickness) || THICKNESS_PRESETS[1];
 

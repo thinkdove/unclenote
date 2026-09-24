@@ -31,12 +31,12 @@ export default function VatCalculator() {
       if (calculationMode === "exclude") {
         // 공급가액 입력 시 (합계금액 역산)
         supplyValue = numAmount;
-        vatAmount = numAmount * 0.1;
-        totalAmount = numAmount * 1.1;
+        vatAmount = Math.floor(numAmount * 0.1);
+        totalAmount = supplyValue + vatAmount;
       } else {
         // 합계금액 입력 시 (공급가액 역산)
         totalAmount = numAmount;
-        supplyValue = numAmount / 1.1;
+        supplyValue = Math.floor(numAmount / 1.1);
         vatAmount = numAmount - supplyValue;
       }
     }

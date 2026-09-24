@@ -467,7 +467,7 @@ export default function WageCalculatorPage() {
               </span>
             </h3>
             <p className="leading-relaxed text-[15px] sm:text-base text-zinc-700">
-              <strong>네, 법적으로 100% 무조건 보장됩니다.</strong> 4주간 평균하여 1주 소정근로시간이 15시간 이상이고 계속근로기간이 1년(365일)을 넘었다면 고용 형태(알바, 계약직, 수습)나 4대보험 가입 여부, 사업장 규모(5인 미만 포함)와 무관하게 법정 퇴직금을 전액 지급해야 합니다.
+              <strong>네, 법정 요건을 채우면 지급 대상입니다.</strong> 4주간 평균하여 1주 소정근로시간이 15시간 이상이고 계속근로기간이 만 1년 이상이면 고용 형태(알바, 계약직, 수습)나 4대보험 가입 여부, 사업장 규모(5인 미만 포함)와 무관하게 법정 퇴직금을 청구할 수 있습니다.
             </p>
             <div className="text-sm sm:text-[15px] text-zinc-700 bg-[#fdfbf7] p-4 rounded-2xl border border-zinc-200/80 leading-relaxed">
               💡 <strong>퇴직금 공식:</strong> <code>(1일 평균임금 × 30일 × 재직일수) ÷ 365</code>로 산출됩니다.

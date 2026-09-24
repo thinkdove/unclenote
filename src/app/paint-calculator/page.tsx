@@ -69,7 +69,9 @@ export default function PaintCalculatorPage() {
 
   // 캔 추천 조합 (1L, 4L, 18L 말통)
   let canCombos = '';
-  if (recommendedPaintLiters <= 1.0) {
+  if (recommendedPaintLiters === 0) {
+    canCombos = '필요 없음';
+  } else if (recommendedPaintLiters <= 1.0) {
     canCombos = '1L 1통';
   } else if (recommendedPaintLiters <= 2.0) {
     canCombos = '1L 2통';
@@ -81,18 +83,26 @@ export default function PaintCalculatorPage() {
     const fourL = Math.floor(recommendedPaintLiters / 4);
     const remainder = recommendedPaintLiters % 4;
     const oneL = Math.ceil(remainder);
-    canCombos = `4L ${fourL}통 + 1L ${oneL}통`;
+    canCombos = oneL > 0 ? `4L ${fourL}통 + 1L ${oneL}통` : `4L ${fourL}통`;
   } else if (recommendedPaintLiters <= 16.0) {
     const fourL = Math.ceil(recommendedPaintLiters / 4);
     canCombos = `4L ${fourL}통`;
   } else {
-    canCombos = `18L 말통 1통 (대용량)`;
+    const eighteenL = Math.floor(recommendedPaintLiters / 18);
+    const remainder = recommendedPaintLiters - eighteenL * 18;
+    const fourL = Math.floor(remainder / 4);
+    const oneL = Math.ceil(remainder - fourL * 4);
+    canCombos = [
+      eighteenL > 0 ? `18L ${eighteenL}통` : '',
+      fourL > 0 ? `4L ${fourL}통` : '',
+      oneL > 0 ? `1L ${oneL}통` : '',
+    ].filter(Boolean).join(' + ');
   }
 
   // 젯소(프라이머) 소요량: 1회 도포 기준 1L당 약 9㎡ 커버
   const gessoLitersExact = needGesso ? singleCoatAreaSqm / 9 : 0;
-  const recommendedGessoLiters = needGesso ? Math.max(0.5, Math.ceil(gessoLitersExact * 1.1 * 10) / 10) : 0;
-  const gessoCanCombo = needGesso
+  const recommendedGessoLiters = needGesso && singleCoatAreaSqm > 0 ? Math.max(0.5, Math.ceil(gessoLitersExact * 1.1 * 10) / 10) : 0;
+  const gessoCanCombo = recommendedGessoLiters > 0
     ? recommendedGessoLiters <= 0.5
       ? '500ml 1통'
       : recommendedGessoLiters <= 1.0
@@ -104,7 +114,7 @@ export default function PaintCalculatorPage() {
 
   // 롤러 및 부자재 추천
   const rollerSize = targetType === 'door' ? '소형 4인치 롤러' : '중형 7~9인치 롤러';
-  const maskingTapeRolls = Math.max(1, Math.ceil(singleCoatAreaSqm / 8));
+  const maskingTapeRolls = Math.ceil(singleCoatAreaSqm / 8);
 
   const handleCopy = () => {
     let targetLabel = '';
