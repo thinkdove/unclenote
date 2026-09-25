@@ -21,6 +21,15 @@ export const metadata: Metadata = {
 
 const GUIDES = [
   {
+    slug: 'spending-breakdown-2026',
+    title: '한 달 293만 원, 어디에 가장 많이 썼을까? 식비보다 커진 외식비',
+    description: '2026년 2분기 가계동향조사 원표로 12대 소비지출 항목의 순위, 코로나19 전후 외식비·식료품비의 역전, 소득 5분위별 지출 구조 차이를 확인합니다.',
+    category: '경제·소비 통계',
+    date: '2026.09.25',
+    thumbnail: '/images/spending-breakdown-cover-2026.jpg',
+    icon: 'solar:chart-2-bold-duotone',
+  },
+  {
     slug: 'employment-rate-2025',
     title: '실업률 2.8%의 착시: 취준생이 많아질수록 실업률이 떨어진다?',
     description: '2025년 고용 통계로 고용률·실업률 산정 방식의 맹점, 16%대 청년 체감실업률(고용보조지표3), 연도별 추이와 연령·지역별 격차를 낱낱이 밝힙니다.',

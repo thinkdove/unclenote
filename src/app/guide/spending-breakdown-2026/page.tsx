@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import MotionFigure from '../one-person-household-2025/motion-figure';
 import CountUpNumber from '@/components/data-motion/count-up-number';
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     title: '한 달 293만 원, 어디에 가장 많이 썼을까?',
     description: '집세도 장보기도 아니다. 2026년 2분기 가계동향조사로 본 소비지출 1위 항목.',
     url: pageUrl,
-    images: [{ url: '/images/share-samchon-note-v2.png', width: 1672, height: 941, alt: '삼촌노트 읽을거리' }],
+    images: [{ url: '/images/spending-breakdown-cover-2026.jpg', width: 1536, height: 864, alt: '한국 가정 식탁 위 한식과 영수증' }],
   },
 };
 
@@ -125,12 +126,14 @@ export default function SpendingBreakdownPage() {
 
       <header>
         <div className="relative overflow-hidden rounded-[1.7rem] bg-[#292520] px-6 py-8 text-white sm:px-10 sm:py-11">
-          <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full border-[42px] border-[#a75b45]/15 sm:h-80 sm:w-80" />
+          <div className="pointer-events-none absolute bottom-[5.5rem] right-3 top-[6.8rem] hidden w-[45%] overflow-hidden rounded-2xl [mask-image:linear-gradient(to_right,transparent,black_16%)] md:block" aria-hidden="true">
+            <Image src="/images/spending-breakdown-cover-2026.jpg" alt="한국 가정 식탁 위 한식과 영수증" fill priority sizes="380px" className="object-cover object-center" />
+          </div>
           <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 border-b border-white/20 pb-5 text-xs font-bold tracking-wide">
             <span className="rounded-full border border-[#e7ae9a]/45 px-3 py-1.5 text-[#f2b9a5]">삼촌노트 생활 통계</span>
             <span className="text-[#d3c6bb]">2026년 2분기 가계동향조사 · 2026.09.25</span>
           </div>
-          <div className="relative z-10 py-10 sm:py-14 md:max-w-[68%]">
+          <div className="relative z-10 py-10 sm:py-14 md:max-w-[62%]">
             <p className="mb-4 text-xs font-bold tracking-[0.23em] text-[#f0a791]">DATA STORY / 05</p>
             <h1 className="max-w-[720px] break-keep text-balance text-[2rem] font-extrabold leading-[1.25] tracking-tight text-white sm:text-[3.1rem]">
               한 달 293만 원,<br /><span className="text-[#f0a791]">어디에 가장</span><br />많이 썼을까?
