@@ -20,6 +20,7 @@ const toolGroups = [
   {
     title: '일과 돈',
     tools: [
+      { label: '대출·할부금', href: '/loan-calculator' },
       { label: '연봉 실수령액', href: '/salary-calculator' },
       { label: '퇴직금', href: '/severance-pay-calculator' },
       { label: '최저임금·주휴수당', href: '/wage-calculator' },

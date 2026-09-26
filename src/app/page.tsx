@@ -226,6 +226,38 @@ export default function Home() {
         
         <div className="home-tool-grid grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 lg:gap-6">
           
+          {/* Card 0: 대출·할부금 계산기 */}
+          <div className="bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[1.8rem] group transition-transform duration-500 hover:scale-[1.01] ease-[cubic-bezier(0.16,1,0.3,1)] md:col-span-2">
+            <Link 
+              href="/loan-calculator" 
+              className="flex flex-col sm:flex-row sm:items-center justify-between h-full bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1)] rounded-[calc(1.8rem-0.375rem)] p-7 sm:p-8 transition-colors gap-6"
+            >
+              <div className="flex items-start sm:items-center gap-5">
+                <div className="w-14 h-14 shrink-0 bg-[#c55232]/10 rounded-2xl flex items-center justify-center text-[#c55232] text-3xl shadow-xs">
+                  <Icon icon="solar:card-2-bold-duotone" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-xl sm:text-2xl font-bold text-[#292520] tracking-tight group-hover:text-[#c55232] transition-colors duration-300">
+                      대출·할부금 스마트 비교 계산기
+                    </h3>
+                    <span className="px-2 py-0.5 bg-[#c55232] text-white text-[11px] font-bold rounded-md">NEW</span>
+                  </div>
+                  <p className="text-sm text-zinc-500 leading-relaxed max-w-2xl">
+                    신차·중고차·전세자금·신용대출의 1금융권(시중은행) vs 캐피탈(2금융권) 금리 격차와 상환 방식별 총 이자 1초 맞짱 비교.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between sm:justify-end gap-4 pt-4 sm:pt-0 border-t sm:border-t-0 border-zinc-100 shrink-0">
+                <span className="text-xs font-bold text-[#c55232]">1금융 vs 캐피탈 비교</span>
+                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-black/5 group-hover:bg-[#c55232] group-hover:text-white transition-all duration-300">
+                  <Icon icon="solar:arrow-right-linear" width="20" height="20" className="group-hover:translate-x-0.5 transition-transform duration-300" />
+                </div>
+              </div>
+            </Link>
+          </div>
+
           {/* Card 1: 연봉 실수령액 계산기 */}
           <div className="bg-black/[0.03] ring-1 ring-black/5 p-1.5 rounded-[1.8rem] group transition-transform duration-500 hover:scale-[1.01] ease-[cubic-bezier(0.16,1,0.3,1)]">
             <Link 
