@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "threads": "node scripts/post-to-threads.js",
+    "instagram": "node scripts/post-to-instagram.js"
   },
   "dependencies": {
     "@iconify/react": "^6.0.2",

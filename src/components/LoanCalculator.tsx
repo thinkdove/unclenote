@@ -382,15 +382,15 @@ export default function LoanCalculator() {
           <label className="block text-xs font-bold text-zinc-600 mb-2">
             대출·할부 원금
           </label>
-          <div className="relative">
+          <div className="relative flex items-center">
             <input
               type="text"
               value={principalStr}
               onChange={(e) => handleAmountChange(e.target.value)}
-              className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3.5 text-right font-extrabold text-xl text-[#292520] focus:bg-white focus:border-[#c55232] focus:outline-none transition-colors"
+              className="w-full bg-zinc-50 border border-zinc-200 rounded-xl pl-4 pr-12 py-3.5 text-right font-extrabold text-xl text-[#292520] focus:bg-white focus:border-[#c55232] focus:outline-none transition-colors"
               placeholder="0"
             />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-zinc-400 text-base">
+            <span className="absolute right-4 font-bold text-zinc-400 text-base pointer-events-none">
               원
             </span>
           </div>
@@ -427,7 +427,7 @@ export default function LoanCalculator() {
             <label className="block text-xs font-bold text-zinc-600 mb-2">
               연 대출 금리 (%)
             </label>
-            <div className="relative">
+            <div className="relative flex items-center">
               <input
                 type="number"
                 step="0.05"
@@ -438,9 +438,9 @@ export default function LoanCalculator() {
                   setCustomInterestRate(e.target.value);
                   setInstitution("custom");
                 }}
-                className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-right font-extrabold text-lg text-[#292520] focus:bg-white focus:border-[#c55232] focus:outline-none transition-colors"
+                className="w-full bg-zinc-50 border border-zinc-200 rounded-xl pl-4 pr-10 py-3 text-right font-extrabold text-lg text-[#292520] focus:bg-white focus:border-[#c55232] focus:outline-none transition-colors"
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-zinc-400">
+              <span className="absolute right-4 font-bold text-zinc-400 pointer-events-none">
                 %
               </span>
             </div>
